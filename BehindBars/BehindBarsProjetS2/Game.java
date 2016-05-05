@@ -3,17 +3,15 @@ package BehindBarsProjetS2;
 public class Game
 {
 
-	private Personnage joueur;
+	private Character player;
 
-	public void LancerUnePartie()
+	public void start()
 	{
-		// TODO - implement Game.LancerUnePartie
 		throw new UnsupportedOperationException();
 	}
 
-	public void Quitter()
+	public void Quit()
 	{
-		// TODO - implement Game.Quitter
 		throw new UnsupportedOperationException();
 	}
 

@@ -1,12 +1,11 @@
 package BehindBarsProjetS2;
 
-public enum Etat
+public enum State
 {
 	Neuf, UnPeuUtilisé, MoyennementUtilisé, BeaucoupUtilisé, Cassé;
 
-	public String Etat()
+	public String State()
 	{
-		// TODO - implement Etat.Etat
 		throw new UnsupportedOperationException();
 	}
 

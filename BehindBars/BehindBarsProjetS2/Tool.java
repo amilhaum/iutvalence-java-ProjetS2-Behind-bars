@@ -1,19 +1,17 @@
 package BehindBarsProjetS2;
 
-public class Outil extends Objet
+public class Tool extends Object
 {
 
-	protected Etat etat;
+	protected State state;
 
-	public String getEtat()
+	public String getState()
 	{
-		// TODO - implement Outil.getEtat
 		throw new UnsupportedOperationException();
 	}
 
 	public void operation()
 	{
-		// TODO - implement Outil.operation
 		throw new UnsupportedOperationException();
 	}
 
