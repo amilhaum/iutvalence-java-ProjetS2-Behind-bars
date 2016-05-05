@@ -1,20 +1,18 @@
 package BehindBarsProjetS2;
 
+/**
+ * The characters of the game
+ * 
+ * @author Group BehindBars
+ * @version 1.0.0
+ */
 public class Character
 {
-
+	/** The character's name */
 	protected String	name;
+
+	/** The character's money */
 	protected int		money;
-
-	public String getName()
-	{
-		return this.name;
-	}
-
-	public int getMoney()
-	{
-		return this.money;
-	}
 
 	/**
 	 * 
@@ -34,6 +32,24 @@ public class Character
 	public Dialogue speak(Dialogue dialogue)
 	{
 		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * 
+	 * @return the character's name
+	 */
+	public String getName()
+	{
+		return this.name;
+	}
+
+	/**
+	 * 
+	 * @return the character's money
+	 */
+	public int getMoney()
+	{
+		return this.money;
 	}
 
 }
