@@ -8,11 +8,14 @@ package BehindBarsProjetS2;
  */
 public class Player extends Character
 {
+	/** Default player's money */
+	private static final int	DEFAULT_MONEY					= 100;
+
+	/** Default square number of the inventory */
+	private static final int	DEFAULT_MAX_SQUARES_INVENTORY	= 10;
 
 	/** The player's inventory */
 	private Inventory			inventory;
-
-	private static final int	DEFAULT_MONEY	= 100;
 
 	/**
 	 * The constructor of the player
@@ -24,6 +27,7 @@ public class Player extends Character
 	{
 		super(name);
 		this.money = DEFAULT_MONEY;
+		this.inventory = new Inventory(DEFAULT_MAX_SQUARES_INVENTORY);
 	}
 
 	/**

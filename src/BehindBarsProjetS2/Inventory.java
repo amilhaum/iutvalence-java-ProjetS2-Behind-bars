@@ -10,18 +10,19 @@ import java.util.Collection;
  */
 public class Inventory
 {
-	/** Default square number of the inventory */
-	private final static int	DEFAULT_MAX_SQUARE_INVENTORY	= 10;
-
 	/** The objects' collection of the inventory */
 	private Collection<Object>	objects;
 
 	/** The square's number used of the inventory */
 	private int					nbSquaresUsed;
 
+	/** The square's number max of the inventory */
+	private int					nbMaxSquares;
+
 	/** The inventory's constructor */
-	public Inventory()
+	public Inventory(int nbMaxSquares)
 	{
+		this.nbMaxSquares = nbMaxSquares;
 		this.nbSquaresUsed = 0;
 	}
 
@@ -30,7 +31,31 @@ public class Inventory
 	 */
 	public boolean isFull()
 	{
-		return !(nbSquaresUsed < DEFAULT_MAX_SQUARE_INVENTORY);
+		return !(nbSquaresUsed < nbMaxSquares);
+	}
+
+	/**
+	 * The method to add an object in the inventory
+	 * 
+	 * @param object
+	 *            is the object added
+	 */
+	public void addObject(Object object)
+	{
+		// TODO add object in objects
+		this.nbSquaresUsed++;
+	}
+
+	/**
+	 * The method to remove an object in the inventory
+	 * 
+	 * @param object
+	 *            is the object removed
+	 */
+	public void removeObject(Object object)
+	{
+		// TODO remove object in objects
+		this.nbSquaresUsed--;
 	}
 
 }
