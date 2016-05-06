@@ -13,7 +13,7 @@ public class NPC extends Character
 	private static final int	DEFAULT_MAX_SQUARES_INVENTORY	= 1000;
 
 	/** Default NPC's money */
-	private static final int	DEFAULT_MONEY					= 10;
+	private static final int	DEFAULT_MONEY					= 100;
 
 	/**
 	 * The NPC's constructor

@@ -34,9 +34,17 @@ public class Character
 	 * @param name
 	 *            is the name of the player who receives the money
 	 */
-	public void giveMoney(int amount, Character name)
+	public boolean giveMoney(int amount, Character character)
 	{
+		if (!(this.money < amount))
+		{
+			this.money -= amount;
+			character.money += amount;
+			return true;
+		}
 
+		else
+			return false;
 	}
 
 	/**
