@@ -8,15 +8,24 @@ package BehindBarsProjetS2;
  */
 public enum Dialogue
 {
-	;
+	HI("Hi bro, what's up ?"); // it's a test
+
+	private String name = "";
+
+	/** Create a dialogue with it's name. */
+	Dialogue(String s)
+	{
+		name = s;
+	}
 
 	/**
 	 * 
 	 * @return the dialogue asked
 	 */
-	public String Dialogue()
+	@Override
+	public String toString()
 	{
-		throw new UnsupportedOperationException();
+		return name;
 	}
 
 }
