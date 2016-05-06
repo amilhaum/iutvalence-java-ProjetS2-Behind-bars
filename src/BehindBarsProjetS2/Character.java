@@ -15,6 +15,17 @@ public class Character
 	protected int		money;
 
 	/**
+	 * The character's constructor
+	 * 
+	 * @param name
+	 *            is the character's name
+	 */
+	public Character(String name)
+	{
+		this.name = name;
+	}
+
+	/**
 	 * 
 	 * @param amount
 	 * @param name

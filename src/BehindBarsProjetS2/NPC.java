@@ -9,6 +9,20 @@ package BehindBarsProjetS2;
 public class NPC extends Character
 {
 
+	private static final int DEFAULT_MONEY = 1000;
+
+	/**
+	 * The NPC's constructor
+	 * 
+	 * @param name
+	 *            is the NPC's name
+	 */
+	public NPC(String name)
+	{
+		super(name);
+		this.money = DEFAULT_MONEY;
+	}
+
 	/**
 	 * The method to take an object
 	 * 

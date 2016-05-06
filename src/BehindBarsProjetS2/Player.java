@@ -8,8 +8,23 @@ package BehindBarsProjetS2;
  */
 public class Player extends Character
 {
+
 	/** The player's inventory */
-	private Inventory inventory;
+	private Inventory			inventory;
+
+	private static final int	DEFAULT_MONEY	= 100;
+
+	/**
+	 * The constructor of the player
+	 * 
+	 * @param name
+	 *            is the player's name
+	 */
+	public Player(String name)
+	{
+		super(name);
+		this.money = DEFAULT_MONEY;
+	}
 
 	/**
 	 * The method to use an object

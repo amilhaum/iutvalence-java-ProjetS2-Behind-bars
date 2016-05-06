@@ -17,7 +17,13 @@ public class Inventory
 	private Collection<Object>	objects;
 
 	/** The square's number used of the inventory */
-	private int					nbSquaresUsed					= 0;
+	private int					nbSquaresUsed;
+
+	/** The inventory's constructor */
+	public Inventory()
+	{
+		this.nbSquaresUsed = 0;
+	}
 
 	/**
 	 * @return if inventory if full or not
