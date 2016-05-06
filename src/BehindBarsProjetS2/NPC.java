@@ -15,9 +15,6 @@ public class NPC extends Character
 	/** Default NPC's money */
 	private static final int	DEFAULT_MONEY					= 10;
 
-	/** The NPC's inventory */
-	private Inventory			inventory;
-
 	/**
 	 * The NPC's constructor
 	 * 
@@ -32,25 +29,23 @@ public class NPC extends Character
 	}
 
 	/**
-	 * The method to take an object
-	 * 
-	 * @param object
-	 *            is the object took
-	 */
-	public void takeObject(Object object)
-	{
-		throw new UnsupportedOperationException();
-	}
-
-	/**
 	 * The method to give an object
 	 * 
 	 * @param object
 	 *            is the object gave
+	 * @param player
+	 *            is the player
 	 */
-	public void giveObject(Object object)
+	public boolean giveObject(Object object, Player player)
 	{
-		throw new UnsupportedOperationException();
+		if (player.takeObject(object))
+		{
+			this.inventory.removeObject(object);
+			return true;
+		}
+
+		else
+			return false;
 	}
 
 }

@@ -1,6 +1,6 @@
 package BehindBarsProjetS2;
 
-import java.util.Collection;
+import java.util.ArrayList;
 
 /**
  * The inventory of the player
@@ -11,7 +11,7 @@ import java.util.Collection;
 public class Inventory
 {
 	/** The objects' collection of the inventory */
-	private Collection<Object>	objects;
+	private ArrayList<Object>	objects;
 
 	/** The square's number used of the inventory */
 	private int					nbSquaresUsed;
@@ -22,6 +22,7 @@ public class Inventory
 	/** The inventory's constructor */
 	public Inventory(int nbMaxSquares)
 	{
+		this.objects = new ArrayList<Object>();
 		this.nbMaxSquares = nbMaxSquares;
 		this.nbSquaresUsed = 0;
 	}
@@ -40,10 +41,16 @@ public class Inventory
 	 * @param object
 	 *            is the object added
 	 */
-	public void addObject(Object object)
+	public boolean addObject(Object object)
 	{
-		// TODO add object in objects
-		this.nbSquaresUsed++;
+		if (!isFull())
+		{
+			this.objects.add(object);
+			this.nbSquaresUsed++;
+			return true;
+		}
+		else
+			return false;
 	}
 
 	/**
@@ -52,10 +59,48 @@ public class Inventory
 	 * @param object
 	 *            is the object removed
 	 */
-	public void removeObject(Object object)
+	public boolean removeObject(Object object)
 	{
-		// TODO remove object in objects
-		this.nbSquaresUsed--;
+		int i = 0;
+		while (i < objects.size() && objects.get(i).getName() != object.getName())
+		{
+			i++;
+		}
+		if (i != objects.size())
+		{
+			objects.remove(i);
+			this.nbSquaresUsed--;
+			return true;
+		}
+		else
+			return false;
+	}
+
+	/**
+	 * 
+	 * @return he inventory's objects
+	 */
+	public ArrayList<Object> getObjects()
+	{
+		return objects;
+	}
+
+	/**
+	 * 
+	 * @return the inventory's number of squares used
+	 */
+	public int getNbSquaresUsed()
+	{
+		return nbSquaresUsed;
+	}
+
+	/**
+	 * 
+	 * @return the inventory's number of max squares
+	 */
+	public int getNbMaxSquares()
+	{
+		return nbMaxSquares;
 	}
 
 }

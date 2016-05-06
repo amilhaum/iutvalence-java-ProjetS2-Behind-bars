@@ -14,9 +14,6 @@ public class Player extends Character
 	/** Default square number of the inventory */
 	private static final int	DEFAULT_MAX_SQUARES_INVENTORY	= 10;
 
-	/** The player's inventory */
-	private Inventory			inventory;
-
 	/**
 	 * The constructor of the player
 	 * 
@@ -49,9 +46,35 @@ public class Player extends Character
 	 * @param character
 	 *            is the npc
 	 */
-	public void giveObject(Object object, Character character)
+	public boolean giveObject(Object object, NPC npc)
 	{
-		throw new UnsupportedOperationException();
+		if (inventory.getObjects().contains(object))
+		{
+			npc.getInventory().addObject(object);
+			this.inventory.removeObject(object);
+			return true;
+		}
+
+		else
+			return false;
+	}
+
+	/**
+	 * The method to take an object
+	 * 
+	 * @param object
+	 *            is the object took
+	 */
+	public boolean takeObject(Object object)
+	{
+		if (!inventory.isFull())
+		{
+			this.inventory.addObject(object);
+			return true;
+		}
+
+		else
+			return false;
 	}
 
 	/**

@@ -14,6 +14,9 @@ public class Character
 	/** The character's money */
 	protected int		money;
 
+	/** The character's inventory */
+	protected Inventory	inventory;
+
 	/**
 	 * The character's constructor
 	 * 
@@ -61,6 +64,15 @@ public class Character
 	public int getMoney()
 	{
 		return this.money;
+	}
+
+	/**
+	 * 
+	 * @return the character's inventory
+	 */
+	public Inventory getInventory()
+	{
+		return this.inventory;
 	}
 
 }
