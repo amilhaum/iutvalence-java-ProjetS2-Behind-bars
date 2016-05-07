@@ -33,9 +33,9 @@ public class Tool extends Object
 	 * 
 	 * @return the tool's state
 	 */
-	public String getState()
+	public State getState()
 	{
-		throw new UnsupportedOperationException();
+		return this.state;
 	}
 
 	/**
