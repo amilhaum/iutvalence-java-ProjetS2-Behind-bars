@@ -33,8 +33,9 @@ public class Character
 	 * @param amount
 	 * @param name
 	 *            is the name of the player who receives the money
+	 * @throws NotEnoughMoneyException
 	 */
-	public boolean giveMoney(int amount, Character character)
+	public boolean giveMoney(int amount, Character character) throws NotEnoughMoneyException
 	{
 		if (!(this.money < amount))
 		{
@@ -44,7 +45,7 @@ public class Character
 		}
 
 		else
-			return false;
+			throw new NotEnoughMoneyException("Not enough money !");
 	}
 
 	/**

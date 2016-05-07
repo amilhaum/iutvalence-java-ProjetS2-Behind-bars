@@ -1,5 +1,6 @@
 package BehindBarsProjetS2;
 
+
 /**
  * The Non-Players Characters of the game
  * 
@@ -35,9 +36,17 @@ public class NPC extends Character
 	 *            is the object gave
 	 * @param player
 	 *            is the player
+	 * @throws ObjectNotInInventoryException
+	 * @throws InventoryIsFullException
 	 */
 	public boolean giveObject(Object object, Player player)
+			throws ObjectNotInInventoryException, InventoryIsFullException
 	{
+		if (!this.inventory.getObjects().contains(object))
+		{
+			throw new ObjectNotInInventoryException("This object isn't in the inventory");
+		}
+
 		if (player.takeObject(object))
 		{
 			this.inventory.removeObject(object);
@@ -45,7 +54,9 @@ public class NPC extends Character
 		}
 
 		else
-			return false;
+		{
+			throw new InventoryIsFullException("The inventory is full");
+		}
 	}
 
 }
