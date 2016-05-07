@@ -51,10 +51,13 @@ public class Character
 	/**
 	 * 
 	 * @param dialogue
+	 *            is the choice
+	 * @return dialogue
 	 */
 	public Dialogue speak(Dialogue dialogue)
 	{
-		throw new UnsupportedOperationException();
+		System.out.printf("%s : " + dialogue + "\n", this.name);
+		return dialogue;
 	}
 
 	/**
