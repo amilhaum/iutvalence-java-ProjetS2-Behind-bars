@@ -1,4 +1,4 @@
-package BehindBarsProjetS2;
+package iut.valence.behindbars.game;
 
 /**
  * The dialogue enumeration which contains all necessary dialogues of the game

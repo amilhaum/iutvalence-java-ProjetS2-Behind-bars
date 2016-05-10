@@ -1,4 +1,4 @@
-package BehindBarsProjetS2;
+package iut.valence.behindbars.character;
 
 public class John extends NPC
 {

@@ -1,4 +1,4 @@
-package BehindBarsProjetS2;
+package iut.valence.behindbars.game;
 
 /**
  * The state enumeration which contains all necessary states of the game

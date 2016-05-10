@@ -1,4 +1,8 @@
-package BehindBarsProjetS2;
+package iut.valence.behindbars.character;
+
+import iut.valence.behindbars.game.Dialogue;
+import iut.valence.behindbars.game.Inventory;
+import iut.valence.behindbars.game.Object;
 
 /**
  * The player of the game

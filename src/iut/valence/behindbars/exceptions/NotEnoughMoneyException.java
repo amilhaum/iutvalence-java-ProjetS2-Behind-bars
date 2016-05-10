@@ -1,4 +1,4 @@
-package BehindBarsProjetS2;
+package iut.valence.behindbars.exceptions;
 
 public class NotEnoughMoneyException extends Exception
 {

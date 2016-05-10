@@ -1,4 +1,4 @@
-package BehindBarsProjetS2;
+package iut.valence.behindbars.game;
 
 import java.util.ArrayList;
 

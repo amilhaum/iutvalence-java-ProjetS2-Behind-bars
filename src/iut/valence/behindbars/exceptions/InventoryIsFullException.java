@@ -1,4 +1,4 @@
-package BehindBarsProjetS2;
+package iut.valence.behindbars.exceptions;
 
 /**
  * The exception's "object is not in the inventory"

@@ -1,5 +1,9 @@
-package BehindBarsProjetS2;
+package iut.valence.behindbars.character;
 
+import iut.valence.behindbars.exceptions.InventoryIsFullException;
+import iut.valence.behindbars.exceptions.ObjectNotInInventoryException;
+import iut.valence.behindbars.game.Inventory;
+import iut.valence.behindbars.game.Object;
 
 /**
  * The Non-Players Characters of the game
