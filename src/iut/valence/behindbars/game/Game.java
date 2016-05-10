@@ -15,10 +15,16 @@ import iut.valence.behindbars.character.Player;
 public class Game
 {
 	/** The game's character */
-	private Player					player;
+	private Player						player;
 
 	/** The game's NPCs */
-	private static ArrayList<NPC>	NPCs;
+	private static ArrayList<NPC>		NPCs;
+
+	/** The game's objects */
+	private static ArrayList<Object>	Objects;
+
+	/** The game's objects */
+	private static ArrayList<Room>		Rooms;
 
 	/** The constructor of the game in progress */
 	public Game(String player)
@@ -33,7 +39,17 @@ public class Game
 	 */
 	public void start()
 	{
-		initNPC();
+		boolean end = false;
+
+		while (!end)
+		{
+			/* Creation of the objects */
+			initObjects();
+			/* Creation of the NPCs and fill the NPC's inventory */
+			initNPC();
+			/* Creation of the rooms and fill the rooms with objects and npcs */
+			initRooms();
+		}
 
 	}
 
@@ -62,5 +78,21 @@ public class Game
 		NPCs.add(new NPC("Thomas"));
 		NPCs.add(new NPC("Isaac"));
 		NPCs.add(new John());
+	}
+
+	/**
+	 * Initialization of objects list.
+	 */
+	public static void initObjects()
+	{
+
+	}
+
+	/**
+	 * Initialization of rooms list.
+	 */
+	public static void initRooms()
+	{
+
 	}
 }
