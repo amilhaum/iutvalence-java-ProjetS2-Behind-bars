@@ -20,17 +20,21 @@ public class NPC extends Character
 	/** Default NPC's money */
 	private static final int	DEFAULT_MONEY					= 100;
 
+	/** The NPC's state. */ 
+	private State state;
+	
 	/**
 	 * The NPC's constructor
 	 * 
 	 * @param name
 	 *            is the NPC's name
 	 */
-	public NPC(String name)
+	public NPC(String name, State state)
 	{
 		super(name);
 		this.money = DEFAULT_MONEY;
 		this.inventory = new Inventory(DEFAULT_MAX_SQUARES_INVENTORY);
+		this.state = state;
 	}
 
 	/**
