@@ -21,7 +21,7 @@ public class NPC extends Character
 	private static final int	DEFAULT_MONEY					= 100;
 
 	/** The NPC's state. */ 
-	private State state;
+	private StateOfCharacter state;
 	
 	/**
 	 * The NPC's constructor
@@ -29,7 +29,7 @@ public class NPC extends Character
 	 * @param name
 	 *            is the NPC's name
 	 */
-	public NPC(String name, State state)
+	public NPC(String name, StateOfCharacter state)
 	{
 		super(name);
 		this.money = DEFAULT_MONEY;
