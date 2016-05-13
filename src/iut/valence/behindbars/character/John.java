@@ -15,5 +15,6 @@ public class John extends NPC
 	public void knockOut()
 	{
 		//end of game
+		//increment the prison sentence counter (the score increases, and the aim is to get the smallest score)
 	}
 }
