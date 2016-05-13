@@ -1,5 +1,6 @@
 package iut.valence.behindbars.character;
 
+
 public class John extends NPC
 {
 	private static final int DEFAULT_TRUST = 0;
@@ -7,7 +8,7 @@ public class John extends NPC
 
 	public John()
 	{
-		super("John");
+		super("John", StateOfCharacter.Prisoner);
 		this.trust = DEFAULT_TRUST;
 	}
 

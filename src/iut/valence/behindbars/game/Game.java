@@ -1,10 +1,13 @@
 package iut.valence.behindbars.game;
 
-import java.util.ArrayList;
-
 import iut.valence.behindbars.character.John;
 import iut.valence.behindbars.character.NPC;
 import iut.valence.behindbars.character.Player;
+import iut.valence.behindbars.character.StateOfCharacter;
+
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * The game of BehindBars
@@ -15,16 +18,16 @@ import iut.valence.behindbars.character.Player;
 public class Game
 {
 	/** The game's character */
-	private Player						player;
+	private Player player;
 
 	/** The game's NPCs */
-	private static ArrayList<NPC>		NPCs;
+	private static Map<String, NPC> NPCs;
 
 	/** The game's objects */
-	private static ArrayList<Object>	Objects;
+	private static ArrayList<Object> Objects;
 
 	/** The game's objects */
-	private static ArrayList<Room>		Rooms;
+	private static ArrayList<Room> Rooms;
 
 	/** The constructor of the game in progress */
 	public Game(String player)
@@ -67,17 +70,24 @@ public class Game
 	 */
 	public static void initNPC()
 	{
-		NPCs.add(new NPC("Barry"));
-		NPCs.add(new NPC("Matthew"));
-		NPCs.add(new NPC("Brad"));
-		NPCs.add(new NPC("Bryan"));
-		NPCs.add(new NPC("Peter"));
-		NPCs.add(new NPC("Jacob"));
-		NPCs.add(new NPC("Andrew"));
-		NPCs.add(new NPC("Samuel"));
-		NPCs.add(new NPC("Thomas"));
-		NPCs.add(new NPC("Isaac"));
+		NPCs.put("Barry", new NPC("Garry", StateOfCharacter.Prisoner));
+		NPCs.add(new NPC("Barry", StateOfCharacter.Prisoner));
+		NPCs.add(new NPC("Brad", StateOfCharacter.Prisoner));
+		NPCs.add(new NPC("Bryan", StateOfCharacter.Prisoner));
+		NPCs.add(new NPC("Alexandro", StateOfCharacter.Prisoner));
+		NPCs.add(new NPC("Ali", StateOfCharacter.Prisoner));
+		NPCs.add(new NPC("Carlos", StateOfCharacter.Prisoner));
+		NPCs.add(new NPC("Calvin", StateOfCharacter.Prisoner));
+		NPCs.add(new NPC("Daryl", StateOfCharacter.Prisoner));
+		NPCs.add(new NPC("Drake", StateOfCharacter.Prisoner));
+		NPCs.add(new NPC("Elvis", StateOfCharacter.Prisoner));
+		NPCs.add(new NPC("Fernando", StateOfCharacter.Prisoner));
+
+		NPCs.add(new NPC("Frank", StateOfCharacter.Guard));
+		NPCs.add(new NPC("Harrison", StateOfCharacter.Guard));
+
 		NPCs.add(new John());
+		NPCs.add(new NPC("Steven", StateOfCharacter.Prisoner));
 	}
 
 	/**
@@ -93,6 +103,8 @@ public class Game
 	 */
 	public static void initRooms()
 	{
-
+		// Faire un Set
+		NPCs.getValue()
+		Rooms.add(new Room(name, npcsInRoomList, objectsInRoomList))
 	}
 }

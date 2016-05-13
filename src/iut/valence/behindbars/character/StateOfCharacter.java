@@ -3,7 +3,7 @@ package iut.valence.behindbars.character;
 public enum StateOfCharacter
 {
 
-	Guard, Prisonner;
+	Guard("Guard"), Prisoner("Prisoner");
 
 	private String name = "";
 
