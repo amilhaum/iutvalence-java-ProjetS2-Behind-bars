@@ -8,7 +8,7 @@ package iut.valence.behindbars.game;
  */
 public enum State
 {
-	New, littleUsed, Averagely, UsedALot, Broke;
+	New, littleUsed, Averagely, UsedALot, Broken;
 
 	/**
 	 * 
