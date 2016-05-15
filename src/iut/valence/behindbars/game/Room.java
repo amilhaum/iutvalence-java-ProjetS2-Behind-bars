@@ -36,6 +36,20 @@ public class Room
 		this.name = name;
 		this.npcsInRoom = npcsInRoomList;
 		this.objectsInRoom = objectsInRoomList;
+	}
+
+	/**
+	 * 
+	 * @param name
+	 *            is the room's name
+	 * @param npcsInRoomList
+	 *            is the npc's list in the room
+	 */
+	public Room(String name, ArrayList<NPC> npcsInRoomList)
+	{
+		this.name = name;
+		this.npcsInRoom = npcsInRoomList;
+		this.objectsInRoom = null;
 
 	}
 

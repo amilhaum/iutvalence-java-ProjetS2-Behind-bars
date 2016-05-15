@@ -101,8 +101,15 @@ public class Game
 	 */
 	public static void initObjects()
 	{
-		Objects.put("Cut", new Object("Cut", "A cut", 10));
 
+		Objects.put("Infirmary's key", new Object("Infirmary's key", "The key of infirmary", 10));
+
+		Objects.put("Cut", new Object("Cut", "A cut", 10));
+		Objects.put("Coffee", new Object("Coffee", "A coffee", 1));
+
+		Objects.put("Office", new Object("Office", "A office", 100));
+		Objects.put("Bin", new Object("Bin", "A bin", 10));
+		Objects.put("Sewers", new Object("Sewers", "Sewers", 100));
 	}
 
 	/**
@@ -110,42 +117,61 @@ public class Game
 	 */
 	public static void initRooms()
 	{
-		ArrayList<NPC> npcsInCells = new ArrayList<NPC>();
+		/* List of players by place */
 
+		/* Npcs in cells */
+		ArrayList<NPC> npcsInCells = new ArrayList<NPC>();
 		npcsInCells.add(NPCs.get("Barry"));
 		npcsInCells.add(NPCs.get("Garry"));
 		npcsInCells.add(NPCs.get("Brad"));
 		npcsInCells.add(NPCs.get("Bryan"));
 		npcsInCells.add(NPCs.get("Steven"));
 
+		/* Npc in the first corridor */
 		ArrayList<NPC> npcsInCorridor1 = new ArrayList<NPC>();
-
 		npcsInCorridor1.add(NPCs.get("Alexandro"));
 		npcsInCorridor1.add(NPCs.get("Ali"));
 
+		/* Npc in the break room */
 		ArrayList<NPC> npcsInBreakRoom = new ArrayList<NPC>();
-
 		npcsInBreakRoom.add(NPCs.get("John"));
 		npcsInBreakRoom.add(NPCs.get("Carlos"));
 		npcsInBreakRoom.add(NPCs.get("Calvin"));
 		npcsInBreakRoom.add(NPCs.get("Daryl"));
 
+		/* Npc outside */
 		ArrayList<NPC> npcsInOutside = new ArrayList<NPC>();
-
 		npcsInOutside.add(NPCs.get("Drake"));
 		npcsInOutside.add(NPCs.get("Elvis"));
 		npcsInOutside.add(NPCs.get("Fernando"));
 		npcsInOutside.add(NPCs.get("Frank"));
 
-		ArrayList<NPC> npcsInCorridor2 = new ArrayList<NPC>();
+		/* Npc in the infirmary */
+		ArrayList<NPC> npcsInInfirmary = new ArrayList<NPC>();
+		npcsInInfirmary.add(NPCs.get("Harrison"));
 
-		npcsInCorridor2.add(NPCs.get("Harrison"));
+		/* List of objects by place */
+
+		/* Objects in the cells */
+		ArrayList<Object> objectsInCells = new ArrayList<Object>();
+		objectsInCells.add(Objects.get("Infirmary's key"));
+
+		/* Objects in the Break Room */
+		ArrayList<Object> objectsInBreakRoom = new ArrayList<Object>();
+		objectsInBreakRoom.add(Objects.get("Coffee"));
+		objectsInBreakRoom.add(Objects.get("Cut"));
+
+		/* Objects in the infirmary */
+		ArrayList<Object> objectsInInfirmary = new ArrayList<Object>();
+		objectsInInfirmary.add(Objects.get("Office"));
+		objectsInInfirmary.add(Objects.get("Bin"));
+		objectsInInfirmary.add(Objects.get("Sewers"));
 
 		Rooms.add(new Room("cells", npcsInCells, objectsInCells));
-		Rooms.add(new Room("corridor1", npcsInCorridor1, objectsInCorridor1));
+		Rooms.add(new Room("corridor1", npcsInCorridor1));
 		Rooms.add(new Room("breakRoom", npcsInBreakRoom, objectsInBreakRoom));
-		Rooms.add(new Room("outside", npcsInOutside, objectsInOutside));
-		Rooms.add(new Room("corridor2", npcsInCorridor2, objectsInCorridor2));
+		Rooms.add(new Room("outside", npcsInOutside));
+		Rooms.add(new Room("infirmary", npcsInInfirmary, objectsInInfirmary));
 
 	}
 }
