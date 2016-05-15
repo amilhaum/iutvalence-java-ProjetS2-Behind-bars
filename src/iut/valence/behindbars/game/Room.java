@@ -24,9 +24,12 @@ public class Room
 	/**
 	 * The room's constructor.
 	 *
-	 * @param name is the room's name
-	 * @param npcsInRoomList is the npc's list in the room
-	 * @param objectsInRoomList object's list in the room
+	 * @param name
+	 *            is the room's name
+	 * @param npcsInRoomList
+	 *            is the npc's list in the room
+	 * @param objectsInRoomList
+	 *            object's list in the room
 	 */
 	public Room(String name, ArrayList<NPC> npcsInRoomList, ArrayList<Object> objectsInRoomList)
 	{
@@ -61,9 +64,9 @@ public class Room
 	 * 
 	 * @return the object's list of the room
 	 */
-	public ArrayList<Object> getObjectsInRoom()
-	{
-		return objectsInRoom;
-	}
+	// public ArrayList<Object> getObjectsInRoom()
+	// {
+	// return objectsInRoom;
+	// }
 
 }
