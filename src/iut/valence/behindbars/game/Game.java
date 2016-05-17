@@ -5,6 +5,7 @@ import iut.valence.behindbars.character.John;
 import iut.valence.behindbars.character.NPC;
 import iut.valence.behindbars.character.Player;
 import iut.valence.behindbars.character.StateOfCharacter;
+import iut.valence.behindbars.exceptions.NoNPCInList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,6 +57,21 @@ public class Game
 	{
 		/* The player is in the cells. */
 		this.currentRoom.getNpcsInRoom().add(this.player);
+
+		//TODO se deplacer
+		//TODO cliquer pour parler
+		Character npcSelected;
+		//TODO npcSelected = on click
+		npcSelected = getNPCinList("Garry", this.currentRoom.getNpcsInRoom());
+
+		switch (npcSelected)
+		{
+			case (npcSelected == getNPCinList("Garry",
+					this.currentRoom.getNpcsInRoom())):
+			{
+
+			}
+		}
 
 	}
 
@@ -174,4 +190,20 @@ public class Game
 				objectsInInfirmary));
 
 	}
+
+	private static Character getNPCinList(String name,
+			ArrayList<Character> npcList) throws NoNPCInList
+	{
+		for (int i = 0; i < npcList.size(); i++)
+		{
+			if (npcList.get(i).getName() == name)
+			{
+				return npcList.get(i);
+			}
+		}
+
+		throw new NoNPCInList();
+
+	}
+
 }
