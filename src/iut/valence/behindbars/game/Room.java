@@ -1,8 +1,8 @@
 package iut.valence.behindbars.game;
 
-import java.util.ArrayList;
+import iut.valence.behindbars.character.Character;
 
-import iut.valence.behindbars.character.NPC;
+import java.util.ArrayList;
 
 /**
  * The rooms of the game.
@@ -13,39 +13,39 @@ import iut.valence.behindbars.character.NPC;
 public class Room
 {
 	/** The room's name. */
-	private String				name;
+	private String name;
 
 	/** The npc's list in the room. */
-	private ArrayList<NPC>		npcsInRoom;
+	private ArrayList<Character> npcsInRoom;
 
 	/** The object's list in the room. */
-	private ArrayList<Object>	objectsInRoom;
+	private ArrayList<Object> objectsInRoom;
 
 	/**
 	 * The room's constructor.
 	 *
 	 * @param name
 	 *            is the room's name
-	 * @param npcsInRoomList
+	 * @param charactersInCells
 	 *            is the npc's list in the room
 	 * @param objectsInRoomList
 	 *            object's list in the room
 	 */
-	public Room(String name, ArrayList<NPC> npcsInRoomList, ArrayList<Object> objectsInRoomList)
+	public Room(String name, ArrayList<Character> charactersInCells, ArrayList<Object> objectsInRoomList)
 	{
 		this.name = name;
-		this.npcsInRoom = npcsInRoomList;
+		this.npcsInRoom = charactersInCells;
 		this.objectsInRoom = objectsInRoomList;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param name
 	 *            is the room's name
 	 * @param npcsInRoomList
 	 *            is the npc's list in the room
 	 */
-	public Room(String name, ArrayList<NPC> npcsInRoomList)
+	public Room(String name, ArrayList<Character> npcsInRoomList)
 	{
 		this.name = name;
 		this.npcsInRoom = npcsInRoomList;
@@ -55,7 +55,7 @@ public class Room
 
 	/**
 	 * The name's getter
-	 * 
+	 *
 	 * @return the room's name
 	 */
 	public String getName()
@@ -65,17 +65,17 @@ public class Room
 
 	/**
 	 * The name's getter
-	 * 
+	 *
 	 * @return the room's name
 	 */
-	public ArrayList<NPC> getNpcsInRoom()
+	public ArrayList<Character> getNpcsInRoom()
 	{
 		return npcsInRoom;
 	}
 
 	/**
 	 * The object's list getter
-	 * 
+	 *
 	 * @return the object's list of the room
 	 */
 	// public ArrayList<Object> getObjectsInRoom()
