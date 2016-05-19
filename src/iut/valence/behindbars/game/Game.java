@@ -64,6 +64,11 @@ public class Game
 		//TODO npcSelected = on click
 		npcSelected = getNPCinList("Garry", this.currentRoom.getNpcsInRoom());
 
+		
+		
+		
+		
+		/*
 		switch (npcSelected)
 		{
 			case (npcSelected == getNPCinList("Garry",
@@ -72,7 +77,12 @@ public class Game
 
 			}
 		}
-
+	*/
+	}
+	
+	// TODO Besoin de dialogues pour les npc
+	public void NPCTalk(NPC npc, String kindOfTalk, ){
+		//A combiner avec NPCsTalks ---------------------
 	}
 
 	/**
