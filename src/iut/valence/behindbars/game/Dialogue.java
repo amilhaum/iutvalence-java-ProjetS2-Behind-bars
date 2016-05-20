@@ -2,13 +2,13 @@ package iut.valence.behindbars.game;
 
 /**
  * The dialogue enumeration which contains all necessary dialogues of the game
- * 
+ *
  * @author Group BehindBars
  * @version 1.0.0
  */
 public enum Dialogue
 {
-	HI("Hi bro, what's up ?"); // it's a test
+	PRISONNER("Get the f*** off !"); // it's a test
 
 	private String name = "";
 
@@ -19,11 +19,10 @@ public enum Dialogue
 	}
 
 	/**
-	 * 
+	 *
 	 * @return the dialogue asked
 	 */
-	@Override
-	public String toString()
+	@Override public String toString()
 	{
 		return name;
 	}

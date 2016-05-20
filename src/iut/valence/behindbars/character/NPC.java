@@ -22,7 +22,7 @@ public class NPC extends Character
 	private static final int DEFAULT_MONEY = 100;
 
 	/** The NPC's state. */
-	private StateOfCharacter state;
+	private final StateOfCharacter state;
 
 	/**
 	 * The NPC's constructor

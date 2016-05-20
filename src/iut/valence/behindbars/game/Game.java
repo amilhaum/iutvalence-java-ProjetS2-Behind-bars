@@ -58,31 +58,40 @@ public class Game
 		/* The player is in the cells. */
 		this.currentRoom.getNpcsInRoom().add(this.player);
 
-		//TODO se deplacer
 		//TODO cliquer pour parler
 		Character npcSelected;
-		//TODO npcSelected = on click
-		npcSelected = getNPCinList("Garry", this.currentRoom.getNpcsInRoom());
 
-		
-		
-		
-		
-		/*
-		switch (npcSelected)
+		/* TODO method click on NPC and NPC speaks */
+
+		try
 		{
-			case (npcSelected == getNPCinList("Garry",
-					this.currentRoom.getNpcsInRoom())):
-			{
-
-			}
+			//TODO npcSelected = on click
+			npcSelected = getNPCinList("Garry", this.currentRoom.getNpcsInRoom());
 		}
-	*/
-	}
-	
-	// TODO Besoin de dialogues pour les npc
-	public void NPCTalk(NPC npc, String kindOfTalk, ){
-		//A combiner avec NPCsTalks ---------------------
+		catch (NoNPCInList e)
+		{
+			//Nothing todo...
+		}
+
+		if (npcSelected.getName() != "John" || npcSelected.getName() != "Steven")
+		{
+			npcSelected.speak(Dialogue.PRISONNER);
+		}
+
+		else if (npcSelected.getName() == "John")
+		{
+			//TODO john speak
+			//(je m'occupe des trucs a faire, trouve des clefs puis 50€ pour corrompre)
+		}
+
+		else
+		{
+			//TODO steven speak (tu veux des clefs pour la salle ? resoud l'enigme en selectionnant le bon objet)
+			//TODO appelle method
+		}
+
+		/* method click on NPC and NPC speaks END */
+
 	}
 
 	/**
@@ -125,8 +134,7 @@ public class Game
 	public static void initObjects()
 	{
 
-		Objects.put("Infirmary's key", new Object("Infirmary's key",
-				"The key of infirmary", 10));
+		Objects.put("Infirmary's key", new Object("Infirmary's key", "The key of infirmary", 10));
 
 		Objects.put("Knife", new Object("Knife", "A knife", 10));
 		Objects.put("Coffee", new Object("Coffee", "A coffee", 1));
@@ -193,16 +201,13 @@ public class Game
 
 		Rooms.put("cells", new Room("cells", charactersInCells, objectsInCells));
 		Rooms.put("corridor1", new Room("corridor1", charactersInCorridor1));
-		Rooms.put("breakRoom", new Room("breakRoom", charactersInBreakRoom,
-				objectsInBreakRoom));
+		Rooms.put("breakRoom", new Room("breakRoom", charactersInBreakRoom, objectsInBreakRoom));
 		Rooms.put("outside", new Room("outside", charactersInOutside));
-		Rooms.put("infirmary", new Room("infirmary", npcsInInfirmary,
-				objectsInInfirmary));
+		Rooms.put("infirmary", new Room("infirmary", npcsInInfirmary, objectsInInfirmary));
 
 	}
 
-	private static Character getNPCinList(String name,
-			ArrayList<Character> npcList) throws NoNPCInList
+	private static Character getNPCinList(String name, ArrayList<Character> npcList) throws NoNPCInList
 	{
 		for (int i = 0; i < npcList.size(); i++)
 		{
