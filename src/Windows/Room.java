@@ -13,13 +13,11 @@ public class Room extends JPanel
 
 	private int			xFond1;
 
-	public Room()
+	public Room(String name)
 	{
 		super();
 
-		this.xFond1 = 0;
-
-		this.icoFond = new ImageIcon(getClass().getResource("/pictures/cell.png"));
+		this.icoFond = new ImageIcon(getClass().getResource("/pictures/" + name + ".png"));
 		this.imgFond1 = this.icoFond.getImage();
 	}
 
@@ -29,6 +27,6 @@ public class Room extends JPanel
 		super.paintComponent(g);
 		Graphics g2 = g;
 
-		g2.drawImage(this.imgFond1, this.xFond1, 0, null);
+		g2.drawImage(this.imgFond1, 0, -15, null);
 	}
 }
