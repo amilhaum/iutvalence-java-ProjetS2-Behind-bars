@@ -2,6 +2,8 @@ package Windows;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -10,11 +12,8 @@ import javax.swing.JFrame;
 @SuppressWarnings("serial")
 public class Windows extends JFrame implements ActionListener
 {
-	public static Room	room[];
-	private JButton		right_button;
-	private JButton		left_button;
-	private JButton		bottom_button;
-	private JButton		top_button;
+	public static Room				room[];
+	private Map<String, JButton>	listOfButtons;
 
 	public Windows()
 	{
@@ -24,8 +23,9 @@ public class Windows extends JFrame implements ActionListener
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setAlwaysOnTop(true);
-		;
 		this.setLocationRelativeTo(null);
+
+		this.listOfButtons = new HashMap<>();
 
 		initButton();
 		initRoom();
@@ -48,11 +48,11 @@ public class Windows extends JFrame implements ActionListener
 
 		else if (sourceRoom == this.room[1])
 		{
-			if (sourceClick == this.left_button)
+			if (sourceClick == this.listOfButtons.get("left_button"))
 			{
 				setARoom(0);
 			}
-			else if (sourceClick == this.right_button)
+			else if (sourceClick == this.listOfButtons.get("right_button"))
 			{
 				setARoom(2);
 			}
@@ -69,7 +69,7 @@ public class Windows extends JFrame implements ActionListener
 
 		else if (sourceRoom == this.room[4])
 		{
-			if (sourceClick == this.top_button)
+			if (sourceClick == this.listOfButtons.get("top_button"))
 				setARoom(1);
 			else
 				setARoom(3);
@@ -89,27 +89,24 @@ public class Windows extends JFrame implements ActionListener
 		for (int i = 0; i < room.length; i++)
 			room[i].setLayout(null);
 
-		room[0].add(this.right_button);
+		room[0].add(this.listOfButtons.get("right_button"));
 
 	}
 
 	public void initButton()
 	{
-		this.right_button = new JButton(new ImageIcon(getClass().getResource("/pictures/arrow_east.png")));
-		this.right_button.setBounds(745, 270, 45, 30);
-		this.right_button.addActionListener(this);
+		this.listOfButtons.put("right_button", new MoveButtons(745, 270, 45, 30, new ImageIcon(getClass().getResource("/pictures/arrow_east.png"))));
+		this.listOfButtons.put("left_button", new MoveButtons(5, 270, 45, 30, new ImageIcon(getClass().getResource("/pictures/arrow_west.png"))));
+		this.listOfButtons.put("bottom_button", new MoveButtons(385, 520, 30, 45, new ImageIcon(getClass().getResource("/pictures/arrow_south.png"))));
+		this.listOfButtons.put("top_button", new MoveButtons(385, 5, 30, 45, new ImageIcon(getClass().getResource("/pictures/arrow_north.png"))));
 
-		this.left_button = new JButton(new ImageIcon(getClass().getResource("/pictures/arrow_west.png")));
-		this.left_button.setBounds(5, 270, 45, 30);
-		this.left_button.addActionListener(this);
+		this.listOfButtons.put("Garry", new CharacterButtons("Garry", 200, 200, 30, 30, new ImageIcon(getClass().getResource("/pictures/prisoner.png"))));
 
-		this.bottom_button = new JButton(new ImageIcon(getClass().getResource("/pictures/arrow_south.png")));
-		this.bottom_button.setBounds(385, 520, 30, 45);
-		this.bottom_button.addActionListener(this);
+		for (Map.Entry<String, JButton> entry : this.listOfButtons.entrySet())
+		{
+			entry.getValue().addActionListener(this);
+		}
 
-		this.top_button = new JButton(new ImageIcon(getClass().getResource("/pictures/arrow_north.png")));
-		this.top_button.setBounds(385, 5, 30, 45);
-		this.top_button.addActionListener(this);
 	}
 
 	public void setARoom(int x)
@@ -121,30 +118,30 @@ public class Windows extends JFrame implements ActionListener
 
 		if (x == 0)
 		{
-			room[0].add(right_button);
+			room[0].add(this.listOfButtons.get("right_button"));
 		}
 
 		else if (x == 1)
 		{
-			room[1].add(this.left_button);
-			room[1].add(this.bottom_button);
-			room[1].add(this.right_button);
+			room[1].add(this.listOfButtons.get("left_button"));
+			room[1].add(this.listOfButtons.get("bottom_button"));
+			room[1].add(this.listOfButtons.get("right_button"));
 		}
 
 		else if (x == 2)
 		{
-			room[2].add(this.left_button);
+			room[2].add(this.listOfButtons.get("left_button"));
 		}
 
 		else if (x == 3)
 		{
-			room[3].add(this.top_button);
+			room[3].add(this.listOfButtons.get("top_button"));
 		}
 
 		else if (x == 4)
 		{
-			room[4].add(this.bottom_button);
-			room[4].add(this.top_button);
+			room[4].add(this.listOfButtons.get("bottom_button"));
+			room[4].add(this.listOfButtons.get("top_button"));
 		}
 	}
 }
