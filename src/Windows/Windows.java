@@ -86,11 +86,8 @@ public class Windows extends JFrame implements ActionListener
 				new Room("cell"), new Room("corridor"), new Room("outside"), new Room("corridor"), new Room("breakroom")
 		};
 
-		room[0].setLayout(null);
-		room[1].setLayout(null);
-		room[2].setLayout(null);
-		room[3].setLayout(null);
-		room[4].setLayout(null);
+		for (int i = 0; i < room.length; i++)
+			room[i].setLayout(null);
 
 		room[0].add(this.right_button);
 
