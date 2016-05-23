@@ -2,6 +2,8 @@ package iut.valence.behindbars.game;
 
 import java.util.ArrayList;
 
+
+
 /**
  * The inventory of the player
  *
@@ -79,6 +81,15 @@ public class Inventory
 		{
 			return false;
 		}
+	}
+	
+	public boolean isInInventory(Inventory inventory, String object){
+		for(Object obj : inventory.getObjects()){
+			if(obj.getName()==object){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**

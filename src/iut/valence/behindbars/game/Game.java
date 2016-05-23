@@ -40,6 +40,7 @@ public class Game
 		this.NPCs = new HashMap<String, NPC>();
 		this.Rooms = new HashMap<String, Room>();
 		this.Objects = new HashMap<String, Object>();
+		
 
 		initNPC();
 		initObjects();
@@ -57,16 +58,26 @@ public class Game
 	{
 		/* The player is in the cells. */
 		this.currentRoom.getNpcsInRoom().add(this.player);
-
+		
 		//TODO cliquer pour parler
-		Character npcSelected;
+		Character npcSelected = null;
 
-		/* TODO method click on NPC and NPC speaks */
 
+		/* method click on NPC and NPC speaks END */
+
+	}
+	/**
+	 * The methode used for talk to NPC
+	 * @param npcSelected the npc selected
+	 */
+	public void talkNPCSelected(NPC npcSelected, Room currentRoom){
+		
+		int nbtalkJohn=0; // pour voir le nombre de fois où on lui parlé
+		
 		try
 		{
 			//TODO npcSelected = on click
-			npcSelected = getNPCinList("Garry", this.currentRoom.getNpcsInRoom());
+			getNPCinList(npcSelected.getName(), this.currentRoom.getNpcsInRoom());
 		}
 		catch (NoNPCInList e)
 		{
@@ -80,18 +91,35 @@ public class Game
 
 		else if (npcSelected.getName() == "John")
 		{
-			//TODO john speak
-			//(je m'occupe des trucs a faire, trouve des clefs puis 50â‚¬ pour corrompre)
+			if(currentRoom.getName()=="corridor1"){
+				if(nbtalkJohn==0){
+					npcSelected.speak(Dialogue.JOHN_SALUTATION);
+					nbtalkJohn++;
+				}
+				else if(nbtalkJohn==1){
+					npcSelected.speak(Dialogue.JOHN_COMMON_TALK);
+				}
+				else if(player.getInventory().isInInventory(player.getInventory(), "Infirmary's key")){
+					npcSelected.speak(Dialogue.JOHN_KEY);
+				}
+				else if(player.getMoney()>=50){
+					npcSelected.speak(Dialogue.JOHN_MONEY);
+				}
+				else if(player.getInventory().isInInventory(player.getInventory(), "Infirmary's key") && player.getMoney()>=50){
+					npcSelected.speak(Dialogue.JOHN_QUEST_FULLFIL);
+					nbtalkJohn=2;
+					//TODO John.trust++;
+				}
+			}
 		}
-
 		else
 		{
-			//TODO steven speak (tu veux des clefs pour la salle ? resoud l'enigme en selectionnant le bon objet)
+			npcSelected.speak(Dialogue.STEVE_SALUTATION);
+			npcSelected.speak(Dialogue.STEVE_RIDDLE);
+			
+			//TODO steven speak (tu veux des clefs pour la salle ? resoudre l'enigme en selectionnant le bon objet)
 			//TODO appelle method
 		}
-
-		/* method click on NPC and NPC speaks END */
-
 	}
 
 	/**
@@ -126,6 +154,7 @@ public class Game
 
 		NPCs.put("John", new John());
 		NPCs.put("Steven", new NPC("Steven", StateOfCharacter.Prisoner));
+		
 	}
 
 	/**

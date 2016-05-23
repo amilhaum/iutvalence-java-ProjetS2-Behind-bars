@@ -1,5 +1,7 @@
 package iut.valence.behindbars.character;
 
+import iut.valence.behindbars.game.Dialogue;
+
 
 public class John extends NPC
 {
@@ -17,4 +19,5 @@ public class John extends NPC
 		//end of game
 		//increment the prison sentence counter (the score increases, and the aim is to get the smallest score)
 	}
+
 }
