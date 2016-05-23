@@ -5,8 +5,8 @@ public class Test
 
 	public static void main(String[] args)
 	{
-		Windows windows = new Windows("corridor");
 
+		Windows windows = new Windows();
 	}
 
 }

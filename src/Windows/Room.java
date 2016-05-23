@@ -29,4 +29,5 @@ public class Room extends JPanel
 
 		g2.drawImage(this.imgFond1, 0, -15, null);
 	}
+
 }
