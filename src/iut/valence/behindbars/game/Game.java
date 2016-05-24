@@ -11,6 +11,7 @@ import iut.valence.behindbars.exceptions.ObjectNotInInventoryException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -81,7 +82,8 @@ public class Game
 	 */
 	public void talkNPCSelected(NPC npcSelected, Room currentRoom){
 		
-		int nbtalkJohn=0; // pour voir le nombre de fois où on lui parlé
+		int nbtalkJohn=0; // pour voir le nombre de fois où on a parlé à John
+		int nbtalkSteve=0; // pour voir le nombre de fois où on a parlé à Steve
 		
 		try
 		{
@@ -123,23 +125,39 @@ public class Game
 					player.getInventory().removeObject(Objects.get("Infirmary's key"));
 					player.setMoney(player.getMoney()-50);
 					nbtalkJohn=2;
-					//TODO john's trust ++ ? J'ai pas accés aux méthodes de John pourquoi ? je ne sais pas c'est dingue hein !
+					//TODO john's trust ++ ? J'ai pas accés aux méthodes de John pourquoi ? je ne sais pas pourquoi c'est dingue hein !
 				}
+			}
+			else if(currentRoom.getName()=="Infirmary"){
+				
+				
 			}
 		}
 		else
 		{
 			NPCs.get("Steve").speak(Dialogue.STEVE_SALUTATION);
 			while(true){
-				NPCs.get("Steve").speak(Dialogue.STEVE_RIDDLE);
-				Dialogue dialogueChoose = null;
-				// TODO Dialogue dialogueChoose= choix du joueur;
+				Dialogue riddleChoose;
 				
-				if(takeDecision(dialogueChoose, NPCs.get("Steve"))==Dialogue.STEVE_SUCCEED_RIDDLE){
+				if(nbtalkSteve==0){
+					riddleChoose=Dialogue.STEVE_RIDDLE1;
+				}
+				else{
+					riddleChoose=Dialogue.STEVE_RIDDLE2;
+				}
+
+				NPCs.get("Steve").speak(riddleChoose);
+				Dialogue dialogueChoose = null;
+				// TODO Dialogue dialogueChoose = choix du joueur;
+
+				if(takeDecision(dialogueChoose, NPCs.get("Steve"),nbtalkSteve) == Dialogue.STEVE_SUCCEED_RIDLLE){
+					nbtalkSteve++;
 					break;
 				}
-				else if(takeDecision(dialogueChoose, NPCs.get("Steve"))==Dialogue.STEVE_ERROR_INVENTORY_FULL){
+				else if(takeDecision(dialogueChoose, NPCs.get("Steve"),nbtalkSteve) == Dialogue.STEVE_ERROR_INVENTORY_FULL){
 					NPCs.get("Steve").speak(Dialogue.STEVE_ERROR_INVENTORY_FULL);
+					nbtalkSteve=0;
+					break;
 				}
 				else{
 					npcSelected.speak(Dialogue.STEVE_FAIL_RIDDLE);
@@ -147,33 +165,50 @@ public class Game
 				}
 			}
 		}
+
 	}
-	
-	public Dialogue takeDecision(Dialogue dialogueChoose, NPC npcSelected){
+
+	//TODO tuer garde ou non -> a coder !
+
+	public Dialogue takeDecision(Dialogue dialogueChoose, NPC npcSelected, int nbTalks){
+		
+		
+		List<Dialogue> riddle = new ArrayList<Dialogue>();
+
+		if(nbTalks==0){
+			riddle.add(Dialogue.STEVE_RIDDLE1_ANSWER1);
+			riddle.add(Dialogue.STEVE_RIDDLE1_ANSWER2);			
+		}
+		else{
+			riddle.add(Dialogue.STEVE_RIDDLE1_ANSWER1);
+			riddle.add(Dialogue.STEVE_RIDDLE1_ANSWER2);
+		}
+		
 		if(npcSelected.getName()=="Steve"){
-			if(dialogueChoose==Dialogue.STEVE_RIDLLE_ANSWER1){
-				return Dialogue.STEVE_FAIL_RIDDLE;
-			}
-			else if(dialogueChoose==Dialogue.STEVE_RIDDLE_ANSWER2){
-				return Dialogue.STEVE_FAIL_RIDDLE;
-			}
-			else{
-				try {
-					NPCs.get("Steve").giveObject(Objects.get("Infirmary's key"), player);
-				} catch (ObjectNotInInventoryException e) {
-					//Nothing to do object give in the initialisation
-
-				} catch (InventoryIsFullException e) {
-					return Dialogue.STEVE_ERROR_INVENTORY_FULL;
-
+			if(nbTalks==0){
+				if(dialogueChoose==riddle.get(0)){
+					return Dialogue.STEVE_FAIL_RIDDLE;
 				}
-				return Dialogue.STEVE_SUCCEED_RIDDLE;
+				else if(dialogueChoose==riddle.get(1)){
+					return Dialogue.STEVE_FAIL_RIDDLE;
+				}
+				else{
+					try {
+						NPCs.get("Steve").giveObject(Objects.get("Infirmary's key"), player);
+					} catch (ObjectNotInInventoryException e) {
+						//Nothing to do object give in the initialisation
+	
+					} catch (InventoryIsFullException e) {
+						return Dialogue.STEVE_ERROR_INVENTORY_FULL;
+	
+					}
+					return Dialogue.STEVE_SUCCEED_RIDLLE;
+				}
 			}
 		}
-		else if(npcSelected.getName()=="John"){
+		
 			//TODO décison garde avec john
-			
-		}
+
 		return dialogueChoose;//TODO à virer
 		
 	}

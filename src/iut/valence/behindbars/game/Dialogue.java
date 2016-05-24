@@ -19,13 +19,21 @@ public enum Dialogue
 	JOHN_QUEST_FULLFIL("Perfect you're fast I like that, now we can continue, freedom is close comrade"),
 	
 	STEVE_SALUTATION("you're the new one right ? what do you want ?"),
-	STEVE_RIDDLE(""), //TODO find a riddle and how drag and drop object
+	
 	STEVE_FAIL_RIDDLE("That was not the right answer you may try again but beware I'm not know for my patience"),
-	STEVE_RIDLLE_ANSWER1(""),
-	STEVE_RIDDLE_ANSWER2(""),
-	STEVE_DIDDLE_ANSWER_TRUE(""),
-	STEVE_SUCCEED_RIDDLE("That was the correct answer you earn this"),
-	STEVE_ERROR_INVENTORY_FULL("Your inventory seems full make some space then come back to me again");
+	
+	STEVE_SUCCEED_RIDLLE("That was the correct answer you earn this"),
+	STEVE_ERROR_INVENTORY_FULL("Your inventory seems full make some space then come back to me again"),
+	
+	STEVE_RIDDLE1(""), //TODO find a riddle and how drag and drop object
+	STEVE_RIDDLE1_ANSWER1(""),
+	STEVE_RIDDLE1_ANSWER2(""),
+	STEVE_RIDDLE1_ANSWER_TRUE(""),
+	
+	STEVE_RIDDLE2(""), //TODO find a riddle and how drag and drop object
+	STEVE_RIDDLE2_ANSWER1(""),
+	STEVE_RIDDLE2_ANSWER2(""),
+	STEVE_RIDDLE2_ANSWER_TRUE("");
 	
 	private String name = "";
 
