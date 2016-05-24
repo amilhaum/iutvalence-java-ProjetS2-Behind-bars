@@ -141,43 +141,43 @@ public class Windows extends JFrame implements ActionListener
 	public void initButton()
 	{
 		/* The move buttons. */
-		this.listOfButtons.put("right_button", new MoveButtons(745, 270, 45, 30, new ImageIcon(getClass().getResource("/pictures/arrow_east.png"))));
-		this.listOfButtons.put("left_button", new MoveButtons(5, 270, 45, 30, new ImageIcon(getClass().getResource("/pictures/arrow_west.png"))));
-		this.listOfButtons.put("bottom_button", new MoveButtons(385, 520, 30, 45, new ImageIcon(getClass().getResource("/pictures/arrow_south.png"))));
-		this.listOfButtons.put("top_button", new MoveButtons(385, 5, 30, 45, new ImageIcon(getClass().getResource("/pictures/arrow_north.png"))));
+		this.listOfButtons.put("right_button", new GameButtons(745, 270, 45, 30, new ImageIcon(getClass().getResource("/pictures/arrow_east.png"))));
+		this.listOfButtons.put("left_button", new GameButtons(5, 270, 45, 30, new ImageIcon(getClass().getResource("/pictures/arrow_west.png"))));
+		this.listOfButtons.put("bottom_button", new GameButtons(385, 520, 30, 45, new ImageIcon(getClass().getResource("/pictures/arrow_south.png"))));
+		this.listOfButtons.put("top_button", new GameButtons(385, 5, 30, 45, new ImageIcon(getClass().getResource("/pictures/arrow_north.png"))));
 
 		/* The buttons of the players in the cell. */
-		this.listOfButtons.put("Garry", new CharacterButtons("Garry", 300, 500, 30, 30, new ImageIcon(getClass().getResource("/pictures/prisoner.png"))));
-		this.listOfButtons.put("Barry", new CharacterButtons("Barry", 300, 50, 30, 30, new ImageIcon(getClass().getResource("/pictures/prisoner.png"))));
-		this.listOfButtons.put("Brad", new CharacterButtons("Brad", 480, 50, 30, 30, new ImageIcon(getClass().getResource("/pictures/prisoner.png"))));
-		this.listOfButtons.put("Bryan", new CharacterButtons("Bryan", 480, 500, 30, 30, new ImageIcon(getClass().getResource("/pictures/prisoner.png"))));
-		this.listOfButtons.put("Steven", new CharacterButtons("Steven", 50, 50, 30, 30, new ImageIcon(getClass().getResource("/pictures/boss.png"))));
+		this.listOfButtons.put("Garry", new CharacterButtons("Garry", 300, 500, 50, 50, new ImageIcon(getClass().getResource("/pictures/prisoner3.png"))));
+		this.listOfButtons.put("Barry", new CharacterButtons("Barry", 300, 50, 50, 50, new ImageIcon(getClass().getResource("/pictures/prisoner2.png"))));
+		this.listOfButtons.put("Brad", new CharacterButtons("Brad", 480, 50, 50, 50, new ImageIcon(getClass().getResource("/pictures/prisoner4.png"))));
+		this.listOfButtons.put("Bryan", new CharacterButtons("Bryan", 480, 500, 50, 50, new ImageIcon(getClass().getResource("/pictures/prisoner1.png"))));
+		this.listOfButtons.put("Steven", new CharacterButtons("Steven", 50, 50, 50, 50, new ImageIcon(getClass().getResource("/pictures/boss.png"))));
 
 		/* The buttons of the players in the corridor. */
-		this.listOfButtons.put("Alexandro", new CharacterButtons("Alexandro", 250, 150, 30, 30, new ImageIcon(getClass().getResource("/pictures/prisoner.png"))));
-		this.listOfButtons.put("Ali", new CharacterButtons("Ali", 600, 190, 30, 30, new ImageIcon(getClass().getResource("/pictures/prisoner.png"))));
+		this.listOfButtons.put("Alexandro", new CharacterButtons("Alexandro", 250, 150, 50, 50, new ImageIcon(getClass().getResource("/pictures/prisoner1.png"))));
+		this.listOfButtons.put("Ali", new CharacterButtons("Ali", 600, 190, 50, 50, new ImageIcon(getClass().getResource("/pictures/prisoner4.png"))));
 
 		/* The buttons of the players outside. */
-		this.listOfButtons.put("Frank", new CharacterButtons("Frank", 400, 200, 30, 30, new ImageIcon(getClass().getResource("/pictures/guard.png"))));
-		this.listOfButtons.put("Drake", new CharacterButtons("Drake", 150, 450, 30, 30, new ImageIcon(getClass().getResource("/pictures/prisoner.png"))));
-		this.listOfButtons.put("Elvis", new CharacterButtons("Elvis", 200, 120, 30, 30, new ImageIcon(getClass().getResource("/pictures/prisoner.png"))));
-		this.listOfButtons.put("Fernando", new CharacterButtons("Fernando", 700, 450, 30, 30, new ImageIcon(getClass().getResource("/pictures/prisoner.png"))));
+		this.listOfButtons.put("Frank", new CharacterButtons("Frank", 400, 200, 50, 50, new ImageIcon(getClass().getResource("/pictures/guard.png"))));
+		this.listOfButtons.put("Drake", new CharacterButtons("Drake", 150, 450, 50, 50, new ImageIcon(getClass().getResource("/pictures/prisoner1.png"))));
+		this.listOfButtons.put("Elvis", new CharacterButtons("Elvis", 200, 120, 50, 50, new ImageIcon(getClass().getResource("/pictures/prisoner4.png"))));
+		this.listOfButtons.put("Fernando", new CharacterButtons("Fernando", 700, 450, 50, 50, new ImageIcon(getClass().getResource("/pictures/prisoner2.png"))));
 
 		/* The buttons of the players in the breakroom. */
-		this.listOfButtons.put("Carlos", new CharacterButtons("Carlos", 200, 70, 30, 30, new ImageIcon(getClass().getResource("/pictures/prisoner.png"))));
-		this.listOfButtons.put("Calvin", new CharacterButtons("Calvin", 720, 130, 30, 30, new ImageIcon(getClass().getResource("/pictures/prisoner.png"))));
-		this.listOfButtons.put("John", new CharacterButtons("John", 720, 320, 30, 30, new ImageIcon(getClass().getResource("/pictures/john.png"))));
-		this.listOfButtons.put("Drake", new CharacterButtons("Drake", 350, 450, 30, 30, new ImageIcon(getClass().getResource("/pictures/prisoner.png"))));
+		this.listOfButtons.put("Carlos", new CharacterButtons("Carlos", 200, 70, 50, 50, new ImageIcon(getClass().getResource("/pictures/prisoner1.png"))));
+		this.listOfButtons.put("Calvin", new CharacterButtons("Calvin", 720, 130, 50, 50, new ImageIcon(getClass().getResource("/pictures/prisoner4.png"))));
+		this.listOfButtons.put("John", new CharacterButtons("John", 720, 320, 50, 50, new ImageIcon(getClass().getResource("/pictures/john.png"))));
+		this.listOfButtons.put("Drake", new CharacterButtons("Drake", 350, 450, 50, 50, new ImageIcon(getClass().getResource("/pictures/prisoner3.png"))));
 
 		/* The button of the player in the infirmary. */
-		this.listOfButtons.put("Harrison", new CharacterButtons("Harrison", 200, 200, 30, 30, new ImageIcon(getClass().getResource("/pictures/guard.png"))));
+		this.listOfButtons.put("Harrison", new CharacterButtons("Harrison", 200, 200, 50, 50, new ImageIcon(getClass().getResource("/pictures/guard.png"))));
 
-		this.listOfButtons.put("Player", new CharacterButtons("Player", 300, 270, 30, 30, new ImageIcon(getClass().getResource("/pictures/player.png"))));
+		this.listOfButtons.put("Player", new CharacterButtons("Player", 300, 270, 50, 50, new ImageIcon(getClass().getResource("/pictures/player.png"))));
 
-		this.listOfButtons.put("PlayerR", new CharacterButtons("PlayerR", 710, 270, 30, 30, new ImageIcon(getClass().getResource("/pictures/player.png"))));
-		this.listOfButtons.put("PlayerL", new CharacterButtons("PlayerL", 55, 270, 30, 30, new ImageIcon(getClass().getResource("/pictures/player.png"))));
-		this.listOfButtons.put("PlayerT", new CharacterButtons("PlayerT", 385, 55, 30, 30, new ImageIcon(getClass().getResource("/pictures/player.png"))));
-		this.listOfButtons.put("PlayerB", new CharacterButtons("PlayerB", 385, 480, 30, 30, new ImageIcon(getClass().getResource("/pictures/player.png"))));
+		this.listOfButtons.put("PlayerR", new CharacterButtons("PlayerR", 710, 270, 50, 50, new ImageIcon(getClass().getResource("/pictures/player.png"))));
+		this.listOfButtons.put("PlayerL", new CharacterButtons("PlayerL", 55, 270, 50, 50, new ImageIcon(getClass().getResource("/pictures/player.png"))));
+		this.listOfButtons.put("PlayerT", new CharacterButtons("PlayerT", 385, 55, 50, 50, new ImageIcon(getClass().getResource("/pictures/player.png"))));
+		this.listOfButtons.put("PlayerB", new CharacterButtons("PlayerB", 385, 480, 50, 50, new ImageIcon(getClass().getResource("/pictures/player.png"))));
 
 		for (Map.Entry<String, JButton> entry : this.listOfButtons.entrySet())
 		{
