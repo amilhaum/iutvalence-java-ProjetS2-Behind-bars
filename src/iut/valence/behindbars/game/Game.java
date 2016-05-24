@@ -123,7 +123,7 @@ public class Game
 					player.getInventory().removeObject(Objects.get("Infirmary's key"));
 					player.setMoney(player.getMoney()-50);
 					nbtalkJohn=2;
-					//TODO john's trust ++?
+					//TODO john's trust ++ ?
 				}
 			}
 		}
