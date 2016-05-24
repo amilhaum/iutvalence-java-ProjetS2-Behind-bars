@@ -60,8 +60,7 @@ public class Inventory
 	/**
 	 * The method to remove an object in the inventory
 	 *
-	 * @param object
-	 *            is the object removed
+	 * @param object is the object removed
 	 */
 	public boolean removeObject(Object object)
 	{
@@ -82,7 +81,12 @@ public class Inventory
 			return false;
 		}
 	}
-	
+	/**
+	 * 
+	 * @param inventory
+	 * @param object
+	 * @return
+	 */
 	public boolean isInInventory(Inventory inventory, String object){
 		for(Object obj : inventory.getObjects()){
 			if(obj.getName()==object){

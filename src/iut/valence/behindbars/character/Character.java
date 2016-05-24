@@ -51,11 +51,17 @@ public class Character
 		else
 			throw new NotEnoughMoneyException("Not enough money !");
 	}
+	/**
+	 * method use for all change about money
+	 * @param money
+	 */
+	public void setMoney(int money) {
+		this.money = money;
+	}
 
 	/**
 	 * 
-	 * @param dialogue
-	 *            is the choice
+	 * @param dialogue is the choice
 	 * @return dialogue
 	 */
 	public Dialogue speak(Dialogue dialogue)

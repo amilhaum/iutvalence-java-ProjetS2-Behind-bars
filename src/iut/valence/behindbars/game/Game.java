@@ -5,7 +5,9 @@ import iut.valence.behindbars.character.John;
 import iut.valence.behindbars.character.NPC;
 import iut.valence.behindbars.character.Player;
 import iut.valence.behindbars.character.StateOfCharacter;
+import iut.valence.behindbars.exceptions.InventoryIsFullException;
 import iut.valence.behindbars.exceptions.NoNPCInList;
+import iut.valence.behindbars.exceptions.ObjectNotInInventoryException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,7 +48,7 @@ public class Game
 		initObjects();
 		initRooms();
 
-		this.currentRoom = this.Rooms.get("cells");
+		
 
 	}
 
@@ -56,19 +58,26 @@ public class Game
 	 */
 	public void start()
 	{
+
+		/* current room is the cell where the player start */
+		this.currentRoom = this.Rooms.get("cells");
 		/* The player is in the cells. */
 		this.currentRoom.getNpcsInRoom().add(this.player);
+
+
+
+
+
+
 		
-		//TODO cliquer pour parler
-		Character npcSelected = null;
-
-
-		/* method click on NPC and NPC speaks END */
+		
+	
 
 	}
 	/**
-	 * The methode used for talk to NPC
-	 * @param npcSelected the npc selected
+	 * Method use to speak with different kind, all the possibility of talk are here.
+	 * @param npcSelected NPC selected by the user
+	 * @param currentRoom The room where the player is
 	 */
 	public void talkNPCSelected(NPC npcSelected, Room currentRoom){
 		
@@ -84,42 +93,111 @@ public class Game
 			//Nothing todo...
 		}
 
-		if (npcSelected.getName() != "John" || npcSelected.getName() != "Steven")
+		if (npcSelected.getName() != "John" || npcSelected.getName() != "Steven" || npcSelected.state!=StateOfCharacter.Guard)
 		{
 			npcSelected.speak(Dialogue.PRISONNER);
+		}
+		
+		else if(npcSelected.state==StateOfCharacter.Guard){
+			npcSelected.speak(Dialogue.GUARD);
 		}
 
 		else if (npcSelected.getName() == "John")
 		{
-			if(currentRoom.getName()=="corridor1"){
+			if(currentRoom.getName()=="breakRoom"){
 				if(nbtalkJohn==0){
-					npcSelected.speak(Dialogue.JOHN_SALUTATION);
+					NPCs.get("John").speak(Dialogue.JOHN_SALUTATION);
 					nbtalkJohn++;
 				}
 				else if(nbtalkJohn==1){
-					npcSelected.speak(Dialogue.JOHN_COMMON_TALK);
+					NPCs.get("John").speak(Dialogue.JOHN_COMMON_TALK);
 				}
 				else if(player.getInventory().isInInventory(player.getInventory(), "Infirmary's key")){
-					npcSelected.speak(Dialogue.JOHN_KEY);
+					NPCs.get("John").speak(Dialogue.JOHN_KEY);
 				}
 				else if(player.getMoney()>=50){
-					npcSelected.speak(Dialogue.JOHN_MONEY);
+					NPCs.get("John").speak(Dialogue.JOHN_MONEY);
 				}
 				else if(player.getInventory().isInInventory(player.getInventory(), "Infirmary's key") && player.getMoney()>=50){
-					npcSelected.speak(Dialogue.JOHN_QUEST_FULLFIL);
+					NPCs.get("John").speak(Dialogue.JOHN_QUEST_FULLFIL);
+					player.getInventory().removeObject(Objects.get("Infirmary's key"));
+					player.setMoney(player.getMoney()-50);
 					nbtalkJohn=2;
-					//TODO John.trust++;
+					//TODO john's trust ++ ?
 				}
 			}
 		}
 		else
 		{
-			npcSelected.speak(Dialogue.STEVE_SALUTATION);
-			npcSelected.speak(Dialogue.STEVE_RIDDLE);
+			NPCs.get("Steve").speak(Dialogue.STEVE_SALUTATION);
+			while(true){
+				NPCs.get("Steve").speak(Dialogue.STEVE_RIDDLE);
+				
+				if(/* condition de succes ?*/){
+					break;
+				}
+				else if(/*le joueur quitte la conversation*/){
+					
+				}
+				else{
+					npcSelected.speak(Dialogue.STEVE_FAIL_RIDDLE);
+					continue;
+				}
+			}
+		
 			
 			//TODO steven speak (tu veux des clefs pour la salle ? resoudre l'enigme en selectionnant le bon objet)
 			//TODO appelle method
 		}
+	}
+	
+	public Dialogue takeDecision(Dialogue dialogueChoose, NPC npcSelected){
+		if(npcSelected.getName()=="Steve"){
+			if(dialogueChoose==Dialogue.STEVE_RIDLLE_ANSWER1){
+				return Dialogue.STEVE_FAIL_RIDDLE;
+			}
+			else if(dialogueChoose==Dialogue.STEVE_RIDDLE_ANSWER2){
+				return Dialogue.STEVE_FAIL_RIDDLE;
+			}
+			else{
+				try {
+					NPCs.get("Steve").giveObject(Objects.get("Infirmary's key"), player);
+				} catch (ObjectNotInInventoryException e) {
+					//Nothing to do object give in the initialisation
+
+				} catch (InventoryIsFullException e) {
+					NPCs.get("Steve").speak(Dialogue.STEVE_ERROR_INVENTORY_FULL);
+
+				}
+				return Dialogue.STEVE_SUCCEED_RIDDLE;
+			}
+		}
+		else if(npcSelected.getName()=="John"){
+			//TODO décison garde avec john
+			
+		}
+		return dialogueChoose;//TODO à virer
+		
+	}
+	/**
+	 * Method use to know if an Character is on the list given, if he is in return the Character 
+	 * @param name name of the Character
+	 * @param npcList list of NPC
+	 * @return the Character ask if is in the list, an error is raised if he's not
+	 * @throws NoNPCInList error throws if he's not in the list
+	 */
+	private static Character getNPCinList(String name, ArrayList<Character> npcList) throws NoNPCInList
+	{
+		for (int i = 0; i < npcList.size(); i++)
+		{
+			if (npcList.get(i).getName() == name)
+			{
+				return npcList.get(i);
+			}
+		}
+
+		throw new NoNPCInList();
+
 	}
 
 	/**
@@ -236,18 +314,5 @@ public class Game
 
 	}
 
-	private static Character getNPCinList(String name, ArrayList<Character> npcList) throws NoNPCInList
-	{
-		for (int i = 0; i < npcList.size(); i++)
-		{
-			if (npcList.get(i).getName() == name)
-			{
-				return npcList.get(i);
-			}
-		}
-
-		throw new NoNPCInList();
-
-	}
 
 }
