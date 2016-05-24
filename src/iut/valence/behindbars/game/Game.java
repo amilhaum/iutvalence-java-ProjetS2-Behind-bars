@@ -123,7 +123,7 @@ public class Game
 					player.getInventory().removeObject(Objects.get("Infirmary's key"));
 					player.setMoney(player.getMoney()-50);
 					nbtalkJohn=2;
-					//TODO john's trust ++ ?
+					//TODO john's trust ++ ? J'ai pas accés aux méthodes de John pourquoi ? je ne sais pas c'est dingue hein !
 				}
 			}
 		}
@@ -132,22 +132,20 @@ public class Game
 			NPCs.get("Steve").speak(Dialogue.STEVE_SALUTATION);
 			while(true){
 				NPCs.get("Steve").speak(Dialogue.STEVE_RIDDLE);
+				Dialogue dialogueChoose = null;
+				// TODO Dialogue dialogueChoose= choix du joueur;
 				
-				if(/* condition de succes ?*/){
+				if(takeDecision(dialogueChoose, NPCs.get("Steve"))==Dialogue.STEVE_SUCCEED_RIDDLE){
 					break;
 				}
-				else if(/*le joueur quitte la conversation*/){
-					
+				else if(takeDecision(dialogueChoose, NPCs.get("Steve"))==Dialogue.STEVE_ERROR_INVENTORY_FULL){
+					NPCs.get("Steve").speak(Dialogue.STEVE_ERROR_INVENTORY_FULL);
 				}
 				else{
 					npcSelected.speak(Dialogue.STEVE_FAIL_RIDDLE);
 					continue;
 				}
 			}
-		
-			
-			//TODO steven speak (tu veux des clefs pour la salle ? resoudre l'enigme en selectionnant le bon objet)
-			//TODO appelle method
 		}
 	}
 	
@@ -166,7 +164,7 @@ public class Game
 					//Nothing to do object give in the initialisation
 
 				} catch (InventoryIsFullException e) {
-					NPCs.get("Steve").speak(Dialogue.STEVE_ERROR_INVENTORY_FULL);
+					return Dialogue.STEVE_ERROR_INVENTORY_FULL;
 
 				}
 				return Dialogue.STEVE_SUCCEED_RIDDLE;
