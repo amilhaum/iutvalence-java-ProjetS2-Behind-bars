@@ -13,6 +13,9 @@ public class BehindBars
 
 	public static void main(String[] args)
 	{
+		/**
+		 * The game menu that allow us to start the game with a named caracter  
+		 */
 		while (true)
 		{
 
@@ -32,6 +35,9 @@ public class BehindBars
 				}
 			}
 
+			/**
+			 * If we chose to play a new game we need to select our character name
+			 */
 			if (choice == 1)
 			{
 				Scanner sc = new Scanner(System.in);
@@ -44,7 +50,7 @@ public class BehindBars
 
 			else
 			{
-				break;
+				break; //TODO methode "closeGame" ou autre ? 
 			}
 
 		}
