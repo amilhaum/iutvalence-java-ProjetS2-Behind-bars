@@ -44,12 +44,9 @@ public class Game
 		this.Rooms = new HashMap<String, Room>();
 		this.Objects = new HashMap<String, Object>();
 		
-
 		initNPC();
 		initObjects();
 		initRooms();
-
-		
 
 	}
 
@@ -100,7 +97,7 @@ public class Game
 			npcSelected.speak(Dialogue.PRISONNER);
 		}
 		
-		else if(npcSelected.state==StateOfCharacter.Guard){
+		else if(npcSelected.state==StateOfCharacter.Guard && npcSelected.getName() != "Harrison" ){
 			npcSelected.speak(Dialogue.GUARD);
 		}
 
@@ -125,11 +122,17 @@ public class Game
 					player.getInventory().removeObject(Objects.get("Infirmary's key"));
 					player.setMoney(player.getMoney()-50);
 					nbtalkJohn=2;
-					//TODO john's trust ++ ? J'ai pas accés aux méthodes de John pourquoi ? je ne sais pas pourquoi c'est dingue hein !
+					//TODO john's trust ++ ? J'ai pas accés aux méthodes de John.
 				}
 			}
 			else if(currentRoom.getName()=="Infirmary"){
-				
+				NPCs.get("Harrison").speak(Dialogue.GUARD_CHOICE);
+				if(takeDecision(Dialogue.GUARD_CHOICE1,NPCs.get("Harrison"),0)==Dialogue.GUARD_RESULT1){
+					NPCs.get("Harrison").speak(takeDecision(Dialogue.GUARD_CHOICE1,NPCs.get("Harrison"),0));
+				}
+				else{
+					NPCs.get("Harrison").speak(takeDecision(Dialogue.GUARD_CHOICE2,NPCs.get("Harrison"),0));
+				}
 				
 			}
 		}
@@ -165,6 +168,7 @@ public class Game
 				}
 			}
 		}
+		
 
 	}
 
@@ -174,7 +178,7 @@ public class Game
 		
 		
 		List<Dialogue> riddle = new ArrayList<Dialogue>();
-
+		
 		if(nbTalks==0){
 			riddle.add(Dialogue.STEVE_RIDDLE1_ANSWER1);
 			riddle.add(Dialogue.STEVE_RIDDLE1_ANSWER2);			
@@ -206,8 +210,16 @@ public class Game
 				}
 			}
 		}
-		
-			//TODO décison garde avec john
+		//Decision sous forme de dialogue ?
+		else if(npcSelected==NPCs.get("Harrison")){
+			if(dialogueChoose==Dialogue.GUARD_CHOICE1){
+				return Dialogue.GUARD_RESULT1;
+			}
+			else{
+				return Dialogue.GUARD_RESULT2;
+			}
+		}
+
 
 		return dialogueChoose;//TODO à virer
 		
