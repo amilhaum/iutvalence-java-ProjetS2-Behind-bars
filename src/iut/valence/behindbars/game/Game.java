@@ -9,10 +9,7 @@ import iut.valence.behindbars.exceptions.InventoryIsFullException;
 import iut.valence.behindbars.exceptions.NoNPCInList;
 import iut.valence.behindbars.exceptions.ObjectNotInInventoryException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * The game of BehindBars
@@ -244,6 +241,32 @@ public class Game
 		throw new NoNPCInList();
 
 	}
+	
+	
+	
+	
+	/**
+	 * This method returns a random boolean that can be 70% true and 30% false
+	 * That will decide if we have won the minigame of chance or not
+	 * @return
+	 */	
+	public boolean GetRandomResult()
+	{
+		Random rn = new Random();
+		int RandomedNumber = rn.nextInt(10) + 1;
+		
+		if (RandomedNumber <=7)
+		{
+			return true;
+		}
+		else 
+		{
+			return false;
+		}
+		
+	}
+	
+	
 
 	/**
 	 * The constructor of the game's quit
