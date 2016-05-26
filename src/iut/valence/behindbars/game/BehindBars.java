@@ -50,7 +50,7 @@ public class BehindBars
 
 			else
 			{
-				break; //TODO methode "closeGame" ou autre ? 
+				break;
 			}
 
 		}
