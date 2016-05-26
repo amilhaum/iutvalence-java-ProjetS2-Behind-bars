@@ -53,21 +53,10 @@ public class Game
 	 */
 	public void start()
 	{
-
 		/* current room is the cell where the player start */
 		this.currentRoom = this.Rooms.get("cells");
 		/* The player is in the cells. */
 		this.currentRoom.getNpcsInRoom().add(this.player);
-
-
-
-
-
-
-		
-		
-	
-
 	}
 	/**
 	 * Method use to speak with different kind, all the possibility of talk are here.
@@ -76,12 +65,11 @@ public class Game
 	 */
 	public void talkNPCSelected(NPC npcSelected, Room currentRoom){
 		
-		int nbtalkJohn=0; // pour voir le nombre de fois où on a parlé à John
-		int nbtalkSteve=0; // pour voir le nombre de fois où on a parlé à Steve
+		int nbtalkJohn=0;
+		int nbtalkSteve=0;
 		
 		try
 		{
-			//TODO npcSelected = on click
 			getNPCinList(npcSelected.getName(), this.currentRoom.getNpcsInRoom());
 		}
 		catch (NoNPCInList e)
@@ -94,24 +82,24 @@ public class Game
 			npcSelected.speak(Dialogue.PRISONNER);
 		}
 		
-		else if(npcSelected.state==StateOfCharacter.Guard && npcSelected.getName() != "Harrison" ){
+		else if(npcSelected.state == StateOfCharacter.Guard && npcSelected.getName() != "Harrison" ){
 			npcSelected.speak(Dialogue.GUARD);
 		}
 
 		else if (npcSelected.getName() == "John")
 		{
-			if(currentRoom.getName()=="breakRoom"){
-				if(nbtalkJohn==0){
+			if(currentRoom.getName() == "breakRoom"){
+				if(nbtalkJohn == 0){
 					NPCs.get("John").speak(Dialogue.JOHN_SALUTATION);
 					nbtalkJohn++;
 				}
-				else if(nbtalkJohn==1){
+				else if(nbtalkJohn == 1){
 					NPCs.get("John").speak(Dialogue.JOHN_COMMON_TALK);
 				}
 				else if(player.getInventory().isInInventory(player.getInventory(), "Infirmary's key")){
 					NPCs.get("John").speak(Dialogue.JOHN_KEY);
 				}
-				else if(player.getMoney()>=50){
+				else if(player.getMoney() >= 50){
 					NPCs.get("John").speak(Dialogue.JOHN_MONEY);
 				}
 				else if(player.getInventory().isInInventory(player.getInventory(), "Infirmary's key") && player.getMoney()>=50){
@@ -119,12 +107,13 @@ public class Game
 					player.getInventory().removeObject(Objects.get("Infirmary's key"));
 					player.setMoney(player.getMoney()-50);
 					nbtalkJohn=2;
-					//TODO john's trust ++ ? J'ai pas accés aux méthodes de John.
+					// TODO john's trust ++ ? J'ai pas accés aux méthodes de John.
+					// TODO debloquer portes infirmerie aprés quête 
 				}
 			}
-			else if(currentRoom.getName()=="Infirmary"){
+			else if(currentRoom.getName() == "Infirmary"){
 				NPCs.get("Harrison").speak(Dialogue.GUARD_CHOICE);
-				if(takeDecision(Dialogue.GUARD_CHOICE1,NPCs.get("Harrison"),0)==Dialogue.GUARD_RESULT1){
+				if(takeDecision(Dialogue.GUARD_CHOICE1,NPCs.get("Harrison"),0) == Dialogue.GUARD_RESULT1){
 					NPCs.get("Harrison").speak(takeDecision(Dialogue.GUARD_CHOICE1,NPCs.get("Harrison"),0));
 				}
 				else{
@@ -139,16 +128,15 @@ public class Game
 			while(true){
 				Dialogue riddleChoose;
 				
-				if(nbtalkSteve==0){
-					riddleChoose=Dialogue.STEVE_RIDDLE1;
+				if(nbtalkSteve == 0){
+					riddleChoose = Dialogue.STEVE_RIDDLE1;
 				}
 				else{
-					riddleChoose=Dialogue.STEVE_RIDDLE2;
+					riddleChoose = Dialogue.STEVE_RIDDLE2;
 				}
 
 				NPCs.get("Steve").speak(riddleChoose);
 				Dialogue dialogueChoose = null;
-				// TODO Dialogue dialogueChoose = choix du joueur;
 
 				if(takeDecision(dialogueChoose, NPCs.get("Steve"),nbtalkSteve) == Dialogue.STEVE_SUCCEED_RIDLLE){
 					nbtalkSteve++;
@@ -156,7 +144,7 @@ public class Game
 				}
 				else if(takeDecision(dialogueChoose, NPCs.get("Steve"),nbtalkSteve) == Dialogue.STEVE_ERROR_INVENTORY_FULL){
 					NPCs.get("Steve").speak(Dialogue.STEVE_ERROR_INVENTORY_FULL);
-					nbtalkSteve=0;
+					nbtalkSteve = 0;
 					break;
 				}
 				else{
@@ -168,15 +156,18 @@ public class Game
 		
 
 	}
-
-	//TODO tuer garde ou non -> a coder !
-
+	/**
+	 * Method use for all the decision that take the player.
+	 * @param dialogueChoose the answer the player choose
+	 * @param npcSelected the NPC concern about the decision
+	 * @param nbTalks the number of times the player talk with the NPC
+	 * @return the dialogue that result the decision
+	 */
 	public Dialogue takeDecision(Dialogue dialogueChoose, NPC npcSelected, int nbTalks){
-		
 		
 		List<Dialogue> riddle = new ArrayList<Dialogue>();
 		
-		if(nbTalks==0){
+		if(nbTalks == 0){
 			riddle.add(Dialogue.STEVE_RIDDLE1_ANSWER1);
 			riddle.add(Dialogue.STEVE_RIDDLE1_ANSWER2);			
 		}
@@ -185,19 +176,21 @@ public class Game
 			riddle.add(Dialogue.STEVE_RIDDLE1_ANSWER2);
 		}
 		
-		if(npcSelected.getName()=="Steve"){
-			if(nbTalks==0){
-				if(dialogueChoose==riddle.get(0)){
+		if(npcSelected.getName() == "Steve"){
+			if(nbTalks == 0){
+				if(dialogueChoose == riddle.get(0)){
+					nbTalks = 1;
 					return Dialogue.STEVE_FAIL_RIDDLE;
 				}
-				else if(dialogueChoose==riddle.get(1)){
+				else if(dialogueChoose == riddle.get(1)){
+					nbTalks = 1;
 					return Dialogue.STEVE_FAIL_RIDDLE;
 				}
 				else{
 					try {
 						NPCs.get("Steve").giveObject(Objects.get("Infirmary's key"), player);
 					} catch (ObjectNotInInventoryException e) {
-						//Nothing to do object give in the initialisation
+						//Nothing to do object give in the initialization
 	
 					} catch (InventoryIsFullException e) {
 						return Dialogue.STEVE_ERROR_INVENTORY_FULL;
@@ -207,20 +200,28 @@ public class Game
 				}
 			}
 		}
-		//Decision sous forme de dialogue ?
-		else if(npcSelected==NPCs.get("Harrison")){
-			if(dialogueChoose==Dialogue.GUARD_CHOICE1){
+		else if(npcSelected == NPCs.get("Harrison")){
+			if(dialogueChoose == Dialogue.GUARD_CHOICE1){
 				return Dialogue.GUARD_RESULT1;
 			}
 			else{
+				//John.knockOut() --> recommencer partie
 				return Dialogue.GUARD_RESULT2;
 			}
 		}
-
-
-		return dialogueChoose;//TODO à virer
-		
+		dialogueChoose = Dialogue.QUIT;
+		return dialogueChoose;
 	}
+	// TODO completer methode
+	/**
+	 * Method call when you end the game by clicking on the sewers.
+	 * @param object the sewers
+	 */
+	public Dialogue endOfGame(Object object){
+
+		return Dialogue.END;
+	}
+	
 	/**
 	 * Method use to know if an Character is on the list given, if he is in return the Character 
 	 * @param name name of the Character
@@ -237,14 +238,10 @@ public class Game
 				return npcList.get(i);
 			}
 		}
-
 		throw new NoNPCInList();
-
 	}
-	
-	
-	
-	
+
+
 	/**
 	 * This method returns a random boolean that can be 70% true and 30% false
 	 * That will decide if we have won the minigame of chance or not
@@ -260,14 +257,11 @@ public class Game
 			return true;
 		}
 		else 
-		{
+		{ 
 			return false;
 		}
 		
 	}
-	
-	
-	
 
 	/**
 	 * The constructor of the game's quit

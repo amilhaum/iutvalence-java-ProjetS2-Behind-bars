@@ -6,7 +6,7 @@ public class Test
 	public static void main(String[] args)
 	{
 
-		Windows windows = new Windows();
+		MainWindows windows = new MainWindows();
 	}
 
 }

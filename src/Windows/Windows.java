@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 @SuppressWarnings("serial")
 public class Windows extends JFrame implements ActionListener
 {
-	public static Room				room[];
+	public static IHM_Room				room[];
 	private Map<String, JButton>	listOfButtons;
 
 	public Windows()
@@ -105,9 +105,9 @@ public class Windows extends JFrame implements ActionListener
 
 	private void initRoom()
 	{
-		this.room = new Room[]
+		this.room = new IHM_Room[]
 		{
-				new Room("cell"), new Room("corridor"), new Room("outside"), new Room("corridor"), new Room("breakroom")
+				new IHM_Room("cell"), new IHM_Room("corridor"), new IHM_Room("outside"), new IHM_Room("corridor"), new IHM_Room("breakroom")
 		};
 
 		for (int i = 0; i < room.length; i++)

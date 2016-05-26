@@ -6,14 +6,14 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-public class Room extends JPanel
+public class IHM_Room extends JPanel
 {
-	private ImageIcon	icoFond;
-	private Image		imgFond1;
+	private ImageIcon icoFond;
+	private Image imgFond1;
 
-	private int			xFond1;
+	private int xFond1;
 
-	public Room(String name)
+	public IHM_Room(String name)
 	{
 		super();
 
@@ -21,8 +21,7 @@ public class Room extends JPanel
 		this.imgFond1 = this.icoFond.getImage();
 	}
 
-	@Override
-	public void paintComponent(Graphics g)
+	@Override public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
 		Graphics g2 = g;
