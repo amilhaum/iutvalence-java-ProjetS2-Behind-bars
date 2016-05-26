@@ -23,12 +23,12 @@ public enum Dialogue
 	STEVE_SUCCEED_RIDLLE("That was the correct answer you earn this"),
 	STEVE_ERROR_INVENTORY_FULL("Your inventory seems full make some space then come back to me again"),
 	
-	STEVE_RIDDLE1(""), //TODO find a riddle and how drag and drop object
+	STEVE_RIDDLE1(""),//TODO find a riddle
 	STEVE_RIDDLE1_ANSWER1(""),
 	STEVE_RIDDLE1_ANSWER2(""),
 	STEVE_RIDDLE1_ANSWER_TRUE(""),
 	
-	STEVE_RIDDLE2(""), //TODO find a riddle and how drag and drop object
+	STEVE_RIDDLE2(""),//TODO find a riddle
 	STEVE_RIDDLE2_ANSWER1(""),
 	STEVE_RIDDLE2_ANSWER2(""),
 	STEVE_RIDDLE2_ANSWER_TRUE(""),
@@ -37,7 +37,10 @@ public enum Dialogue
 	GUARD_CHOICE1("Knock him ?(could fail)"),
 	GUARD_CHOICE2("Kill him ?"),
 	GUARD_RESULT1("The guard fall, stunned"),
-	GUARD_RESULT2("The guard fall, you are cover with blood");
+	GUARD_RESULT2("The guard fall, you are cover with blood"),
+	
+	QUIT("Quit"),
+	END("You find a way through the sewers and see a light far away. You find yourself not far away of the prison, you can hear the scream due to the fire and your escape, you're free ...");
 	
 	
 	
