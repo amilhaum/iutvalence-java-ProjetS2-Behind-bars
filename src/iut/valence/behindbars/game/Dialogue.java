@@ -23,6 +23,12 @@ public enum Dialogue
 	STEVE_SUCCEED_RIDLLE("That was the correct answer you earn this"),
 	STEVE_ERROR_INVENTORY_FULL("Your inventory seems full make some space then come back to me again"),
 	
+	STEVE_RIDDLE("You want the key ? you need to solve this riddle"),
+	STEVE_GAME("You want to win money ? Come and play with me"),
+	STEVE_GAME_WIN("You win this round newbie, here take 25$"),
+	STEVE_GAME_LOOSE("You loose this one, meet me in the shower tonight"),
+	
+	
 	STEVE_RIDDLE1(""),//TODO find a riddle
 	STEVE_RIDDLE1_ANSWER1(""),
 	STEVE_RIDDLE1_ANSWER2(""),

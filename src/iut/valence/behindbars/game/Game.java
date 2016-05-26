@@ -175,37 +175,49 @@ public class Game
 			riddle.add(Dialogue.STEVE_RIDDLE1_ANSWER1);
 			riddle.add(Dialogue.STEVE_RIDDLE1_ANSWER2);
 		}
-		
+
 		if(npcSelected.getName() == "Steve"){
-			if(nbTalks == 0){
-				if(dialogueChoose == riddle.get(0)){
-					nbTalks = 1;
-					return Dialogue.STEVE_FAIL_RIDDLE;
-				}
-				else if(dialogueChoose == riddle.get(1)){
-					nbTalks = 1;
-					return Dialogue.STEVE_FAIL_RIDDLE;
-				}
-				else{
-					try {
-						NPCs.get("Steve").giveObject(Objects.get("Infirmary's key"), player);
-					} catch (ObjectNotInInventoryException e) {
-						//Nothing to do object give in the initialization
-	
-					} catch (InventoryIsFullException e) {
-						return Dialogue.STEVE_ERROR_INVENTORY_FULL;
-	
+			if(dialogueChoose == Dialogue.STEVE_RIDDLE){
+				if(nbTalks == 0){
+					if(dialogueChoose == riddle.get(0)){
+						nbTalks = 1;
+						return Dialogue.STEVE_FAIL_RIDDLE;
 					}
-					return Dialogue.STEVE_SUCCEED_RIDLLE;
+					else if(dialogueChoose == riddle.get(1)){
+						nbTalks = 1;
+						return Dialogue.STEVE_FAIL_RIDDLE;
+					}
+					else{
+						try {
+							NPCs.get("Steve").giveObject(Objects.get("Infirmary's key"), player);
+						} catch (ObjectNotInInventoryException e) {
+							//Nothing to do object give in the initialization
+
+						} catch (InventoryIsFullException e) {
+							return Dialogue.STEVE_ERROR_INVENTORY_FULL;
+
+						}
+						return Dialogue.STEVE_SUCCEED_RIDLLE;
+					}
 				}
 			}
+			else if(dialogueChoose == Dialogue.STEVE_GAME){
+				if(GetRandomResult()){
+					player.setMoney(player.getMoney()+25);
+					return Dialogue.STEVE_GAME_WIN;
+				}
+				else{
+					return Dialogue.STEVE_GAME_LOOSE;
+				}
+			}
+
 		}
 		else if(npcSelected == NPCs.get("Harrison")){
 			if(dialogueChoose == Dialogue.GUARD_CHOICE1){
 				return Dialogue.GUARD_RESULT1;
 			}
 			else{
-				//John.knockOut() --> recommencer partie
+				//TODO recommencer le jeu
 				return Dialogue.GUARD_RESULT2;
 			}
 		}
