@@ -267,6 +267,7 @@ public class Game
 	}
 	
 	
+	
 
 	/**
 	 * The constructor of the game's quit
