@@ -1,12 +1,15 @@
 package Windows;
 
+import javax.swing.JFrame;
+
 public class Test
 {
 
 	public static void main(String[] args)
 	{
 
-		MainWindows windows = new MainWindows();
+		JFrame windows = new MainWindows();
+
 	}
 
 }
