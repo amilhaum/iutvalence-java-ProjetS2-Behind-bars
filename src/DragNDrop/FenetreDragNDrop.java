@@ -7,10 +7,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import javax.swing.ImageIcon;
 
 
 import javax.swing.JLabel;
+
 import java.awt.Color;
 import java.awt.Font;
 
@@ -22,13 +22,9 @@ public class FenetreDragNDrop extends JFrame
 
 		private JPanel contentPane= new ContenuFenetre();
 		
-		
-
-	//	ImageIcon choux= new ImageIcon(getClass().getResource("/choux.png"));
-		//ImageIcon logo = new ImageIcon(getClass().getResource("/logo.png"));
-		
+				
 		/**
-		 * Launch the application.
+		 * Launch the drag and drop window.
 		 */
 		public static void main(String[] args) {
 			EventQueue.invokeLater(new Runnable() {
@@ -45,7 +41,7 @@ public class FenetreDragNDrop extends JFrame
 		}
 
 		/**
-		 * Create the frame.
+		 * Create the window which contains the infirmary's objects.
 		 */
 		public FenetreDragNDrop() {
 			
@@ -90,8 +86,22 @@ public class FenetreDragNDrop extends JFrame
 			plant_3.setBounds(484, 328, 73, 85);
 			contentPane.add(plant_3);
 			
+				
+		//pour ajouter un événement lorsque l'on clique sur 'sewers'
 			
-		}
-	
+			/*sewers.addMouseListener(new MouseAdapter() {
+            @Override
+             public void mouseClicked(MouseEvent e) 
+            {
+            	System.out.println("congratulations! You've finished the game!");
+    			
+            }
 
-}
+            });*/
+
+			 
+		 }
+		
+		}	
+		
+

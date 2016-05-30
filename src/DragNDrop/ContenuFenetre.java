@@ -7,23 +7,16 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class ContenuFenetre extends JPanel {
 		 
-		JLabel p1;
-		JLabel p2;
-		JLabel p3;
-		JLabel p4;
 		
-		
-		   
-			public ContenuFenetre() {
+	
+			public ContenuFenetre() 
+			{
 		 
-		    	
 		        setLayout(null); 
 		 
 		        ComponentMove listener = new ComponentMove(this);
@@ -31,52 +24,38 @@ public class ContenuFenetre extends JPanel {
 		        addMouseListener(listener);
 		        addMouseMotionListener(listener);
 		        
-		 
 		    }   
 		   
 			
-			
-		   /* private static JComponent createComponent(ImageIcon i, int x,int y) {
-		        
-		    	
-		    	JLabel component=new JLabel(); 
-		       
-		        component.setSize(125,125); 
-		        
-		        
-		        component.setIcon(i);
-		        
-		        component.setLocation(x, y);
-		        component.remove(component);
-		        return component;
-		    }*/
 		 
 		    private static class ComponentMove extends MouseAdapter 
 		    {
-		 
-		    	
-		    	
-	            
+
 		        private boolean move;
 		        private int x1;
 		        private JComponent component;
 		        private int y1;
 		        private Container container;
 		 
-		        public ComponentMove(Container container) {
+		        public ComponentMove(Container container) 
+		        {
 		            this.container=container;
 		        }
 		 
 		        @Override
-		        public void mousePressed(MouseEvent e) {
-		            if ( move ) {
+		        public void mousePressed(MouseEvent e) 
+		        {
+		            if ( move ) 
+		            {
 		                move=false; 
 		                component.setBorder(null);
 		                component=null;
 		            }
-		            else {
+		            else 
+		            {
 		                component = getComponent(e.getX(),e.getY()); 
-		                if ( component!=null && component.getName()!= "sewers") {
+		                if ( component!=null && component.getName()!= "sewers") 
+		                {
 		                    container.setComponentZOrder(component,0); 
 		                    
 		                    x1 = e.getX()-component.getX(); 
@@ -88,10 +67,13 @@ public class ContenuFenetre extends JPanel {
 		            }
 		        }
 		 
-		        private JComponent getComponent(int x, int y) {
+		        private JComponent getComponent(int x, int y) 
+		        {
 		            
-		            for(Component component : container.getComponents()) {
-		                if ( component instanceof JComponent && component.getBounds().contains(x, y) ) {
+		            for(Component component : container.getComponents()) 
+		            {
+		                if ( component instanceof JComponent && component.getBounds().contains(x, y) ) 
+		                {
 		                    return (JComponent)component;
 		                }
 		            }
@@ -110,18 +92,9 @@ public class ContenuFenetre extends JPanel {
 		                component.setLocation(e.getX()-x1, e.getY()-y1);
 		            }
 		        }
+		        
+		        
 		 
 		    }
-		    
-		    
-		 
-		
-			    
-
-		
-		
-
-
-	
-	
+		    	
 }
