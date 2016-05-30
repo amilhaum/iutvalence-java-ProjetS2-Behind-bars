@@ -6,7 +6,7 @@ import iut.valence.behindbars.game.Inventory;
 import iut.valence.behindbars.game.Object;
 
 /**
- * The Non-Players Characters of the game
+ * The Non-Players Characters of the game.
  *
  * @author Group BehindBars
  * @version 1.0.0
@@ -48,13 +48,11 @@ public class NPC extends Character
 	 * @throws ObjectNotInInventoryException
 	 * @throws InventoryIsFullException
 	 */
-	public boolean giveObject(Object object, Player player)
-			throws ObjectNotInInventoryException, InventoryIsFullException
+	public boolean giveObject(Object object, Player player) throws ObjectNotInInventoryException, InventoryIsFullException
 	{
 		if (!this.inventory.getObjects().contains(object))
 		{
-			throw new ObjectNotInInventoryException(
-					"This object isn't in the inventory");
+			throw new ObjectNotInInventoryException("This object isn't in the inventory");
 		}
 
 		if (player.takeObject(object))

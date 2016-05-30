@@ -5,7 +5,7 @@ import iut.valence.behindbars.game.Inventory;
 import iut.valence.behindbars.game.Object;
 
 /**
- * The player of the game
+ * The player of the game.
  *
  * @author Group BehindBars
  * @version 1.0.0

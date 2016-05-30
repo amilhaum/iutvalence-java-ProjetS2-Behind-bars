@@ -7,7 +7,7 @@ public enum StateOfCharacter
 
 	private String name = "";
 
-	/** Create a dialogue with it's name. */
+	/** Create a dialogue with it's name */
 	StateOfCharacter(String s)
 	{
 		name = s;

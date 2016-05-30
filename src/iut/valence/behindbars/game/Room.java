@@ -5,7 +5,7 @@ import iut.valence.behindbars.character.Character;
 import java.util.ArrayList;
 
 /**
- * The rooms of the game.
+ * The rooms of the game
  *
  * @author BehindBars
  * @version 1.0.0

@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * The game of BehindBars
+ * The game of BehindBars.
  *
  * @author Group BehindBars
  * @version 1.0.0
@@ -80,115 +80,120 @@ public class Game
 	 * @param npcSelected NPC selected by the user
 	 * @param currentRoom The room where the player is
 	 */
-	public void talkNPCSelected(NPC npcSelected, Room currentRoom)
-	{
-
-		int nbtalkJohn = 0;
-		int nbtalkSteve = 0;
-
-		try
-		{
-			getNPCinList(npcSelected.getName(), this.currentRoom.getNpcsInRoom());
-		}
-		catch (NoNPCInList e)
-		{
-			//Nothing todo...
-		}
-
-		if (npcSelected.getName() != "John" || npcSelected.getName() != "Steven" || npcSelected.state != StateOfCharacter.Guard)
-		{
-			npcSelected.speak(Dialogue.PRISONER);
-		}
-
-		else if (npcSelected.state == StateOfCharacter.Guard && npcSelected.getName() != "Harrison")
-		{
-			npcSelected.speak(Dialogue.GUARD);
-		}
-
-		else if (npcSelected.getName() == "John")
-		{
-			if (currentRoom.getName() == "breakRoom")
-			{
-				if (nbtalkJohn == 0)
-				{
-					NPCs.get("John").speak(Dialogue.JOHN_SALUTATION);
-					nbtalkJohn++;
-				}
-				else if (nbtalkJohn == 1)
-				{
-					NPCs.get("John").speak(Dialogue.JOHN_COMMON_TALK);
-				}
-				else if (player.getInventory().isInInventory(player.getInventory(), "Infirmary's key"))
-				{
-					NPCs.get("John").speak(Dialogue.JOHN_KEY);
-				}
-				else if (player.getMoney() >= 50)
-				{
-					NPCs.get("John").speak(Dialogue.JOHN_MONEY);
-				}
-				else if (player.getInventory().isInInventory(player.getInventory(), "Infirmary's key") && player.getMoney() >= 50)
-				{
-					NPCs.get("John").speak(Dialogue.JOHN_QUEST_FULLFIL);
-					player.getInventory().removeObject(Objects.get("Infirmary's key"));
-					player.setMoney(player.getMoney() - 50);
-					nbtalkJohn = 2;
-					// TODO john's trust ++ ? J'ai pas acc�s aux m�thodes de John.
-					// TODO debloquer portes infirmerie apr�s qu�te
-				}
-			}
-			else if (currentRoom.getName() == "Infirmary")
-			{
-				NPCs.get("Harrison").speak(Dialogue.GUARD_CHOICE);
-				if (takeDecision(Dialogue.GUARD_CHOICE1, NPCs.get("Harrison"), 0) == Dialogue.GUARD_RESULT1)
-				{
-					NPCs.get("Harrison").speak(takeDecision(Dialogue.GUARD_CHOICE1, NPCs.get("Harrison"), 0));
-				}
-				else
-				{
-					NPCs.get("Harrison").speak(takeDecision(Dialogue.GUARD_CHOICE2, NPCs.get("Harrison"), 0));
-				}
-
-			}
-		}
-		else
-		{
-			NPCs.get("Steve").speak(Dialogue.STEVEN_SALUTATION);
-			while (true)
-			{
-				Dialogue riddleChoose;
-
-				if (nbtalkSteve == 0)
-				{
-					riddleChoose = Dialogue.STEVEN_RIDDLE1;
-				}
-				else
-				{
-					riddleChoose = Dialogue.STEVEN_RIDDLE2;
-				}
-
-				NPCs.get("Steve").speak(riddleChoose);
-				Dialogue dialogueChoose = null;
-
-				if (takeDecision(dialogueChoose, NPCs.get("Steve"), nbtalkSteve) == Dialogue.STEVEN_SUCCEED_RIDLLE)
-				{
-					nbtalkSteve++;
-					break;
-				}
-				else if (takeDecision(dialogueChoose, NPCs.get("Steve"), nbtalkSteve) == Dialogue.STEVEN_ERROR_INVENTORY_FULL)
-				{
-					NPCs.get("Steve").speak(Dialogue.STEVEN_ERROR_INVENTORY_FULL);
-					nbtalkSteve = 0;
-					break;
-				}
-				else
-				{
-					npcSelected.speak(Dialogue.STEVEN_FAIL_RIDDLE);
-					continue;
-				}
-			}
-		}
-
-	}
+	//	public Dialogue talkNPCSelected(NPC npcSelected, Room currentRoom)
+	//	{
+	//
+	//		int nbtalkJohn = 0;
+	//		int nbtalkSteve = 0;
+	//
+	//		try
+	//		{
+	//			getNPCinList(npcSelected.getName(), this.currentRoom.getNpcsInRoom());
+	//		}
+	//		catch (NoNPCInList e)
+	//		{
+	//			//Nothing todo...
+	//		}
+	//
+	//		if (npcSelected.getName() != "John" || npcSelected.getName() != "Steven" || npcSelected.state != StateOfCharacter.Guard)
+	//		{
+	//			return Dialogue.PRISONER;
+	//		}
+	//
+	//		else if (npcSelected.state == StateOfCharacter.Guard && npcSelected.getName() != "Harrison")
+	//		{
+	//			return Dialogue.GUARD;
+	//		}
+	//
+	//		else if (npcSelected.getName() == "John")
+	//		{
+	//			if (currentRoom.getName() == "breakRoom")
+	//			{
+	//				if (nbtalkJohn == 0)
+	//				{
+	//					nbtalkJohn++;
+	//					return Dialogue.JOHN_SALUTATION;
+	//				}
+	//				else if (nbtalkJohn == 1)
+	//				{
+	//					return Dialogue.JOHN_COMMON_TALK;
+	//				}
+	//				else if (player.getInventory().isInInventory(player.getInventory(), "Infirmary's key"))
+	//				{
+	//					return Dialogue.JOHN_KEY;
+	//				}
+	//				else if (player.getMoney() >= 50)
+	//				{
+	//					return Dialogue.JOHN_MONEY;
+	//				}
+	//				else if (player.getInventory().isInInventory(player.getInventory(), "Infirmary's key") && player.getMoney() >= 50)
+	//				{
+	//
+	//					player.getInventory().removeObject(Objects.get("Infirmary's key"));
+	//					player.setMoney(player.getMoney() - 50);
+	//					nbtalkJohn = 2;
+	//					// TODO john's trust ++ ? J'ai pas acc�s aux m�thodes de John.
+	//					// TODO debloquer portes infirmerie apr�s qu�te
+	//					return Dialogue.JOHN_QUEST_FULLFIL;
+	//				}
+	//			}
+	//			//			else if (currentRoom.getName() == "Infirmary")
+	//			//			{
+	//			//				NPCs.get("Harrison").speak(Dialogue.GUARD_CHOICE);
+	//			//				if (takeDecision(Dialogue.GUARD_CHOICE1, NPCs.get("Harrison"), 0) == Dialogue.GUARD_RESULT1)
+	//			//				{
+	//			//					NPCs.get("Harrison").speak(takeDecision(Dialogue.GUARD_CHOICE1, NPCs.get("Harrison"), 0));
+	//			//				}
+	//			//				else
+	//			//				{
+	//			//					NPCs.get("Harrison").speak(takeDecision(Dialogue.GUARD_CHOICE2, NPCs.get("Harrison"), 0));
+	//			//				}
+	//			//
+	//			//			}
+	//		}
+	//		//		else
+	//		//		{
+	//		//			NPCs.get("Steve").speak(Dialogue.STEVEN_SALUTATION);
+	//		//			while (true)
+	//		//			{
+	//		//				Dialogue riddleChoose;
+	//		//
+	//		//				if (nbtalkSteve == 0)
+	//		//				{
+	//		//					riddleChoose = Dialogue.STEVEN_RIDDLE1;
+	//		//				}
+	//		//				else
+	//		//				{
+	//		//					riddleChoose = Dialogue.STEVEN_RIDDLE2;
+	//		//				}
+	//		//
+	//		//				NPCs.get("Steve").speak(riddleChoose);
+	//		//				Dialogue dialogueChoose = null;
+	//		//
+	//		//				if (takeDecision(dialogueChoose, NPCs.get("Steve"), nbtalkSteve) == Dialogue.STEVEN_SUCCEED_RIDLLE)
+	//		//				{
+	//		//					nbtalkSteve++;
+	//		//					break;
+	//		//				}
+	//		//				else if (takeDecision(dialogueChoose, NPCs.get("Steve"), nbtalkSteve) == Dialogue.STEVEN_ERROR_INVENTORY_FULL)
+	//		//				{
+	//		//					NPCs.get("Steve").speak(Dialogue.STEVEN_ERROR_INVENTORY_FULL);
+	//		//					nbtalkSteve = 0;
+	//		//					break;
+	//		//				}
+	//		//				else
+	//		//				{
+	//		//					npcSelected.speak(Dialogue.STEVEN_FAIL_RIDDLE);
+	//		//					continue;
+	//		//				}
+	//		//			}
+	//		//		}
+	//		else
+	//		{
+	//			return Dialogue.END;
+	//		}
+	//		return null;
+	//	}
 
 	/**
 	 * Method use for all the decision that take the player.
@@ -460,4 +465,33 @@ public class Game
 		this.player.setPenalty(penalty + 50);
 	}
 
+	public int getNbtalkJohn()
+	{
+		return nbtalkJohn;
+	}
+
+	public int getNbtalkSteven()
+	{
+		return nbtalkSteven;
+	}
+
+	public static Map<String, NPC> getNPCs()
+	{
+		return NPCs;
+	}
+
+	public static Map<String, Room> getRooms()
+	{
+		return Rooms;
+	}
+
+	public void updateJohnTalk()
+	{
+		this.nbtalkJohn++;
+	}
+
+	public void updateStevenTalk()
+	{
+		this.nbtalkSteven++;
+	}
 }

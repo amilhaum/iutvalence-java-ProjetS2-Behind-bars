@@ -1,7 +1,7 @@
 package iut.valence.behindbars.game;
 
 /**
- * The dialogue enumeration which contains all necessary dialogues of the game
+ * The dialogue enumeration which contains all necessary dialogues of the game.
  *
  * @author Group BehindBars
  * @version 1.0.0

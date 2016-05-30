@@ -2,10 +2,8 @@ package iut.valence.behindbars.game;
 
 import java.util.ArrayList;
 
-
-
 /**
- * The inventory of the player
+ * The inventory of the player.
  *
  * @author Group BehindBars
  * @version 1.0.0
@@ -65,8 +63,7 @@ public class Inventory
 	public boolean removeObject(Object object)
 	{
 		int i = 0;
-		while (i < objects.size()
-				&& objects.get(i).getName() != object.getName())
+		while (i < objects.size() && objects.get(i).getName() != object.getName())
 		{
 			i++;
 		}
@@ -81,15 +78,19 @@ public class Inventory
 			return false;
 		}
 	}
+
 	/**
-	 * 
+	 *
 	 * @param inventory
 	 * @param object
 	 * @return
 	 */
-	public boolean isInInventory(Inventory inventory, String object){
-		for(Object obj : inventory.getObjects()){
-			if(obj.getName()==object){
+	public boolean isInInventory(Inventory inventory, String object)
+	{
+		for (Object obj : inventory.getObjects())
+		{
+			if (obj.getName() == object)
+			{
 				return true;
 			}
 		}
