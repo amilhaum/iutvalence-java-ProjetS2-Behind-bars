@@ -4,6 +4,8 @@ Group: -Nicolas Jourdan
        -Elodie Montcarmel
        -Nicolas Logut
        -Enzo Blazy
+
+
 Steering Committee: -Michel Occello
                       -Anthony Gelibert
                       -Pierre Rotteleur
