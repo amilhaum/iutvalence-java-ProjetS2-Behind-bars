@@ -1,5 +1,8 @@
 package Windows;
 
+import iut.valence.behindbars.game.Dialogue;
+import iut.valence.behindbars.game.Game;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -8,11 +11,15 @@ import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 @SuppressWarnings("serial") public class MainWindows extends JFrame implements ActionListener
 {
 	private Map<String, JButton> listOfButtons;
 	public static IHM_Room room[];
+	private JLabel dialogue;
+	private IHM_Dialogue text;
+	private Game game;
 
 	public MainWindows()
 	{
@@ -33,6 +40,11 @@ import javax.swing.JFrame;
 		this.repaint();
 		this.revalidate();
 		this.setVisible(true);
+
+		this.dialogue = new JLabel(new ImageIcon(getClass().getResource("/pictures/diag.png")));
+		this.dialogue.setBounds(100, 400, 581, 99);
+
+		this.game = new Game("Nico");
 	}
 
 	public void initButton()
@@ -80,6 +92,10 @@ import javax.swing.JFrame;
 		this.listOfButtons.put("PlayerT", new CharacterButtons("PlayerT", 385, 55, 50, 50, new ImageIcon(getClass().getResource("/pictures/player.png"))));
 		this.listOfButtons.put("PlayerB", new CharacterButtons("PlayerB", 385, 470, 50, 50, new ImageIcon(getClass().getResource("/pictures/player.png"))));
 
+		/* The questions */
+		this.listOfButtons.put("reponse", new GameButtons(215, 500, 153, 66, new ImageIcon(getClass().getResource("/pictures/reponse.png"))));
+		this.listOfButtons.put("quitbutton", new GameButtons(314, 500, 153, 66, new ImageIcon(getClass().getResource("/pictures/quitbutton.png"))));
+
 		for (Map.Entry<String, JButton> entry : this.listOfButtons.entrySet())
 		{
 			entry.getValue().addActionListener(this);
@@ -124,7 +140,132 @@ import javax.swing.JFrame;
 		room[5].add(this.listOfButtons.get("Leaderboard"));
 	}
 
-	public void setARoom(int x)
+	public void removePlayer(int x)
+	{
+		room[x].remove(this.listOfButtons.get("Player"));
+		room[x].remove(this.listOfButtons.get("PlayerR"));
+		room[x].remove(this.listOfButtons.get("PlayerL"));
+		room[x].remove(this.listOfButtons.get("PlayerB"));
+		room[x].remove(this.listOfButtons.get("PlayerT"));
+	}
+
+	@Override public void actionPerformed(ActionEvent e)
+	{
+		Object sourceClick = e.getSource();
+		Object sourceRoom = this.getContentPane();
+
+		if (sourceClick == this.listOfButtons.get("QuitGame"))
+		{
+			System.exit(0);
+		}
+
+		else if (sourceClick == this.listOfButtons.get("NewGame"))
+		{
+			this.setContentPane(room[0]);
+			this.repaint();
+			this.revalidate();
+		}
+
+		else if (sourceRoom == this.room[0])
+		{
+			/* If is the right button. */
+			if (sourceClick == this.listOfButtons.get("right_button"))
+			{
+				removeDialogue(0);
+				setARoom(1);
+				removePlayer(1);
+				room[1].add(this.listOfButtons.get("PlayerL"));
+			}
+			else
+			{
+				click(sourceClick, 0);
+			}
+		}
+
+		else if (sourceRoom == this.room[1])
+		{
+			if (sourceClick == this.listOfButtons.get("left_button"))
+			{
+				setARoom(0);
+				removePlayer(0);
+				room[0].add(this.listOfButtons.get("PlayerR"));
+			}
+			else if (sourceClick == this.listOfButtons.get("right_button"))
+			{
+				setARoom(2);
+				removePlayer(2);
+				room[2].add(this.listOfButtons.get("PlayerL"));
+			}
+			else if (sourceClick == this.listOfButtons.get("bottom_button"))
+			{
+				if (!(this.game.getPlayer().getInventory().isInInventory(this.game.getPlayer().getInventory(), "Infirmary's key")))
+				{
+					this.listOfButtons.get("bottom_button").setEnabled(false);
+				}
+				setARoom(4);
+				removePlayer(4);
+				room[4].add(this.listOfButtons.get("PlayerT"));
+			}
+			else
+			{
+				click(sourceClick, 1);
+			}
+		}
+
+		else if (sourceRoom == this.room[2])
+		{
+			if (sourceClick == this.listOfButtons.get("left_button"))
+			{
+				setARoom(1);
+				removePlayer(1);
+				room[1].add(this.listOfButtons.get("PlayerR"));
+			}
+			else
+			{
+				click(sourceClick, 2);
+			}
+		}
+
+		else if (sourceRoom == this.room[4])
+		{
+			if (sourceClick == this.listOfButtons.get("top_button"))
+			{
+				setARoom(1);
+				removePlayer(1);
+				room[1].add(this.listOfButtons.get("PlayerB"));
+
+			}
+			else if (sourceClick == this.listOfButtons.get("bottom_button"))
+			{
+				setARoom(3);
+				removePlayer(3);
+				room[3].add(this.listOfButtons.get("PlayerT"));
+			}
+			else
+			{
+				click(sourceClick, 4);
+			}
+		}
+
+		else
+		{
+
+			setARoom(4);
+			removePlayer(4);
+			room[4].add(this.listOfButtons.get("PlayerB"));
+		}
+	}
+
+	private void displayDialogue(Dialogue dialogue)
+	{
+		this.text = new IHM_Dialogue(dialogue);
+		this.getContentPane().add(this.text);
+		this.getContentPane().add(this.dialogue);
+		this.repaint();
+		this.revalidate();
+	}
+
+	private void setARoom(int x)
 	{
 
 		this.setContentPane(room[x]);
@@ -161,98 +302,57 @@ import javax.swing.JFrame;
 		}
 	}
 
-	public void removePlayer(int x)
+	private void removeDialogue(int x)
 	{
-		room[x].remove(this.listOfButtons.get("Player"));
-		room[x].remove(this.listOfButtons.get("PlayerR"));
-		room[x].remove(this.listOfButtons.get("PlayerL"));
-		room[x].remove(this.listOfButtons.get("PlayerB"));
-		room[x].remove(this.listOfButtons.get("PlayerT"));
+		try
+		{
+			room[x].remove(this.listOfButtons.get("quitbutton"));
+			room[x].remove(dialogue);
+			room[x].remove(text);
+		}
+		catch (NullPointerException e)
+		{
+			//TODO nothing
+		}
+		this.setContentPane(room[x]);
+		this.repaint();
+		this.revalidate();
 	}
 
-	@Override public void actionPerformed(ActionEvent e)
+	private void click(Object sourceClick, int x)
 	{
-		Object sourceClick = e.getSource();
-		Object sourceRoom = this.getContentPane();
-
-		if (sourceClick == this.listOfButtons.get("QuitGame"))
+		/* If is Steven. */
+		if (sourceClick == this.listOfButtons.get("Steven"))
 		{
-			System.exit(0);
+			removeDialogue(x);
+			displayDialogue(Dialogue.END);
 		}
 
-		else if (sourceClick == this.listOfButtons.get("NewGame"))
+		/* If is the first answer. */
+		else if (sourceClick == this.listOfButtons.get("reponse"))
 		{
-			this.setContentPane(room[0]);
-			this.repaint();
-			this.revalidate();
+			System.out.println("qs");
 		}
 
-		else if (sourceClick == this.listOfButtons.get("QuitGame"))
+		/*If is the player. */
+		else if (sourceClick == this.listOfButtons.get("Player") || sourceClick == this.listOfButtons.get("PlayerT") || sourceClick == this.listOfButtons.get("PlayerB")
+				|| sourceClick == this.listOfButtons.get("PlayerL") || sourceClick == this.listOfButtons.get("PlayerR"))
 		{
-			System.exit(0);
+			//TODO nothing
 		}
 
-		else if (sourceRoom == this.room[0])
+		/* If is the quit button. */
+		else if (sourceClick == this.listOfButtons.get("quitbutton"))
 		{
-			setARoom(1);
-			removePlayer(1);
-			room[1].add(this.listOfButtons.get("PlayerL"));
+			removeDialogue(x);
 		}
 
-		else if (sourceRoom == this.room[1])
-		{
-			if (sourceClick == this.listOfButtons.get("left_button"))
-			{
-				setARoom(0);
-				removePlayer(0);
-				room[0].add(this.listOfButtons.get("PlayerR"));
-			}
-			else if (sourceClick == this.listOfButtons.get("right_button"))
-			{
-				setARoom(2);
-				removePlayer(2);
-				room[2].add(this.listOfButtons.get("PlayerL"));
-			}
-			else
-			{
-				setARoom(4);
-				removePlayer(4);
-				room[4].add(this.listOfButtons.get("PlayerT"));
-			}
-		}
-
-		else if (sourceRoom == this.room[2])
-		{
-			setARoom(1);
-			removePlayer(1);
-			room[1].add(this.listOfButtons.get("PlayerR"));
-		}
-
-		else if (sourceRoom == this.room[4])
-		{
-			if (sourceClick == this.listOfButtons.get("top_button"))
-			{
-				setARoom(1);
-				removePlayer(1);
-				room[1].add(this.listOfButtons.get("PlayerB"));
-
-			}
-			else
-			{
-				setARoom(3);
-				removePlayer(3);
-				room[3].add(this.listOfButtons.get("PlayerT"));
-			}
-
-		}
-
+		/* If is the other prisoners. */
 		else
 		{
-			setARoom(4);
-			removePlayer(4);
-			room[4].add(this.listOfButtons.get("PlayerB"));
+			removeDialogue(x);
+			displayDialogue(Dialogue.PRISONNER);
+			room[x].add(this.listOfButtons.get("quitbutton"));
 		}
-
 	}
-
 }
