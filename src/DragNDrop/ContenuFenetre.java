@@ -68,7 +68,7 @@ public class ContenuFenetre extends JPanel {
 		        }
 		 
 		        private JComponent getComponent(int x, int y) 
-		        { 
+		        {  
 		            
 		            for(Component component : container.getComponents()) 
 		            {
