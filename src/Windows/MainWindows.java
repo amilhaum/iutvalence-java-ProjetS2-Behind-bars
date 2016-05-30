@@ -21,6 +21,8 @@ import javax.swing.JLabel;
 	private IHM_Dialogue text;
 	private Game game;
 
+	public static JLabel jlabelList[];
+	
 	public MainWindows()
 	{
 		/* Default windows */
@@ -30,9 +32,16 @@ import javax.swing.JLabel;
 		this.setResizable(false);
 		this.setAlwaysOnTop(true);
 		this.setLocationRelativeTo(null);
+		this.setFocusable(true);
+		this.addKeyListener(new InventoryKeyListener());
 
 		this.listOfButtons = new HashMap<>();
-
+		
+		jlabelList = new JLabel[10];
+		for (int i = 0; i < 10; i++) {
+			jlabelList[i] = new JLabel("L"+i);
+		}
+		
 		initButton();
 		initRoom();
 
@@ -112,6 +121,18 @@ import javax.swing.JLabel;
 		for (int i = 0; i < room.length; i++)
 		{
 			room[i].setLayout(null);
+			for(int j = 0; j< 10; j++) {
+				// Add inventory slots (labels) to each room
+				room[i].add(jlabelList[j]);
+				// Initialize position and size of inventory slots
+				jlabelList[j].setLocation(400+(30*j), 50);
+				jlabelList[j].setSize(30, 30);
+				/**
+				 * Put the inventory on top
+				 * @TODO MUST BE DONE, DOESN'T WORK !!!
+				 */
+				room[i].setComponentZOrder(jlabelList[j], 0);
+			}
 		}
 
 		room[0].add(this.listOfButtons.get("right_button"));
