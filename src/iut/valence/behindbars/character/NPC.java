@@ -1,9 +1,9 @@
 package iut.valence.behindbars.character;
 
 import iut.valence.behindbars.exceptions.InventoryIsFullException;
-import iut.valence.behindbars.exceptions.ObjectNotInInventoryException;
+import iut.valence.behindbars.exceptions.ItemNotInInventoryException;
 import iut.valence.behindbars.game.Inventory;
-import iut.valence.behindbars.game.Object;
+import iut.valence.behindbars.game.Item;
 
 /**
  * The Non-Players Characters of the game.
@@ -41,23 +41,23 @@ public class NPC extends Character
 	/**
 	 * The method to give an object
 	 *
-	 * @param object
+	 * @param item
 	 *            is the object gave
 	 * @param player
 	 *            is the player
-	 * @throws ObjectNotInInventoryException
+	 * @throws ItemNotInInventoryException
 	 * @throws InventoryIsFullException
 	 */
-	public boolean giveObject(Object object, Player player) throws ObjectNotInInventoryException, InventoryIsFullException
+	public boolean giveItem(Item item, Player player) throws ItemNotInInventoryException, InventoryIsFullException
 	{
-		if (!this.inventory.getObjects().contains(object))
+		if (!this.inventory.getItems().contains(item))
 		{
-			throw new ObjectNotInInventoryException("This object isn't in the inventory");
+			throw new ItemNotInInventoryException("This object isn't in the inventory");
 		}
 
-		if (player.takeObject(object))
+		if (player.takeObject(item))
 		{
-			this.inventory.removeObject(object);
+			this.inventory.removeItem(item);
 			return true;
 		}
 

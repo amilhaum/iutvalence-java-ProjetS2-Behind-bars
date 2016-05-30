@@ -6,7 +6,7 @@ package iut.valence.behindbars.game;
  * @author Group BehindBars
  * @version 1.0.0
  */
-public class Tool extends Object
+public class Tool extends Item
 {
 	/** The tool's state */
 	protected State state;

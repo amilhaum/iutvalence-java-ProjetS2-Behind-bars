@@ -6,14 +6,14 @@ package iut.valence.behindbars.exceptions;
  * @author Group BehindBars
  * @version 1.0.0
  */
-public class ObjectNotInInventoryException extends Exception
+public class ItemNotInInventoryException extends Exception
 {
-	public ObjectNotInInventoryException(String message)
+	public ItemNotInInventoryException(String message)
 	{
 		super(message);
 	}
 
-	public ObjectNotInInventoryException(String message, Throwable t)
+	public ItemNotInInventoryException(String message, Throwable t)
 	{
 		super(message, t);
 	}

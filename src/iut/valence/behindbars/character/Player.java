@@ -2,7 +2,7 @@ package iut.valence.behindbars.character;
 
 import iut.valence.behindbars.game.Dialogue;
 import iut.valence.behindbars.game.Inventory;
-import iut.valence.behindbars.game.Object;
+import iut.valence.behindbars.game.Item;
 
 /**
  * The player of the game.
@@ -39,10 +39,10 @@ public class Player extends Character
 	/**
 	 * The method to use an object
 	 *
-	 * @param object
+	 * @param item
 	 *            is the object used
 	 */
-	public void useObject(Object object)
+	public void useItem(Item item)
 	{
 		throw new UnsupportedOperationException();
 	}
@@ -50,17 +50,17 @@ public class Player extends Character
 	/**
 	 * The method to give an object to a npc
 	 *
-	 * @param object
+	 * @param item
 	 *            is the object gave to the npc
 	 * @param character
 	 *            is the npc
 	 */
-	public boolean giveObject(Object object, NPC npc)
+	public boolean giveItem(Item item, NPC npc)
 	{
-		if (inventory.getObjects().contains(object))
+		if (inventory.getItems().contains(item))
 		{
-			npc.getInventory().addObject(object);
-			this.inventory.removeObject(object);
+			npc.getInventory().addItem(item);
+			this.inventory.removeItem(item);
 			return true;
 		}
 		else
@@ -75,11 +75,11 @@ public class Player extends Character
 	 * @param object
 	 *            is the object took
 	 */
-	public boolean takeObject(Object object)
+	public boolean takeObject(Item object)
 	{
 		if (!inventory.isFull())
 		{
-			this.inventory.addObject(object);
+			this.inventory.addItem(object);
 			return true;
 		}
 		else

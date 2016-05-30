@@ -7,7 +7,7 @@ import iut.valence.behindbars.character.Player;
 import iut.valence.behindbars.character.StateOfCharacter;
 import iut.valence.behindbars.exceptions.InventoryIsFullException;
 import iut.valence.behindbars.exceptions.NoNPCInList;
-import iut.valence.behindbars.exceptions.ObjectNotInInventoryException;
+import iut.valence.behindbars.exceptions.ItemNotInInventoryException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +33,7 @@ public class Game
 	private static Map<String, NPC> NPCs;
 
 	/** The game's objects */
-	private static Map<String, Object> Objects;
+	private static Map<String, Item> Items;
 
 	/** The game's objects */
 	private static Map<String, Room> Rooms;
@@ -53,10 +53,10 @@ public class Game
 		this.player = new Player(player);
 		this.NPCs = new HashMap<String, NPC>();
 		this.Rooms = new HashMap<String, Room>();
-		this.Objects = new HashMap<String, Object>();
+		this.Items = new HashMap<String, Item>();
 
 		initNPC();
-		initObjects();
+		initItems();
 		initRooms();
 
 		this.nbtalkJohn = DEFAULT_NB_TALK_NPC;
@@ -238,9 +238,9 @@ public class Game
 					{
 						try
 						{
-							NPCs.get("Steve").giveObject(Objects.get("Infirmary's key"), player);
+							NPCs.get("Steve").giveItem(Items.get("Infirmary's key"), player);
 						}
-						catch (ObjectNotInInventoryException e)
+						catch (ItemNotInInventoryException e)
 						{
 							//Nothing to do object give in the initialization
 
@@ -287,9 +287,9 @@ public class Game
 	// TODO completer methode
 	/**
 	 * Method call when you end the game by clicking on the sewers.
-	 * @param object the sewers
+	 * @param item the sewers
 	 */
-	public Dialogue endOfGame(Object object)
+	public Dialogue endOfGame(Item item)
 	{
 
 		return Dialogue.END;
@@ -373,17 +373,17 @@ public class Game
 	/**
 	 * Initialization of objects list.
 	 */
-	public static void initObjects()
+	public static void initItems()
 	{
 
-		Objects.put("Infirmary's key", new Object("Infirmary's key", "The key of infirmary", 10));
+		Items.put("Infirmary's key", new Item("Infirmary's key", "The key of infirmary", 10));
 
-		Objects.put("Knife", new Object("Knife", "A knife", 10));
-		Objects.put("Coffee", new Object("Coffee", "A coffee", 1));
+		Items.put("Knife", new Item("Knife", "A knife", 10));
+		Items.put("Coffee", new Item("Coffee", "A coffee", 1));
 
-		Objects.put("Office", new Object("Office", "A office", 100));
-		Objects.put("Bin", new Object("Bin", "A bin", 10));
-		Objects.put("Sewers", new Object("Sewers", "Sewers", 100));
+		Items.put("Office", new Item("Office", "A office", 100));
+		Items.put("Bin", new Item("Bin", "A bin", 10));
+		Items.put("Sewers", new Item("Sewers", "Sewers", 100));
 	}
 
 	/**
@@ -427,19 +427,19 @@ public class Game
 		/* List of objects by place */
 
 		/* Objects in the cells */
-		ArrayList<Object> objectsInCells = new ArrayList<Object>();
-		objectsInCells.add(Objects.get("Infirmary's key"));
+		ArrayList<Item> objectsInCells = new ArrayList<Item>();
+		objectsInCells.add(Items.get("Infirmary's key"));
 
 		/* Objects in the Break Room */
-		ArrayList<Object> objectsInBreakRoom = new ArrayList<Object>();
-		objectsInBreakRoom.add(Objects.get("Coffee"));
-		objectsInBreakRoom.add(Objects.get("Knife"));
+		ArrayList<Item> objectsInBreakRoom = new ArrayList<Item>();
+		objectsInBreakRoom.add(Items.get("Coffee"));
+		objectsInBreakRoom.add(Items.get("Knife"));
 
 		/* Objects in the infirmary */
-		ArrayList<Object> objectsInInfirmary = new ArrayList<Object>();
-		objectsInInfirmary.add(Objects.get("Office"));
-		objectsInInfirmary.add(Objects.get("Bin"));
-		objectsInInfirmary.add(Objects.get("Sewers"));
+		ArrayList<Item> objectsInInfirmary = new ArrayList<Item>();
+		objectsInInfirmary.add(Items.get("Office"));
+		objectsInInfirmary.add(Items.get("Bin"));
+		objectsInInfirmary.add(Items.get("Sewers"));
 
 		Rooms.put("cells", new Room("cells", charactersInCells, objectsInCells));
 		Rooms.put("corridor1", new Room("corridor1", charactersInCorridor1));
@@ -454,9 +454,9 @@ public class Game
 		return player;
 	}
 
-	public static Map<String, Object> getObjects()
+	public static Map<String, Item> getItems()
 	{
-		return Objects;
+		return Items;
 	}
 
 	public void addPenalty()

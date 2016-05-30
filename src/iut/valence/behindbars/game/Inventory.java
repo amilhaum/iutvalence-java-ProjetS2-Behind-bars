@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Inventory
 {
 	/** The objects' collection of the inventory */
-	private ArrayList<Object> objects;
+	private ArrayList<Item> items;
 
 	/** The square's number used of the inventory */
 	private int nbSquaresUsed;
@@ -22,7 +22,7 @@ public class Inventory
 	/** The inventory's constructor */
 	public Inventory(int nbMaxSquares)
 	{
-		this.objects = new ArrayList<Object>();
+		this.items = new ArrayList<Item>();
 		this.nbMaxSquares = nbMaxSquares;
 		this.nbSquaresUsed = 0;
 	}
@@ -38,14 +38,14 @@ public class Inventory
 	/**
 	 * The method to add an object in the inventory
 	 *
-	 * @param object
+	 * @param item
 	 *            is the object added
 	 */
-	public boolean addObject(Object object)
+	public boolean addItem(Item item)
 	{
 		if (!isFull())
 		{
-			this.objects.add(object);
+			this.items.add(item);
 			this.nbSquaresUsed++;
 			return true;
 		}
@@ -58,18 +58,18 @@ public class Inventory
 	/**
 	 * The method to remove an object in the inventory
 	 *
-	 * @param object is the object removed
+	 * @param item is the object removed
 	 */
-	public boolean removeObject(Object object)
+	public boolean removeItem(Item item)
 	{
 		int i = 0;
-		while (i < objects.size() && objects.get(i).getName() != object.getName())
+		while (i < items.size() && items.get(i).getName() != item.getName())
 		{
 			i++;
 		}
-		if (i != objects.size())
+		if (i != items.size())
 		{
-			objects.remove(i);
+			items.remove(i);
 			this.nbSquaresUsed--;
 			return true;
 		}
@@ -82,14 +82,14 @@ public class Inventory
 	/**
 	 *
 	 * @param inventory
-	 * @param object
+	 * @param item
 	 * @return
 	 */
-	public boolean isInInventory(Inventory inventory, String object)
+	public boolean isInInventory(Inventory inventory, String item)
 	{
-		for (Object obj : inventory.getObjects())
+		for (Item obj : inventory.getItems())
 		{
-			if (obj.getName() == object)
+			if (obj.getName() == item)
 			{
 				return true;
 			}
@@ -101,9 +101,9 @@ public class Inventory
 	 *
 	 * @return he inventory's objects
 	 */
-	public ArrayList<Object> getObjects()
+	public ArrayList<Item> getItems()
 	{
-		return objects;
+		return items;
 	}
 
 	/**

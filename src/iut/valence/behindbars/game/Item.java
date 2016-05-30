@@ -6,7 +6,7 @@ package iut.valence.behindbars.game;
  * @author Group BehindBars
  * @version 1.0.0
  */
-public class Object
+public class Item
 {
 	/** The object's name */
 	protected String name;
@@ -27,7 +27,7 @@ public class Object
 	 * @param value
 	 *            is the object's value
 	 */
-	public Object(String name, String description, int value)
+	public Item(String name, String description, int value)
 	{
 		this.name = name;
 		this.description = description;

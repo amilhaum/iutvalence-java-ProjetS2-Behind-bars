@@ -6,7 +6,7 @@ package iut.valence.behindbars.game;
  * @author Group BehindBars
  * @version 1.0.0
  */
-public class Consumable extends Object
+public class Consumable extends Item
 {
 	/** The number of use of the consumable */
 	private int nbOfUse;

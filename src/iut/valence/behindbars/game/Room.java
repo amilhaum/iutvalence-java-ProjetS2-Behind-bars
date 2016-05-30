@@ -19,7 +19,7 @@ public class Room
 	private ArrayList<Character> npcsInRoom;
 
 	/** The object's list in the room. */
-	private ArrayList<Object> objectsInRoom;
+	private ArrayList<Item> itemsInRoom;
 
 	/**
 	 * The room's constructor.
@@ -28,14 +28,14 @@ public class Room
 	 *            is the room's name
 	 * @param charactersInCells
 	 *            is the npc's list in the room
-	 * @param objectsInRoomList
+	 * @param itemsInRoomList
 	 *            object's list in the room
 	 */
-	public Room(String name, ArrayList<Character> charactersInCells, ArrayList<Object> objectsInRoomList)
+	public Room(String name, ArrayList<Character> charactersInCells, ArrayList<Item> itemsInRoomList)
 	{
 		this.name = name;
 		this.npcsInRoom = charactersInCells;
-		this.objectsInRoom = objectsInRoomList;
+		this.itemsInRoom = itemsInRoomList;
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class Room
 	{
 		this.name = name;
 		this.npcsInRoom = npcsInRoomList;
-		this.objectsInRoom = null;
+		this.itemsInRoom = null;
 
 	}
 
