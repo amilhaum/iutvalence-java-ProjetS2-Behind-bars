@@ -18,6 +18,10 @@ public class Player extends Character
 	/** Default square number of the inventory (player) */
 	private static final int DEFAULT_MAX_SQUARES_INVENTORY = 10;
 
+	private static final int DEFAULT_PENALTY = 0;
+
+	private int penalty;
+
 	/**
 	 * The constructor of the player
 	 *
@@ -29,6 +33,7 @@ public class Player extends Character
 		super(name);
 		this.money = DEFAULT_MONEY;
 		this.inventory = new Inventory(DEFAULT_MAX_SQUARES_INVENTORY);
+		this.penalty = DEFAULT_PENALTY;
 	}
 
 	/**
@@ -92,6 +97,16 @@ public class Player extends Character
 	public boolean takeDecision(Dialogue dialogue)
 	{
 		throw new UnsupportedOperationException();
+	}
+
+	public int getPenalty()
+	{
+		return penalty;
+	}
+
+	public void setPenalty(int penalty)
+	{
+		this.penalty = penalty;
 	}
 
 }

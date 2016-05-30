@@ -54,10 +54,12 @@ import javax.swing.JLabel;
 		this.listOfButtons.put("Leaderboard", new GameButtons(300, 500, 219, 49, new ImageIcon(getClass().getResource("/pictures/leaderboard.png"))));
 
 		/* The move buttons. */
-		this.listOfButtons.put("right_button", new GameButtons(745, 270, 45, 30, new ImageIcon(getClass().getResource("/pictures/arrow_east.png"))));
-		this.listOfButtons.put("left_button", new GameButtons(5, 270, 45, 30, new ImageIcon(getClass().getResource("/pictures/arrow_west.png"))));
-		this.listOfButtons.put("bottom_button", new GameButtons(385, 520, 30, 45, new ImageIcon(getClass().getResource("/pictures/arrow_south.png"))));
-		this.listOfButtons.put("top_button", new GameButtons(385, 5, 30, 45, new ImageIcon(getClass().getResource("/pictures/arrow_north.png"))));
+		this.listOfButtons.put("right_button", new ArrowButtons(745, 270, 45, 30, new ImageIcon(getClass().getResource("/pictures/arrow_east.png"))));
+		this.listOfButtons.put("left_button", new ArrowButtons(5, 270, 45, 30, new ImageIcon(getClass().getResource("/pictures/arrow_west.png"))));
+		this.listOfButtons.put("bottom_button", new ArrowButtons(385, 520, 30, 45, new ImageIcon(getClass().getResource("/pictures/arrow_south.png"))));
+		this.listOfButtons.put("top_button", new ArrowButtons(385, 5, 30, 45, new ImageIcon(getClass().getResource("/pictures/arrow_north.png"))));
+		this.listOfButtons.put("rightB_button", new ArrowButtons(745, 379, 45, 30, new ImageIcon(getClass().getResource("/pictures/arrow_east.png"))));
+		this.listOfButtons.put("bottom_false_button", new ArrowButtons(385, 520, 30, 45, new ImageIcon(getClass().getResource("/pictures/bottom_false_button.png"))));
 
 		/* The buttons of the players in the cell. */
 		this.listOfButtons.put("Garry", new CharacterButtons("Garry", 300, 500, 50, 50, new ImageIcon(getClass().getResource("/pictures/prisoner3.png"))));
@@ -186,11 +188,6 @@ import javax.swing.JLabel;
 			}
 			else if (sourceClick == this.listOfButtons.get("bottom_button"))
 			{
-				this.game.getPlayer().getInventory().addObject(this.game.getObjects().get("Infirmary's key"));
-				if (!(this.game.getPlayer().getInventory().isInInventory(this.game.getPlayer().getInventory(), "Infirmary's key")))
-				{
-					this.listOfButtons.get("bottom_button").setEnabled(false);
-				}
 				setARoom(4);
 				room[4].add(this.listOfButtons.get("PlayerT"));
 			}
@@ -226,17 +223,35 @@ import javax.swing.JLabel;
 				setARoom(3);
 				room[3].add(this.listOfButtons.get("PlayerT"));
 			}
+			else if (sourceClick == this.listOfButtons.get("bottom_false_button"))
+			{
+				displayDialogue(Dialogue.LOCKDOOR);
+				room[4].add(this.listOfButtons.get("quitbutton"));
+			}
 			else
 			{
 				click(sourceClick, 4);
 			}
+			this.listOfButtons.get("bottom_button").setEnabled(true);
 		}
 
 		else
 		{
+			if (sourceClick == this.listOfButtons.get("rightB_button"))
+			{
+				setARoom(0);
+				room[0].add(this.listOfButtons.get("Player"));
+				displayDialogue(Dialogue.FAILDOOR);
+				this.game.addPenalty();
+				room[0].add(this.listOfButtons.get("quitbutton"));
+				System.out.println(this.game.getPlayer().getPenalty());
+			}
+			else
+			{
 
-			setARoom(4);
-			room[4].add(this.listOfButtons.get("PlayerB"));
+				setARoom(4);
+				room[4].add(this.listOfButtons.get("PlayerB"));
+			}
 		}
 	}
 
@@ -277,12 +292,22 @@ import javax.swing.JLabel;
 		else if (x == 3)
 		{
 			room[3].add(this.listOfButtons.get("top_button"));
+			room[3].add(this.listOfButtons.get("rightB_button"));
 		}
 
 		else if (x == 4)
 		{
-			room[4].add(this.listOfButtons.get("bottom_button"));
-			room[4].add(this.listOfButtons.get("top_button"));
+			this.game.getPlayer().getInventory().addObject(this.game.getObjects().get("Infirmary's key"));
+			if (!(this.game.getPlayer().getInventory().isInInventory(this.game.getPlayer().getInventory(), "Infirmary's key")))
+			{
+				room[4].add(this.listOfButtons.get("bottom_false_button"));
+				room[4].add(this.listOfButtons.get("top_button"));
+			}
+			else
+			{
+				room[4].add(this.listOfButtons.get("bottom_button"));
+				room[4].add(this.listOfButtons.get("top_button"));
+			}
 		}
 
 		room[x].remove(this.listOfButtons.get("Player"));

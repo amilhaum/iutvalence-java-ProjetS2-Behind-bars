@@ -454,4 +454,10 @@ public class Game
 		return Objects;
 	}
 
+	public void addPenalty()
+	{
+		int penalty = this.player.getPenalty();
+		this.player.setPenalty(penalty + 50);
+	}
+
 }
