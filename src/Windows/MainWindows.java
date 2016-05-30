@@ -297,7 +297,7 @@ import javax.swing.JLabel;
 
 		else if (x == 4)
 		{
-			this.game.getPlayer().getInventory().addObject(this.game.getObjects().get("Infirmary's key"));
+			//this.game.getPlayer().getInventory().addObject(this.game.getObjects().get("Infirmary's key"));
 			if (!(this.game.getPlayer().getInventory().isInInventory(this.game.getPlayer().getInventory(), "Infirmary's key")))
 			{
 				room[4].add(this.listOfButtons.get("bottom_false_button"));
@@ -339,8 +339,36 @@ import javax.swing.JLabel;
 		/* If is Steven. */
 		if (sourceClick == this.listOfButtons.get("Steven"))
 		{
-			removeDialogue(x);
-			displayDialogue(Dialogue.END);
+			if (this.game.getNbtalkJohn() == 0)
+			{
+				removeDialogue(x);
+				displayDialogue(Dialogue.PRISONER);
+				room[x].add(this.listOfButtons.get("quitbutton"));
+			}
+
+			else if (this.game.getNbtalkJohn() == 1)
+			{
+				removeDialogue(x);
+				displayDialogue(Dialogue.STEVEN_SALUTATION);
+				room[x].add(this.listOfButtons.get("quitbutton"));
+			}
+		}
+
+		else if (sourceClick == this.listOfButtons.get("John"))
+		{
+			if (this.game.getNbtalkJohn() == 0)
+			{
+				removeDialogue(x);
+				displayDialogue(Dialogue.JOHN_SALUTATION);
+				this.game.updateJohnTalk();
+				room[x].add(this.listOfButtons.get("quitbutton"));
+			}
+			else if (this.game.getNbtalkJohn() == 1)
+			{
+				removeDialogue(x);
+				displayDialogue(Dialogue.JOHN_COMMON_TALK);
+				room[x].add(this.listOfButtons.get("quitbutton"));
+			}
 		}
 
 		/* If is the first answer. */
