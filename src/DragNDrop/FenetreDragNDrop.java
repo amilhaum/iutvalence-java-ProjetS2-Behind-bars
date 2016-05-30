@@ -21,7 +21,7 @@ public class FenetreDragNDrop extends JFrame
 
 
 		private JPanel contentPane= new ContenuFenetre();
-		
+		 
 				
 		/**
 		 * Launch the drag and drop window.
