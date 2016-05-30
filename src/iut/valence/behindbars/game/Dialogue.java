@@ -8,36 +8,36 @@ package iut.valence.behindbars.game;
  */
 public enum Dialogue
 {
-	PRISONNER("What do you want I don't know you, clear off"), 
-	GUARD("Prisoners are not allow to talk with guard"),
+	PRISONER("PRISONER : What do you want I don't know you, clear off"), 
+	GUARD("GUARD : Prisoners are not allow to talk with guard"),
 	
 	
-	JOHN_SALUTATION("Hi I'm John, I know everyone here, I need trust worthy people to set up a plan to escape, if you bring me 50$ and the key of the doors, you're in"),
-	JOHN_COMMON_TALK("Bring me the key and the 50 bucks then we could move on"),
-	JOHN_KEY("Good you bring me the key, I still need 50 bucks for ... err it's doesn't matter"),
-	JOHN_MONEY("Good you bring me the money I need for ... err personal matters"),
-	JOHN_QUEST_FULLFIL("Perfect you're fast I like that, now we can continue, freedom is close comrade"),
+	JOHN_SALUTATION("JOHN : Hi I'm John, I know everyone here, I need trust worthy people to set up a plan to escape, if you bring me 50$ and the key of the doors, you're in"),
+	JOHN_COMMON_TALK("JOHN : Bring me the key and the 50 bucks then we could move on"),
+	JOHN_KEY("JOHN : Good you bring me the key, I still need 50 bucks for ... err it's doesn't matter"),
+	JOHN_MONEY("JOHN : Good you bring me the money I need for ... err personal matters"),
+	JOHN_QUEST_FULLFIL("JOHN : Perfect you're fast I like that, now we can continue, freedom is close comrade"),
 	
-	STEVE_SALUTATION("you're the new one right ? what do you want ?"),
-	STEVE_FAIL_RIDDLE("That was not the right answer you may try again but beware I'm not know for my patience"),
-	STEVE_SUCCEED_RIDLLE("That was the correct answer you earn this"),
-	STEVE_ERROR_INVENTORY_FULL("Your inventory seems full make some space then come back to me again"),
+	STEVEN_SALUTATION("STEVEN : You're the new one right ? what do you want ?"),
+	STEVEN_FAIL_RIDDLE("STEVEN : That was not the right answer you may try again but beware I'm not know for my patience"),
+	STEVEN_SUCCEED_RIDLLE("STEVEN : That was the correct answer you earn this"),
+	STEVEN_ERROR_INVENTORY_FULL("STEVEN : Your inventory seems full make some space then come back to me again"),
 	
-	STEVE_RIDDLE("You want the key ? you need to solve this riddle"),
-	STEVE_GAME("You want to win money ? Come and play with me"),
-	STEVE_GAME_WIN("You win this round newbie, here take 25$"),
-	STEVE_GAME_LOOSE("You loose this one, meet me in the shower tonight"),
+	STEVEN_RIDDLE("STEVEN : You want the key ? you need to solve this riddle"),
+	STEVEN_GAME("STEVEN : You want to win money ? Come and play with me"),
+	STEVEN_GAME_WIN("STEVEN : You win this round newbie, here take 25$"),
+	STEVEN_GAME_LOOSE("STEVEN : You loose this one, meet me in the shower tonight"),
 	
 	
-	STEVE_RIDDLE1(""),//TODO find a riddle
-	STEVE_RIDDLE1_ANSWER1(""),
-	STEVE_RIDDLE1_ANSWER2(""),
-	STEVE_RIDDLE1_ANSWER_TRUE(""),
+	STEVEN_RIDDLE1(""),//TODO find a riddle
+	STEVEN_RIDDLE1_ANSWER1(""),
+	STEVEN_RIDDLE1_ANSWER2(""),
+	STEVEN_RIDDLE1_ANSWER_TRUE(""),
 	
-	STEVE_RIDDLE2(""),//TODO find a riddle
-	STEVE_RIDDLE2_ANSWER1(""),
-	STEVE_RIDDLE2_ANSWER2(""),
-	STEVE_RIDDLE2_ANSWER_TRUE(""),
+	STEVEN_RIDDLE2(""),//TODO find a riddle
+	STEVEN_RIDDLE2_ANSWER1(""),
+	STEVEN_RIDDLE2_ANSWER2(""),
+	STEVEN_RIDDLE2_ANSWER_TRUE(""),
 	
 	GUARD_CHOICE("A guard is in the infirmary, you have two choice, kill him or knock him"),
 	GUARD_CHOICE1("Knock him ?(could fail)"),

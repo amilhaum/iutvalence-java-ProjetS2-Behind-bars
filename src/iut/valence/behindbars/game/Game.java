@@ -23,6 +23,9 @@ import java.util.Random;
  */
 public class Game
 {
+	/** The default number of talk with NPC. */
+	private static final int DEFAULT_NB_TALK_NPC = 0;
+
 	/** The game's character */
 	private Player player;
 
@@ -35,7 +38,14 @@ public class Game
 	/** The game's objects */
 	private static Map<String, Room> Rooms;
 
+	/** The current room. */
 	private Room currentRoom;
+
+	/** The number of talk with John. */
+	private int nbtalkJohn;
+
+	/** The number of talk with Steven. */
+	private int nbtalkSteven;
 
 	/** The constructor of the game in progress */
 	public Game(String player)
@@ -49,6 +59,8 @@ public class Game
 		initObjects();
 		initRooms();
 
+		this.nbtalkJohn = DEFAULT_NB_TALK_NPC;
+		this.nbtalkSteven = DEFAULT_NB_TALK_NPC;
 	}
 
 	/**
@@ -85,7 +97,7 @@ public class Game
 
 		if (npcSelected.getName() != "John" || npcSelected.getName() != "Steven" || npcSelected.state != StateOfCharacter.Guard)
 		{
-			npcSelected.speak(Dialogue.PRISONNER);
+			npcSelected.speak(Dialogue.PRISONER);
 		}
 
 		else if (npcSelected.state == StateOfCharacter.Guard && npcSelected.getName() != "Harrison")
@@ -140,37 +152,37 @@ public class Game
 		}
 		else
 		{
-			NPCs.get("Steve").speak(Dialogue.STEVE_SALUTATION);
+			NPCs.get("Steve").speak(Dialogue.STEVEN_SALUTATION);
 			while (true)
 			{
 				Dialogue riddleChoose;
 
 				if (nbtalkSteve == 0)
 				{
-					riddleChoose = Dialogue.STEVE_RIDDLE1;
+					riddleChoose = Dialogue.STEVEN_RIDDLE1;
 				}
 				else
 				{
-					riddleChoose = Dialogue.STEVE_RIDDLE2;
+					riddleChoose = Dialogue.STEVEN_RIDDLE2;
 				}
 
 				NPCs.get("Steve").speak(riddleChoose);
 				Dialogue dialogueChoose = null;
 
-				if (takeDecision(dialogueChoose, NPCs.get("Steve"), nbtalkSteve) == Dialogue.STEVE_SUCCEED_RIDLLE)
+				if (takeDecision(dialogueChoose, NPCs.get("Steve"), nbtalkSteve) == Dialogue.STEVEN_SUCCEED_RIDLLE)
 				{
 					nbtalkSteve++;
 					break;
 				}
-				else if (takeDecision(dialogueChoose, NPCs.get("Steve"), nbtalkSteve) == Dialogue.STEVE_ERROR_INVENTORY_FULL)
+				else if (takeDecision(dialogueChoose, NPCs.get("Steve"), nbtalkSteve) == Dialogue.STEVEN_ERROR_INVENTORY_FULL)
 				{
-					NPCs.get("Steve").speak(Dialogue.STEVE_ERROR_INVENTORY_FULL);
+					NPCs.get("Steve").speak(Dialogue.STEVEN_ERROR_INVENTORY_FULL);
 					nbtalkSteve = 0;
 					break;
 				}
 				else
 				{
-					npcSelected.speak(Dialogue.STEVE_FAIL_RIDDLE);
+					npcSelected.speak(Dialogue.STEVEN_FAIL_RIDDLE);
 					continue;
 				}
 			}
@@ -192,30 +204,30 @@ public class Game
 
 		if (nbTalks == 0)
 		{
-			riddle.add(Dialogue.STEVE_RIDDLE1_ANSWER1);
-			riddle.add(Dialogue.STEVE_RIDDLE1_ANSWER2);
+			riddle.add(Dialogue.STEVEN_RIDDLE1_ANSWER1);
+			riddle.add(Dialogue.STEVEN_RIDDLE1_ANSWER2);
 		}
 		else
 		{
-			riddle.add(Dialogue.STEVE_RIDDLE1_ANSWER1);
-			riddle.add(Dialogue.STEVE_RIDDLE1_ANSWER2);
+			riddle.add(Dialogue.STEVEN_RIDDLE1_ANSWER1);
+			riddle.add(Dialogue.STEVEN_RIDDLE1_ANSWER2);
 		}
 
 		if (npcSelected.getName() == "Steve")
 		{
-			if (dialogueChoose == Dialogue.STEVE_RIDDLE)
+			if (dialogueChoose == Dialogue.STEVEN_RIDDLE)
 			{
 				if (nbTalks == 0)
 				{
 					if (dialogueChoose == riddle.get(0))
 					{
 						nbTalks = 1;
-						return Dialogue.STEVE_FAIL_RIDDLE;
+						return Dialogue.STEVEN_FAIL_RIDDLE;
 					}
 					else if (dialogueChoose == riddle.get(1))
 					{
 						nbTalks = 1;
-						return Dialogue.STEVE_FAIL_RIDDLE;
+						return Dialogue.STEVEN_FAIL_RIDDLE;
 					}
 					else
 					{
@@ -230,23 +242,23 @@ public class Game
 						}
 						catch (InventoryIsFullException e)
 						{
-							return Dialogue.STEVE_ERROR_INVENTORY_FULL;
+							return Dialogue.STEVEN_ERROR_INVENTORY_FULL;
 
 						}
-						return Dialogue.STEVE_SUCCEED_RIDLLE;
+						return Dialogue.STEVEN_SUCCEED_RIDLLE;
 					}
 				}
 			}
-			else if (dialogueChoose == Dialogue.STEVE_GAME)
+			else if (dialogueChoose == Dialogue.STEVEN_GAME)
 			{
 				if (GetRandomResult())
 				{
 					player.setMoney(player.getMoney() + 25);
-					return Dialogue.STEVE_GAME_WIN;
+					return Dialogue.STEVEN_GAME_WIN;
 				}
 				else
 				{
-					return Dialogue.STEVE_GAME_LOOSE;
+					return Dialogue.STEVEN_GAME_LOOSE;
 				}
 			}
 

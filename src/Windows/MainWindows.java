@@ -105,7 +105,7 @@ import javax.swing.JLabel;
 	private void initRoom()
 	{
 		this.room = new IHM_Room[]
-		{ new IHM_Room("cell"), new IHM_Room("corridor"), new IHM_Room("outside"), new IHM_Room("corridor"), new IHM_Room("breakroom"), new IHM_Room("maintest") };
+		{ new IHM_Room("cell"), new IHM_Room("corridor"), new IHM_Room("outside"), new IHM_Room("infirmary"), new IHM_Room("breakroom"), new IHM_Room("maintest") };
 
 		for (int i = 0; i < room.length; i++)
 		{
@@ -140,15 +140,6 @@ import javax.swing.JLabel;
 		room[5].add(this.listOfButtons.get("Leaderboard"));
 	}
 
-	public void removePlayer(int x)
-	{
-		room[x].remove(this.listOfButtons.get("Player"));
-		room[x].remove(this.listOfButtons.get("PlayerR"));
-		room[x].remove(this.listOfButtons.get("PlayerL"));
-		room[x].remove(this.listOfButtons.get("PlayerB"));
-		room[x].remove(this.listOfButtons.get("PlayerT"));
-	}
-
 	@Override public void actionPerformed(ActionEvent e)
 	{
 		Object sourceClick = e.getSource();
@@ -173,7 +164,6 @@ import javax.swing.JLabel;
 			{
 				removeDialogue(0);
 				setARoom(1);
-				removePlayer(1);
 				room[1].add(this.listOfButtons.get("PlayerL"));
 			}
 			else
@@ -187,23 +177,21 @@ import javax.swing.JLabel;
 			if (sourceClick == this.listOfButtons.get("left_button"))
 			{
 				setARoom(0);
-				removePlayer(0);
 				room[0].add(this.listOfButtons.get("PlayerR"));
 			}
 			else if (sourceClick == this.listOfButtons.get("right_button"))
 			{
 				setARoom(2);
-				removePlayer(2);
 				room[2].add(this.listOfButtons.get("PlayerL"));
 			}
 			else if (sourceClick == this.listOfButtons.get("bottom_button"))
 			{
+				this.game.getPlayer().getInventory().addObject(this.game.getObjects().get("Infirmary's key"));
 				if (!(this.game.getPlayer().getInventory().isInInventory(this.game.getPlayer().getInventory(), "Infirmary's key")))
 				{
 					this.listOfButtons.get("bottom_button").setEnabled(false);
 				}
 				setARoom(4);
-				removePlayer(4);
 				room[4].add(this.listOfButtons.get("PlayerT"));
 			}
 			else
@@ -217,7 +205,6 @@ import javax.swing.JLabel;
 			if (sourceClick == this.listOfButtons.get("left_button"))
 			{
 				setARoom(1);
-				removePlayer(1);
 				room[1].add(this.listOfButtons.get("PlayerR"));
 			}
 			else
@@ -231,14 +218,12 @@ import javax.swing.JLabel;
 			if (sourceClick == this.listOfButtons.get("top_button"))
 			{
 				setARoom(1);
-				removePlayer(1);
 				room[1].add(this.listOfButtons.get("PlayerB"));
 
 			}
 			else if (sourceClick == this.listOfButtons.get("bottom_button"))
 			{
 				setARoom(3);
-				removePlayer(3);
 				room[3].add(this.listOfButtons.get("PlayerT"));
 			}
 			else
@@ -251,7 +236,6 @@ import javax.swing.JLabel;
 		{
 
 			setARoom(4);
-			removePlayer(4);
 			room[4].add(this.listOfButtons.get("PlayerB"));
 		}
 	}
@@ -300,6 +284,12 @@ import javax.swing.JLabel;
 			room[4].add(this.listOfButtons.get("bottom_button"));
 			room[4].add(this.listOfButtons.get("top_button"));
 		}
+
+		room[x].remove(this.listOfButtons.get("Player"));
+		room[x].remove(this.listOfButtons.get("PlayerR"));
+		room[x].remove(this.listOfButtons.get("PlayerL"));
+		room[x].remove(this.listOfButtons.get("PlayerB"));
+		room[x].remove(this.listOfButtons.get("PlayerT"));
 	}
 
 	private void removeDialogue(int x)
@@ -347,11 +337,17 @@ import javax.swing.JLabel;
 			removeDialogue(x);
 		}
 
+		else if (sourceClick == this.listOfButtons.get("Frank"))
+		{
+			removeDialogue(x);
+			displayDialogue(Dialogue.GUARD);
+			room[x].add(this.listOfButtons.get("quitbutton"));
+		}
 		/* If is the other prisoners. */
 		else
 		{
 			removeDialogue(x);
-			displayDialogue(Dialogue.PRISONNER);
+			displayDialogue(Dialogue.PRISONER);
 			room[x].add(this.listOfButtons.get("quitbutton"));
 		}
 	}
