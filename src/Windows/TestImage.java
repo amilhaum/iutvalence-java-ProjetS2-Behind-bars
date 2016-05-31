@@ -17,7 +17,7 @@ public class TestImage extends JFrame
 	{
 		EventQueue.invokeLater(new Runnable()
 		{
-			@Override public void run()
+			public void run()
 			{
 				try
 				{
