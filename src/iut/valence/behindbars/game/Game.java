@@ -5,13 +5,10 @@ import iut.valence.behindbars.character.John;
 import iut.valence.behindbars.character.NPC;
 import iut.valence.behindbars.character.Player;
 import iut.valence.behindbars.character.StateOfCharacter;
-import iut.valence.behindbars.exceptions.InventoryIsFullException;
 import iut.valence.behindbars.exceptions.NoNPCInList;
-import iut.valence.behindbars.exceptions.ItemNotInInventoryException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -195,94 +192,94 @@ public class Game
 	//		return null;
 	//	}
 
-	/**
-	 * Method use for all the decision that take the player.
-	 * @param dialogueChoose the answer the player choose
-	 * @param npcSelected the NPC concern about the decision
-	 * @param nbTalks the number of times the player talk with the NPC
-	 * @return the dialogue that result the decision
-	 */
-	public Dialogue takeDecision(Dialogue dialogueChoose, NPC npcSelected, int nbTalks)
-	{
-
-		List<Dialogue> riddle = new ArrayList<Dialogue>();
-
-		if (nbTalks == 0)
-		{
-			riddle.add(Dialogue.STEVEN_RIDDLE1_ANSWER1);
-			riddle.add(Dialogue.STEVEN_RIDDLE1_ANSWER2);
-		}
-		else
-		{
-			riddle.add(Dialogue.STEVEN_RIDDLE1_ANSWER1);
-			riddle.add(Dialogue.STEVEN_RIDDLE1_ANSWER2);
-		}
-
-		if (npcSelected.getName() == "Steve")
-		{
-			if (dialogueChoose == Dialogue.STEVEN_RIDDLE)
-			{
-				if (nbTalks == 0)
-				{
-					if (dialogueChoose == riddle.get(0))
-					{
-						nbTalks = 1;
-						return Dialogue.STEVEN_FAIL_RIDDLE;
-					}
-					else if (dialogueChoose == riddle.get(1))
-					{
-						nbTalks = 1;
-						return Dialogue.STEVEN_FAIL_RIDDLE;
-					}
-					else
-					{
-						try
-						{
-							NPCs.get("Steve").giveItem(Items.get("Infirmary's key"), player);
-						}
-						catch (ItemNotInInventoryException e)
-						{
-							//Nothing to do object give in the initialization
-
-						}
-						catch (InventoryIsFullException e)
-						{
-							return Dialogue.STEVEN_ERROR_INVENTORY_FULL;
-
-						}
-						return Dialogue.STEVEN_SUCCEED_RIDLLE;
-					}
-				}
-			}
-			else if (dialogueChoose == Dialogue.STEVEN_GAME)
-			{
-				if (GetRandomResult())
-				{
-					player.setMoney(player.getMoney() + 25);
-					return Dialogue.STEVEN_GAME_WIN;
-				}
-				else
-				{
-					return Dialogue.STEVEN_GAME_LOOSE;
-				}
-			}
-
-		}
-		else if (npcSelected == NPCs.get("Harrison"))
-		{
-			if (dialogueChoose == Dialogue.GUARD_CHOICE1)
-			{
-				return Dialogue.GUARD_RESULT1;
-			}
-			else
-			{
-				//TODO recommencer le jeu
-				return Dialogue.GUARD_RESULT2;
-			}
-		}
-		dialogueChoose = Dialogue.QUIT;
-		return dialogueChoose;
-	}
+	//	/**
+	//	 * Method use for all the decision that take the player.
+	//	 * @param dialogueChoose the answer the player choose
+	//	 * @param npcSelected the NPC concern about the decision
+	//	 * @param nbTalks the number of times the player talk with the NPC
+	//	 * @return the dialogue that result the decision
+	//	 */
+	//	public Dialogue takeDecision(Dialogue dialogueChoose, NPC npcSelected, int nbTalks)
+	//	{
+	//
+	//		List<Dialogue> riddle = new ArrayList<Dialogue>();
+	//
+	//		if (nbTalks == 0)
+	//		{
+	//			riddle.add(Dialogue.STEVEN_RIDDLE1_ANSWER1);
+	//			riddle.add(Dialogue.STEVEN_RIDDLE1_ANSWER2);
+	//		}
+	//		else
+	//		{
+	//			riddle.add(Dialogue.STEVEN_RIDDLE1_ANSWER1);
+	//			riddle.add(Dialogue.STEVEN_RIDDLE1_ANSWER2);
+	//		}
+	//
+	//		if (npcSelected.getName() == "Steve")
+	//		{
+	//			if (dialogueChoose == Dialogue.STEVEN_RIDDLE)
+	//			{
+	//				if (nbTalks == 0)
+	//				{
+	//					if (dialogueChoose == riddle.get(0))
+	//					{
+	//						nbTalks = 1;
+	//						return Dialogue.STEVEN_FAIL_RIDDLE;
+	//					}
+	//					else if (dialogueChoose == riddle.get(1))
+	//					{
+	//						nbTalks = 1;
+	//						return Dialogue.STEVEN_FAIL_RIDDLE;
+	//					}
+	//					else
+	//					{
+	//						try
+	//						{
+	//							NPCs.get("Steve").giveItem(Items.get("Infirmary's key"), player);
+	//						}
+	//						catch (ItemNotInInventoryException e)
+	//						{
+	//							//Nothing to do object give in the initialization
+	//
+	//						}
+	//						catch (InventoryIsFullException e)
+	//						{
+	//							return Dialogue.STEVEN_ERROR_INVENTORY_FULL;
+	//
+	//						}
+	//						return Dialogue.STEVEN_SUCCEED_RIDLLE;
+	//					}
+	//				}
+	//			}
+	//			else if (dialogueChoose == Dialogue.STEVEN_GAME)
+	//			{
+	//				if (GetRandomResult())
+	//				{
+	//					player.setMoney(player.getMoney() + 25);
+	//					return Dialogue.STEVEN_GAME_WIN;
+	//				}
+	//				else
+	//				{
+	//					return Dialogue.STEVEN_GAME_LOOSE;
+	//				}
+	//			}
+	//
+	//		}
+	//		else if (npcSelected == NPCs.get("Harrison"))
+	//		{
+	//			if (dialogueChoose == Dialogue.GUARD_CHOICE1)
+	//			{
+	//				return Dialogue.GUARD_RESULT1;
+	//			}
+	//			else
+	//			{
+	//				//TODO recommencer le jeu
+	//				return Dialogue.GUARD_RESULT2;
+	//			}
+	//		}
+	//		dialogueChoose = Dialogue.QUIT;
+	//		return dialogueChoose;
+	//	}
 
 	// TODO completer methode
 	/**

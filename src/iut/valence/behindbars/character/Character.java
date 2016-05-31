@@ -1,6 +1,5 @@
 package iut.valence.behindbars.character;
 
-import iut.valence.behindbars.exceptions.NotEnoughMoneyException;
 import iut.valence.behindbars.game.Inventory;
 
 /**
@@ -29,27 +28,6 @@ public class Character
 	public Character(String name)
 	{
 		this.name = name;
-	}
-
-	/**
-	 *
-	 * @param amount
-	 * @param name
-	 *            is the name of the player who receives the money
-	 * @throws NotEnoughMoneyException
-	 */
-	public boolean giveMoney(int amount, Character character) throws NotEnoughMoneyException
-	{
-		if (!(this.money < amount))
-		{
-			this.money -= amount;
-			character.money += amount;
-			return true;
-		}
-		else
-		{
-			throw new NotEnoughMoneyException("Not enough money !");
-		}
 	}
 
 	/**

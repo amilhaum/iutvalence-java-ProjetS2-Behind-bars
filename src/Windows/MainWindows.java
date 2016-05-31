@@ -1,5 +1,8 @@
 package Windows;
 
+import iut.valence.behindbars.game.Dialogue;
+import iut.valence.behindbars.game.Game;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -10,19 +13,15 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import iut.valence.behindbars.game.Dialogue;
-import iut.valence.behindbars.game.Game;
-
-@SuppressWarnings("serial")
-public class MainWindows extends JFrame implements ActionListener
+@SuppressWarnings("serial") public class MainWindows extends JFrame implements ActionListener
 {
-	private Map<String, JButton>	listOfButtons;
-	public static IHM_Room			room[];
-	private JLabel					dialogue;
-	private IHM_Dialogue			text;
-	private Game					game;
+	private Map<String, JButton> listOfButtons;
+	public static IHM_Room room[];
+	private JLabel dialogue;
+	private IHM_Dialogue text;
+	private Game game;
 
-	public static JLabel			jlabelList[];
+	public static JLabel jlabelList[];
 
 	/**
 	 * The mainwindows constructor.
@@ -111,7 +110,13 @@ public class MainWindows extends JFrame implements ActionListener
 		this.listOfButtons.put("PlayerB", new CharacterButtons("PlayerB", 385, 470, 50, 50, new ImageIcon(getClass().getResource("/pictures/player.png"))));
 
 		/* The questions */
-		this.listOfButtons.put("reponse", new GameButtons(215, 500, 153, 66, new ImageIcon(getClass().getResource("/pictures/reponse.png"))));
+		this.listOfButtons.put("yes", new GameButtons(215, 500, 153, 66, new ImageIcon(getClass().getResource("/pictures/yes.png"))));
+		this.listOfButtons.put("no", new GameButtons(400, 500, 153, 66, new ImageIcon(getClass().getResource("/pictures/no.png"))));
+
+		this.listOfButtons.put("idk", new GameButtons(115, 500, 153, 66, new ImageIcon(getClass().getResource("/pictures/idk.png"))));
+		this.listOfButtons.put("e", new GameButtons(300, 500, 153, 66, new ImageIcon(getClass().getResource("/pictures/e.png"))));
+		this.listOfButtons.put("you", new GameButtons(500, 500, 153, 66, new ImageIcon(getClass().getResource("/pictures/you.png"))));
+
 		this.listOfButtons.put("quitbutton", new GameButtons(314, 500, 153, 66, new ImageIcon(getClass().getResource("/pictures/quitbutton.png"))));
 
 		for (Map.Entry<String, JButton> entry : this.listOfButtons.entrySet())
@@ -126,9 +131,7 @@ public class MainWindows extends JFrame implements ActionListener
 	private void initRoom()
 	{
 		this.room = new IHM_Room[]
-		{
-				new IHM_Room("cell"), new IHM_Room("corridor"), new IHM_Room("outside"), new IHM_Room("infirmary"), new IHM_Room("breakroom"), new IHM_Room("maintest")
-		};
+		{ new IHM_Room("cell"), new IHM_Room("corridor"), new IHM_Room("outside"), new IHM_Room("infirmary"), new IHM_Room("breakroom"), new IHM_Room("maintest") };
 
 		for (int i = 0; i < room.length; i++)
 		{
@@ -142,7 +145,7 @@ public class MainWindows extends JFrame implements ActionListener
 				jlabelList[j].setSize(30, 30);
 				/**
 				 * Put the inventory on top
-				 * 
+				 *
 				 * @TODO MUST BE DONE, DOESN'T WORK !!!
 				 */
 				room[i].setComponentZOrder(jlabelList[j], 0);
@@ -177,8 +180,7 @@ public class MainWindows extends JFrame implements ActionListener
 		room[5].add(this.listOfButtons.get("Leaderboard"));
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e)
+	@Override public void actionPerformed(ActionEvent e)
 	{
 		Object sourceClick = e.getSource();
 		Object sourceRoom = this.getContentPane();
@@ -263,6 +265,8 @@ public class MainWindows extends JFrame implements ActionListener
 			{
 				displayDialogue(Dialogue.LOCKDOOR);
 				room[4].add(this.listOfButtons.get("quitbutton"));
+				listOfButtons.get("bottom_false_button").setVisible(false);
+				this.listOfButtons.get("Drake").setVisible(false);
 			}
 			else
 			{
@@ -293,7 +297,7 @@ public class MainWindows extends JFrame implements ActionListener
 
 	/**
 	 * The method to display a dialogue.
-	 * 
+	 *
 	 * @param dialogue
 	 *            is the dialogue displayed
 	 */
@@ -308,7 +312,7 @@ public class MainWindows extends JFrame implements ActionListener
 
 	/**
 	 * The method to set a room.
-	 * 
+	 *
 	 * @param x
 	 *            is the room's number
 	 */
@@ -345,7 +349,10 @@ public class MainWindows extends JFrame implements ActionListener
 
 		else if (x == 4)
 		{
-			this.game.getPlayer().getInventory().addItem(this.game.getItems().get("Infirmary's key"));
+			System.out.println(this.game.getPlayer().getInventory().isInInventory(this.game.getPlayer().getInventory(), "Infirmary's key"));
+			//Infirmary key
+			//this.game.getPlayer().getInventory().addItem(this.game.getItems().get("Infirmary's key"));
+
 			if (!(this.game.getPlayer().getInventory().isInInventory(this.game.getPlayer().getInventory(), "Infirmary's key")))
 			{
 				room[4].add(this.listOfButtons.get("bottom_false_button"));
@@ -367,7 +374,7 @@ public class MainWindows extends JFrame implements ActionListener
 
 	/**
 	 * The method to remove a dialogue and a button.
-	 * 
+	 *
 	 * @param x
 	 *            is the room's nubmer
 	 */
@@ -390,7 +397,7 @@ public class MainWindows extends JFrame implements ActionListener
 
 	/**
 	 * The action when there is a click.
-	 * 
+	 *
 	 * @param sourceClick
 	 *            is the source of the click
 	 * @param x
@@ -409,6 +416,9 @@ public class MainWindows extends JFrame implements ActionListener
 			else if (this.game.getNbtalkJohn() == 1)
 			{
 				setDialogueAndButton(Dialogue.STEVEN_SALUTATION, x);
+				room[x].add(this.listOfButtons.get("yes"));
+				room[x].add(this.listOfButtons.get("no"));
+				room[x].remove(this.listOfButtons.get("quitbutton"));
 			}
 		}
 
@@ -426,9 +436,45 @@ public class MainWindows extends JFrame implements ActionListener
 		}
 
 		/* If is the first answer. */
-		else if (sourceClick == this.listOfButtons.get("reponse"))
+		else if (sourceClick == this.listOfButtons.get("yes"))
 		{
-			System.out.println("qs");
+			removeDialogue(x);
+			setDialogueAndButton(Dialogue.STEVEN_RIDDLE1, x);
+			room[x].add(this.listOfButtons.get("idk"));
+			room[x].add(this.listOfButtons.get("e"));
+			room[x].add(this.listOfButtons.get("you"));
+			room[x].remove(this.listOfButtons.get("quitbutton"));
+			room[x].remove(this.listOfButtons.get("yes"));
+			room[x].remove(this.listOfButtons.get("no"));
+		}
+
+		else if (sourceClick == this.listOfButtons.get("no"))
+		{
+			removeDialogue(x);
+			room[x].remove(this.listOfButtons.get("yes"));
+			room[x].remove(this.listOfButtons.get("no"));
+		}
+
+		else if (sourceClick == this.listOfButtons.get("e"))
+		{
+			removeDialogue(x);
+			room[x].remove(this.listOfButtons.get("e"));
+			room[x].remove(this.listOfButtons.get("idk"));
+			room[x].remove(this.listOfButtons.get("you"));
+			this.game.getPlayer().getInventory().addItem(this.game.getItems().get("Infirmary's key"));
+			System.out.println(this.game.getPlayer().getInventory().isInInventory(this.game.getPlayer().getInventory(), "Infirmary's key"));
+			setDialogueAndButton(Dialogue.KEY, x);
+
+		}
+
+		else if (sourceClick == this.listOfButtons.get("idk") || sourceClick == this.listOfButtons.get("you"))
+		{
+			removeDialogue(x);
+			room[x].remove(this.listOfButtons.get("e"));
+			room[x].remove(this.listOfButtons.get("idk"));
+			room[x].remove(this.listOfButtons.get("you"));
+
+			//TODO DEFONCE
 		}
 
 		/* If is the quit button. */
@@ -436,6 +482,7 @@ public class MainWindows extends JFrame implements ActionListener
 		{
 			removeDialogue(x);
 			setVisibilityUnderButton(x);
+
 		}
 
 		else if (sourceClick == this.listOfButtons.get("Frank"))
@@ -443,7 +490,8 @@ public class MainWindows extends JFrame implements ActionListener
 			setDialogueAndButton(Dialogue.GUARD, x);
 		}
 		/* If is the other prisoners. */
-		else if (!(sourceClick == this.listOfButtons.get("Player") || sourceClick == this.listOfButtons.get("PlayerT") || sourceClick == this.listOfButtons.get("PlayerB") || sourceClick == this.listOfButtons.get("PlayerL") || sourceClick == this.listOfButtons.get("PlayerR")))
+		else if (!(sourceClick == this.listOfButtons.get("Player") || sourceClick == this.listOfButtons.get("PlayerT") || sourceClick == this.listOfButtons.get("PlayerB")
+				|| sourceClick == this.listOfButtons.get("PlayerL") || sourceClick == this.listOfButtons.get("PlayerR")))
 		{
 			setDialogueAndButton(Dialogue.PRISONER, x);
 		}
@@ -451,7 +499,7 @@ public class MainWindows extends JFrame implements ActionListener
 
 	/**
 	 * The method to flip a dialogue and a button in the room.
-	 * 
+	 *
 	 * @param x
 	 *            is the room's number
 	 */
@@ -471,6 +519,7 @@ public class MainWindows extends JFrame implements ActionListener
 		{
 			setVisibilityButton("Drake");
 			setVisibilityButton("bottom_button");
+			setVisibilityButton("bottom_false_button");
 			try
 			{
 				setVisibilityButton("PlayerB");
@@ -485,22 +534,25 @@ public class MainWindows extends JFrame implements ActionListener
 
 	/**
 	 * The method to flip the button's visibility.
-	 * 
+	 *
 	 * @param name
 	 *            is the button's name
 	 */
 	private void setVisibilityButton(String name)
 	{
 		if (this.listOfButtons.get(name).isVisible() == true)
+		{
 			this.listOfButtons.get(name).setVisible(false);
-
+		}
 		else
+		{
 			this.listOfButtons.get(name).setVisible(true);
+		}
 	}
 
 	/**
 	 * The method to display an dialogue with a quit button.
-	 * 
+	 *
 	 * @param dialogue
 	 *            is the dialogue to display
 	 * @param x
