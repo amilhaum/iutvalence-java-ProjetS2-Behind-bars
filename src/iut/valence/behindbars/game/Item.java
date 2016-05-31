@@ -2,6 +2,7 @@ package iut.valence.behindbars.game;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
 /**
  * The objects of the game.
  *
@@ -11,15 +12,15 @@ import java.awt.event.MouseListener;
 public class Item
 {
 	/** The object's name */
-	protected String name;
+	protected String		name;
 
 	/** The object's description */
-	protected String description;
+	protected String		description;
 
 	/** The object's value */
-	protected int value;
-	
-	protected MouseListener itemActionListener;
+	protected int			value;
+
+	protected MouseListener	itemActionListener;
 
 	/**
 	 * The constructor of the object
@@ -36,37 +37,43 @@ public class Item
 		this.name = name;
 		this.description = description;
 		this.value = value;
-		
-		this.itemActionListener = new MouseListener(){
+
+		this.itemActionListener = new MouseListener()
+		{
 
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseClicked(MouseEvent arg0)
+			{
 				// TODO Auto-generated method stub
-				System.out.println("ITEM USED: "+name);
+				System.out.println("ITEM USED: " + name);
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent e) {
+			public void mouseEntered(MouseEvent e)
+			{
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
-			public void mouseExited(MouseEvent e) {
+			public void mouseExited(MouseEvent e)
+			{
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mousePressed(MouseEvent e)
+			{
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
-			public void mouseReleased(MouseEvent e) {
+			public void mouseReleased(MouseEvent e)
+			{
 				// TODO Auto-generated method stub
-				
+
 			}
 		};
 	}

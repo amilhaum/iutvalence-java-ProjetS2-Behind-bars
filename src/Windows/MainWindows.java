@@ -1,8 +1,5 @@
 package Windows;
 
-import iut.valence.behindbars.game.Dialogue;
-import iut.valence.behindbars.game.Game;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -13,16 +10,23 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-@SuppressWarnings("serial") public class MainWindows extends JFrame implements ActionListener
-{
-	private Map<String, JButton> listOfButtons;
-	public static IHM_Room room[];
-	private JLabel dialogue;
-	private IHM_Dialogue text;
-	private Game game;
+import iut.valence.behindbars.game.Dialogue;
+import iut.valence.behindbars.game.Game;
 
-	public static JLabel jlabelList[];
-	
+@SuppressWarnings("serial")
+public class MainWindows extends JFrame implements ActionListener
+{
+	private Map<String, JButton>	listOfButtons;
+	public static IHM_Room			room[];
+	private JLabel					dialogue;
+	private IHM_Dialogue			text;
+	private Game					game;
+
+	public static JLabel			jlabelList[];
+
+	/**
+	 * The mainwindows constructor.
+	 */
 	public MainWindows()
 	{
 		/* Default windows */
@@ -36,12 +40,13 @@ import javax.swing.JLabel;
 		this.addKeyListener(new InventoryKeyListener());
 
 		this.listOfButtons = new HashMap<>();
-		
+
 		jlabelList = new JLabel[10];
-		for (int i = 0; i < 10; i++) {
-			jlabelList[i] = new JLabel("L"+i);
+		for (int i = 0; i < 10; i++)
+		{
+			jlabelList[i] = new JLabel("L" + i);
 		}
-		
+
 		initButton();
 		initRoom();
 
@@ -52,10 +57,12 @@ import javax.swing.JLabel;
 
 		this.dialogue = new JLabel(new ImageIcon(getClass().getResource("/pictures/diag.png")));
 		this.dialogue.setBounds(100, 400, 581, 99);
-
 		this.game = new Game("Nico");
 	}
 
+	/**
+	 * The initialization of the buttons.
+	 */
 	public void initButton()
 	{
 		this.listOfButtons.put("NewGame", new GameButtons(100, 430, 219, 49, new ImageIcon(getClass().getResource("/pictures/newgame.png"))));
@@ -113,22 +120,29 @@ import javax.swing.JLabel;
 		}
 	}
 
+	/**
+	 * The initialization of the rooms.
+	 */
 	private void initRoom()
 	{
 		this.room = new IHM_Room[]
-		{ new IHM_Room("cell"), new IHM_Room("corridor"), new IHM_Room("outside"), new IHM_Room("infirmary"), new IHM_Room("breakroom"), new IHM_Room("maintest") };
+		{
+				new IHM_Room("cell"), new IHM_Room("corridor"), new IHM_Room("outside"), new IHM_Room("infirmary"), new IHM_Room("breakroom"), new IHM_Room("maintest")
+		};
 
 		for (int i = 0; i < room.length; i++)
 		{
 			room[i].setLayout(null);
-			for(int j = 0; j< 10; j++) {
+			for (int j = 0; j < 10; j++)
+			{
 				// Add inventory slots (labels) to each room
 				room[i].add(jlabelList[j]);
 				// Initialize position and size of inventory slots
-				jlabelList[j].setLocation(400+(30*j), 50);
+				jlabelList[j].setLocation(400 + (30 * j), 50);
 				jlabelList[j].setSize(30, 30);
 				/**
 				 * Put the inventory on top
+				 * 
 				 * @TODO MUST BE DONE, DOESN'T WORK !!!
 				 */
 				room[i].setComponentZOrder(jlabelList[j], 0);
@@ -163,7 +177,8 @@ import javax.swing.JLabel;
 		room[5].add(this.listOfButtons.get("Leaderboard"));
 	}
 
-	@Override public void actionPerformed(ActionEvent e)
+	@Override
+	public void actionPerformed(ActionEvent e)
 	{
 		Object sourceClick = e.getSource();
 		Object sourceRoom = this.getContentPane();
@@ -265,7 +280,7 @@ import javax.swing.JLabel;
 				displayDialogue(Dialogue.FAILDOOR);
 				this.game.addPenalty();
 				room[0].add(this.listOfButtons.get("quitbutton"));
-				System.out.println(this.game.getPlayer().getPenalty());
+				setVisibilityUnderButton(0);
 			}
 			else
 			{
@@ -276,6 +291,12 @@ import javax.swing.JLabel;
 		}
 	}
 
+	/**
+	 * The method to display a dialogue.
+	 * 
+	 * @param dialogue
+	 *            is the dialogue displayed
+	 */
 	private void displayDialogue(Dialogue dialogue)
 	{
 		this.text = new IHM_Dialogue(dialogue);
@@ -285,6 +306,12 @@ import javax.swing.JLabel;
 		this.revalidate();
 	}
 
+	/**
+	 * The method to set a room.
+	 * 
+	 * @param x
+	 *            is the room's number
+	 */
 	private void setARoom(int x)
 	{
 
@@ -318,7 +345,7 @@ import javax.swing.JLabel;
 
 		else if (x == 4)
 		{
-			//this.game.getPlayer().getInventory().addObject(this.game.getObjects().get("Infirmary's key"));
+			this.game.getPlayer().getInventory().addItem(this.game.getItems().get("Infirmary's key"));
 			if (!(this.game.getPlayer().getInventory().isInInventory(this.game.getPlayer().getInventory(), "Infirmary's key")))
 			{
 				room[4].add(this.listOfButtons.get("bottom_false_button"));
@@ -338,6 +365,12 @@ import javax.swing.JLabel;
 		room[x].remove(this.listOfButtons.get("PlayerT"));
 	}
 
+	/**
+	 * The method to remove a dialogue and a button.
+	 * 
+	 * @param x
+	 *            is the room's nubmer
+	 */
 	private void removeDialogue(int x)
 	{
 		try
@@ -348,13 +381,21 @@ import javax.swing.JLabel;
 		}
 		catch (NullPointerException e)
 		{
-			//TODO nothing
+			// TODO nothing
 		}
 		this.setContentPane(room[x]);
 		this.repaint();
 		this.revalidate();
 	}
 
+	/**
+	 * The action when there is a click.
+	 * 
+	 * @param sourceClick
+	 *            is the source of the click
+	 * @param x
+	 *            is the room's number
+	 */
 	private void click(Object sourceClick, int x)
 	{
 		/* If is Steven. */
@@ -362,16 +403,12 @@ import javax.swing.JLabel;
 		{
 			if (this.game.getNbtalkJohn() == 0)
 			{
-				removeDialogue(x);
-				displayDialogue(Dialogue.PRISONER);
-				room[x].add(this.listOfButtons.get("quitbutton"));
+				setDialogueAndButton(Dialogue.PRISONER, x);
 			}
 
 			else if (this.game.getNbtalkJohn() == 1)
 			{
-				removeDialogue(x);
-				displayDialogue(Dialogue.STEVEN_SALUTATION);
-				room[x].add(this.listOfButtons.get("quitbutton"));
+				setDialogueAndButton(Dialogue.STEVEN_SALUTATION, x);
 			}
 		}
 
@@ -379,16 +416,12 @@ import javax.swing.JLabel;
 		{
 			if (this.game.getNbtalkJohn() == 0)
 			{
-				removeDialogue(x);
-				displayDialogue(Dialogue.JOHN_SALUTATION);
+				setDialogueAndButton(Dialogue.JOHN_SALUTATION, x);
 				this.game.updateJohnTalk();
-				room[x].add(this.listOfButtons.get("quitbutton"));
 			}
 			else if (this.game.getNbtalkJohn() == 1)
 			{
-				removeDialogue(x);
-				displayDialogue(Dialogue.JOHN_COMMON_TALK);
-				room[x].add(this.listOfButtons.get("quitbutton"));
+				setDialogueAndButton(Dialogue.JOHN_COMMON_TALK, x);
 			}
 		}
 
@@ -398,31 +431,86 @@ import javax.swing.JLabel;
 			System.out.println("qs");
 		}
 
-		/*If is the player. */
-		else if (sourceClick == this.listOfButtons.get("Player") || sourceClick == this.listOfButtons.get("PlayerT") || sourceClick == this.listOfButtons.get("PlayerB")
-				|| sourceClick == this.listOfButtons.get("PlayerL") || sourceClick == this.listOfButtons.get("PlayerR"))
-		{
-			//TODO nothing
-		}
-
 		/* If is the quit button. */
 		else if (sourceClick == this.listOfButtons.get("quitbutton"))
 		{
 			removeDialogue(x);
+			setVisibilityUnderButton(x);
 		}
 
 		else if (sourceClick == this.listOfButtons.get("Frank"))
 		{
-			removeDialogue(x);
-			displayDialogue(Dialogue.GUARD);
-			room[x].add(this.listOfButtons.get("quitbutton"));
+			setDialogueAndButton(Dialogue.GUARD, x);
 		}
 		/* If is the other prisoners. */
-		else
+		else if (!(sourceClick == this.listOfButtons.get("Player") || sourceClick == this.listOfButtons.get("PlayerT") || sourceClick == this.listOfButtons.get("PlayerB") || sourceClick == this.listOfButtons.get("PlayerL") || sourceClick == this.listOfButtons.get("PlayerR")))
 		{
-			removeDialogue(x);
-			displayDialogue(Dialogue.PRISONER);
-			room[x].add(this.listOfButtons.get("quitbutton"));
+			setDialogueAndButton(Dialogue.PRISONER, x);
 		}
+	}
+
+	/**
+	 * The method to flip a dialogue and a button in the room.
+	 * 
+	 * @param x
+	 *            is the room's number
+	 */
+	private void setVisibilityUnderButton(int x)
+	{
+		if (x == 0)
+		{
+			setVisibilityButton("Garry");
+		}
+
+		else if (x == 1)
+		{
+			setVisibilityButton("bottom_button");
+		}
+
+		else if (x == 4)
+		{
+			setVisibilityButton("Drake");
+			setVisibilityButton("bottom_button");
+			try
+			{
+				setVisibilityButton("PlayerB");
+			}
+			catch (NullPointerException e)
+			{
+				// TODO nothing
+			}
+		}
+
+	}
+
+	/**
+	 * The method to flip the button's visibility.
+	 * 
+	 * @param name
+	 *            is the button's name
+	 */
+	private void setVisibilityButton(String name)
+	{
+		if (this.listOfButtons.get(name).isVisible() == true)
+			this.listOfButtons.get(name).setVisible(false);
+
+		else
+			this.listOfButtons.get(name).setVisible(true);
+	}
+
+	/**
+	 * The method to display an dialogue with a quit button.
+	 * 
+	 * @param dialogue
+	 *            is the dialogue to display
+	 * @param x
+	 *            is the room's number
+	 */
+	private void setDialogueAndButton(Dialogue dialogue, int x)
+	{
+		removeDialogue(x);
+		displayDialogue(dialogue);
+		room[x].add(this.listOfButtons.get("quitbutton"));
+		setVisibilityUnderButton(x);
 	}
 }
