@@ -1,4 +1,4 @@
-package TEST;
+package TESTMAIN;
 
 /**
  * The dialogue enumeration which contains all necessary dialogues of the game.

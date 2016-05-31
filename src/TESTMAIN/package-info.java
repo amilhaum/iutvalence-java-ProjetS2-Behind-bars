@@ -5,4 +5,4 @@
  * @author  Nicolas Jourdan
  *
  */
-package TEST;
+package TESTMAIN;

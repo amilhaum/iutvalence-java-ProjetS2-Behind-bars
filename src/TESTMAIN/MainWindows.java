@@ -1,4 +1,4 @@
-package TEST;
+package TESTMAIN;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,13 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import Windows.ArrowButtons;
-import Windows.Automate;
-import Windows.CharacterButtons;
-import Windows.GameButtons;
-import Windows.IHM_Dialogue;
-import Windows.IHM_Room;
-import Windows.InventoryKeyListener;
+import iut.valence.behindbars.game.Dialogue;
 import iut.valence.behindbars.game.Game;
 
 public class MainWindows extends JFrame implements ActionListener
@@ -206,7 +200,6 @@ public class MainWindows extends JFrame implements ActionListener
 			this.setContentPane(room[0]);
 			this.repaint();
 			this.revalidate();
-			currentAutomate = Automate.CELLS_BEGIN;
 		}
 
 		else if (sourceClick == this.listOfButtons.get("yes"))
