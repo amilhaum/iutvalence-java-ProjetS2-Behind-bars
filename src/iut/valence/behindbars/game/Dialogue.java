@@ -29,6 +29,7 @@ public enum Dialogue
 	GUARD_RESULT1("The guard fall, stunned"), 
 	GUARD_RESULT2("The guard fall, you are cover with blood"),
 
+	FAIL("GAME OVER \nIt was the wrong answer"),
 	FAILDOOR("GAME OVER \nYou opened the guards' room, they caught you "), 
 	LOCKDOOR("The door is close."), 
 	STEVEN_FINISH("STEVEN \nUsually nobody solves this riddle"),

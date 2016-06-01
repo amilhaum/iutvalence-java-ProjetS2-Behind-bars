@@ -237,7 +237,18 @@ public class MainWindows extends JFrame implements ActionListener
 			setVisibilityButton("Drake", true);
 		}
 
-		else if (sourceClick == this.listOfButtons.get("no") || sourceClick == this.listOfButtons.get("idk") || sourceClick == this.listOfButtons.get("you"))
+		else if (sourceClick == this.listOfButtons.get("idk") || sourceClick == this.listOfButtons.get("you"))
+		{
+			actionOnButton(0, 0, true, "Player");
+			displayDialogue(Dialogue.FAIL);
+			this.game.addPenalty();
+			room[0].add(this.listOfButtons.get("quitbutton"));
+			setVisibilityUnderButton(0, false);
+			currentAutomate = Automate.CELLS_BEGIN;
+			currentQuestAutomate = QuestAutomate.NOQUEST;
+
+		}
+		else if (sourceClick == this.listOfButtons.get("no"))
 		{
 			removeDialogue(0);
 			setVisibilityButton("Bryan", true);
