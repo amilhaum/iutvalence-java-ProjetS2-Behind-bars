@@ -1,9 +1,8 @@
 package iut.valence.behindbars.character;
 
-import iut.valence.behindbars.exceptions.InventoryIsFullException;
-import iut.valence.behindbars.exceptions.ItemNotInInventoryException;
-import iut.valence.behindbars.game.Inventory;
-import iut.valence.behindbars.game.Item;
+import javax.swing.ImageIcon;
+
+import iut.valence.behindbars.windows.PositionOnScreen;
 
 /**
  * The Non-Players Characters of the game.
@@ -13,58 +12,69 @@ import iut.valence.behindbars.game.Item;
  */
 public class NPC extends Character
 {
-	// 18 NPC 3 guards and 15 prisoners
-
-	/** Default square number of the inventory. */
-	private static final int DEFAULT_MAX_SQUARES_INVENTORY = 1000;
-
-	/** Default NPC's money */
-	private static final int DEFAULT_MONEY = 100;
-
 	/** The NPC's state. */
-	public final StateOfCharacter state;
+	private final StateOfCharacter state;
 
 	/**
 	 * The NPC's constructor
 	 *
-	 * @param name
-	 *            is the NPC's name
+	 * @param name is the NPC's name
 	 */
-	public NPC(String name, StateOfCharacter state)
+	public NPC(String name, StateOfCharacter state, PositionOnScreen pos0)
 	{
 		super(name);
-		this.money = DEFAULT_MONEY;
-		this.inventory = new Inventory(DEFAULT_MAX_SQUARES_INVENTORY);
 		this.state = state;
+		this.pos = pos0;
 	}
 
 	/**
-	 * The method to give an object
+	 * The method to get the NPC's state.
 	 *
-	 * @param item
-	 *            is the object gave
-	 * @param player
-	 *            is the player
-	 * @throws ItemNotInInventoryException
-	 * @throws InventoryIsFullException
+	 * @return the NPC's state
 	 */
-	public boolean giveItem(Item item, Player player) throws ItemNotInInventoryException, InventoryIsFullException
+	public StateOfCharacter getState()
 	{
-		if (!this.inventory.getItems().contains(item))
-		{
-			throw new ItemNotInInventoryException("This object isn't in the inventory");
-		}
+		return state;
+	}
 
-		if (player.takeObject(item))
-		{
-			this.inventory.removeItem(item);
-			return true;
-		}
+	public ImageIcon getPicturesNPC()
+	{
+		ImageIcon str;
 
+		if (this.state == StateOfCharacter.Prisoner)
+		{
+
+			if (this.name == "Bryan" || this.name == "Alexandro" || this.name == "Daryl" || this.name == "Carlos")
+			{
+				str = this.pictures[1];
+			}
+			else if (this.name == "Barry" || this.name == "Fernando")
+			{
+				str = this.pictures[2];
+			}
+			else if (this.name == "Garry" || this.name == "Drake")
+			{
+				str = this.pictures[3];
+			}
+			else if (this.name == "Steven")
+			{
+				str = this.pictures[6];
+			}
+			else if (this.name == "John")
+			{
+				str = this.pictures[7];
+			}
+			else
+			{
+				str = this.pictures[4];
+			}
+		}
 		else
 		{
-			throw new InventoryIsFullException("The inventory is full");
+			str = this.pictures[5];
 		}
+
+		return str;
 	}
 
 }

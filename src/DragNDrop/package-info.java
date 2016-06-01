@@ -1,8 +1,0 @@
-/**
- * 
- */
-/**
- * @author montcare
- *
- */
-package DragNDrop;

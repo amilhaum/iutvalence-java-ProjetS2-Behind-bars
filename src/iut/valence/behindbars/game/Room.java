@@ -1,8 +1,6 @@
 package iut.valence.behindbars.game;
 
-import iut.valence.behindbars.character.Character;
-
-import java.util.ArrayList;
+import javax.swing.ImageIcon;
 
 /**
  * The rooms of the game
@@ -13,54 +11,42 @@ import java.util.ArrayList;
 public class Room
 {
 	/** The room's name. */
-	private String name;
-
-	/** The npc's list in the room. */
-	private ArrayList<Character> npcsInRoom;
-
-	/** The object's list in the room. */
-	private ArrayList<Item> itemsInRoom;
+	private ImageIcon picture;
 
 	/**
 	 * The room's constructor.
 	 *
-	 * @param name
-	 *            is the room's name
-	 * @param charactersInCells
-	 *            is the npc's list in the room
-	 * @param itemsInRoomList
-	 *            object's list in the room
+	 * @param name is the room's name
+	 * @param charactersInCells is the npc's list in the room
+	 * @param itemsInRoomList object's list in the room
 	 */
-	public Room(String name, ArrayList<Character> charactersInCells, ArrayList<Item> itemsInRoomList)
+	public Room(String name)
 	{
-		this.name = name;
-		this.npcsInRoom = charactersInCells;
-		this.itemsInRoom = itemsInRoomList;
-	}
+		if (name == "cells")
+		{
+			this.picture = new ImageIcon(getClass().getResource("/pictures/cell.png"));
+		}
+		else if (name == "corridor")
+		{
+			this.picture = new ImageIcon(getClass().getResource("/pictures/corridor.png"));
+		}
+		else if (name == "breakroom")
+		{
+			this.picture = new ImageIcon(getClass().getResource("/pictures/breakroom.png"));
+		}
+		else if (name == "outside")
+		{
+			this.picture = new ImageIcon(getClass().getResource("/pictures/outside.png"));
+		}
+		else if (name == "infirmary")
+		{
+			this.picture = new ImageIcon(getClass().getResource("/pictures/infirmary.png"));
+		}
+		else
+		{
+			this.picture = new ImageIcon(getClass().getResource("/pictures/maintest.png"));
+		}
 
-	/**
-	 *
-	 * @param name
-	 *            is the room's name
-	 * @param npcsInRoomList
-	 *            is the npc's list in the room
-	 */
-	public Room(String name, ArrayList<Character> npcsInRoomList)
-	{
-		this.name = name;
-		this.npcsInRoom = npcsInRoomList;
-		this.itemsInRoom = null;
-
-	}
-
-	/**
-	 * The name's getter
-	 *
-	 * @return the room's name
-	 */
-	public String getName()
-	{
-		return name;
 	}
 
 	/**
@@ -68,9 +54,9 @@ public class Room
 	 *
 	 * @return the room's name
 	 */
-	public ArrayList<Character> getNpcsInRoom()
+	public ImageIcon getPicture()
 	{
-		return npcsInRoom;
+		return picture;
 	}
 
 	/**

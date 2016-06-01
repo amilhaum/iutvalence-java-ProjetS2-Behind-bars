@@ -1,4 +1,4 @@
-package Windows;
+package iut.valence.behindbars.automate;
 
 public enum QuestAutomate
 {

@@ -1,4 +1,4 @@
-package Windows;
+package iut.valence.behindbars.windows;
 
 import javax.swing.JFrame;
 

@@ -1,4 +1,4 @@
-package Windows;
+package iut.valence.behindbars.windows;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -9,8 +9,7 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-
-import Windows.MainWindows;
+import iut.valence.behindbars.windows.MainWindows;
 /**
  * KeyListener to catch "i" key (Inventory)
  * 

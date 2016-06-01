@@ -1,4 +1,4 @@
-package Windows;
+package iut.valence.behindbars.ihm;
 
 import iut.valence.behindbars.game.Dialogue;
 

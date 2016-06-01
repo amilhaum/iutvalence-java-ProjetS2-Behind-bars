@@ -5,4 +5,4 @@
  * @author  Nicolas Jourdan
  *
  */
-package iut.valence.behindbars.exceptions;
+package iut.valence.behindbars.ihm;

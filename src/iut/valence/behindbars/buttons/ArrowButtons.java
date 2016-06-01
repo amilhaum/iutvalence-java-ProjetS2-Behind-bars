@@ -1,4 +1,4 @@
-package Windows;
+package iut.valence.behindbars.buttons;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
