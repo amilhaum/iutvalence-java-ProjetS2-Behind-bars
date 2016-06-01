@@ -24,13 +24,12 @@ public enum Dialogue
 	STEVEN_RIDDLE1("STEVEN \nOk, solve this : What's at the beginning of eternity, at the end of space and time, at the middle of the universe?"), // TODO find a riddle
 
 	GUARD_CHOICE("A guard is in the infirmary, you have two choice, kill him or knock him"), 
-	GUARD_CHOICE1("Knock him ?(could fail)"), 
-	GUARD_CHOICE2("Kill him ?"), 
-	GUARD_RESULT1("The guard fall, stunned"), 
-	GUARD_RESULT2("The guard fall, you are cover with blood"),
+	GUARD_RESULT1("The guard is stunned\n\nFind a way out on this map"), 
+
 
 	FAIL("GAME OVER \nIt was the wrong answer"),
 	FAILDOOR("GAME OVER \nYou opened the guards' room, they caught you "), 
+	FAILGUARD("GAME OVER \nJohn was afraid !\nHe warned the guards ! "),
 	LOCKDOOR("The door is close."), 
 	STEVEN_FINISH("STEVEN \nUsually nobody solves this riddle"),
 

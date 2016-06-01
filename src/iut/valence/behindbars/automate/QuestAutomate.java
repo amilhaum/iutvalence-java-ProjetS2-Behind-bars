@@ -2,7 +2,7 @@ package iut.valence.behindbars.automate;
 
 public enum QuestAutomate
 {
-	NOQUEST("NOQUEST"), QUESTST0("QUESTST0"), QUESTST1("QUESTST1"), QUESTSTFINISH("QUESTSTFINISH");
+	NOQUEST("NOQUEST"), QUESTST0("QUESTST0"), QUESTST1("QUESTST1"), QUESTSTFINISH("QUESTSTFINISH"), GUARDFINISH("GUARDFINISH");
 
 	private String name = "";
 
@@ -16,7 +16,8 @@ public enum QuestAutomate
 	 *
 	 * @return the dialogue asked
 	 */
-	@Override public String toString()
+	@Override
+	public String toString()
 	{
 		return name;
 	}

@@ -127,6 +127,8 @@ public class MainWindows extends JFrame implements ActionListener
 		/* The questions */
 		this.listOfButtons.put("yes", new AnswersButtons(215, 500, new ImageIcon(getClass().getResource("/pictures/yes.png"))));
 		this.listOfButtons.put("no", new AnswersButtons(400, 500, new ImageIcon(getClass().getResource("/pictures/no.png"))));
+		this.listOfButtons.put("knockhim", new AnswersButtons(215, 500, new ImageIcon(getClass().getResource("/pictures/knockhim.png"))));
+		this.listOfButtons.put("killhim", new AnswersButtons(400, 500, new ImageIcon(getClass().getResource("/pictures/killhim.png"))));
 
 		this.listOfButtons.put("idk", new AnswersButtons(115, 500, new ImageIcon(getClass().getResource("/pictures/idk.png"))));
 		this.listOfButtons.put("e", new AnswersButtons(300, 500, new ImageIcon(getClass().getResource("/pictures/e.png"))));
@@ -253,14 +255,7 @@ public class MainWindows extends JFrame implements ActionListener
 
 		else if (sourceClick == this.listOfButtons.get("idk") || sourceClick == this.listOfButtons.get("you"))
 		{
-			actionOnButton(0, 0, true, "Player");
-			displayDialogue(Dialogue.FAIL);
-			this.game.addPenalty();
-			room[0].add(this.listOfButtons.get("quitbutton"));
-			setVisibilityUnderButton(0, false);
-			currentAutomate = Automate.CELLS_BEGIN;
-			currentQuestAutomate = QuestAutomate.NOQUEST;
-
+			end();
 		}
 		else if (sourceClick == this.listOfButtons.get("no"))
 		{
@@ -280,6 +275,18 @@ public class MainWindows extends JFrame implements ActionListener
 		else if (sourceClick == this.listOfButtons.get("quitbutton"))
 		{
 			setQuit(sourceRoom);
+		}
+		else if (sourceClick == this.listOfButtons.get("killhim"))
+		{
+			removeDialogue(3);
+			end();
+		}
+		else if (sourceClick == this.listOfButtons.get("knockhim"))
+		{
+			removeDialogue(3);
+			displayDialogue(Dialogue.GUARD_RESULT1);
+			room[3].add(this.listOfButtons.get("quitbutton"));
+			currentQuestAutomate = QuestAutomate.GUARDFINISH;
 		}
 
 		else
@@ -411,6 +418,22 @@ public class MainWindows extends JFrame implements ActionListener
 						currentAutomate = Automate.CELLS_BEGIN;
 						currentQuestAutomate = QuestAutomate.NOQUEST;
 					}
+					else if (sourceClick == this.listOfButtons.get("Harrison"))
+					{
+						if (currentQuestAutomate == QuestAutomate.QUESTSTFINISH)
+						{
+							removeDialogue(3);
+							displayDialogue(Dialogue.GUARD_CHOICE);
+							room[3].add(this.listOfButtons.get("knockhim"));
+							room[3].add(this.listOfButtons.get("killhim"));
+						}
+						else
+						{
+							removeDialogue(3);
+							displayDialogue(Dialogue.GUARD_RESULT1);
+							room[3].add(this.listOfButtons.get("quitbutton"));
+						}
+					}
 					else
 					{
 						actionOnButton(3, 4, true, "PlayerB");
@@ -513,6 +536,8 @@ public class MainWindows extends JFrame implements ActionListener
 			room[x].remove(this.listOfButtons.get("you"));
 			room[x].remove(this.listOfButtons.get("ok"));
 			room[x].remove(this.listOfButtons.get("great"));
+			room[3].remove(this.listOfButtons.get("killhim"));
+			room[3].remove(this.listOfButtons.get("knockhim"));
 
 		}
 		catch (NullPointerException e)
@@ -630,6 +655,14 @@ public class MainWindows extends JFrame implements ActionListener
 		{
 			actionOnButton(4, 3, true, "PlayerT");
 			currentAutomate = Automate.INFIRMARY;
+			if (currentQuestAutomate == QuestAutomate.QUESTSTFINISH)
+			{
+				removeDialogue(3);
+				displayDialogue(Dialogue.GUARD_CHOICE);
+				room[3].add(this.listOfButtons.get("knockhim"));
+				room[3].add(this.listOfButtons.get("killhim"));
+			}
+
 		}
 		else if (sourceClick == this.listOfButtons.get("bottom_false_button"))
 		{
@@ -708,6 +741,17 @@ public class MainWindows extends JFrame implements ActionListener
 			setVisibilityButton("Bryan", true);
 			setVisibilityButton("Garry", true);
 		}
+	}
+
+	private void end()
+	{
+		actionOnButton(0, 0, true, "Player");
+		displayDialogue(Dialogue.FAILGUARD);
+		this.game.addPenalty();
+		room[0].add(this.listOfButtons.get("quitbutton"));
+		setVisibilityUnderButton(0, false);
+		currentAutomate = Automate.CELLS_BEGIN;
+		currentQuestAutomate = QuestAutomate.NOQUEST;
 	}
 
 }
