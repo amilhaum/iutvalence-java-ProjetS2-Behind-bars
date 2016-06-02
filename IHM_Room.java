@@ -15,7 +15,7 @@ public class IHM_Room extends JPanel
 
 	public IHM_Room(String name)
 	{
-		super();
+		super(); 
 
 		this.icoFond = new ImageIcon(getClass().getResource("/pictures/" + name + ".png"));
 		this.imgFond1 = this.icoFond.getImage();
