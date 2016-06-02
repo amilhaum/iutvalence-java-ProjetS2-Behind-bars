@@ -1,8 +1,8 @@
 package iut.valence.behindbars.ihm;
 
-import iut.valence.behindbars.game.Dialogue;
-
 import javax.swing.JTextArea;
+
+import iut.valence.behindbars.game.Dialogue;
 
 /**
  * IHM to display the dialogues
@@ -21,6 +21,14 @@ public class IHM_Dialogue extends JTextArea
 	{
 		super(dialogue.toString());
 		this.setBounds(120, 415, 525, 60);
+		this.setLineWrap(true);
+		this.setEditable(false);
+	}
+
+	public IHM_Dialogue(String dialogue)
+	{
+		super(dialogue);
+		this.setBounds(120, 215, 525, 60);
 		this.setLineWrap(true);
 		this.setEditable(false);
 	}

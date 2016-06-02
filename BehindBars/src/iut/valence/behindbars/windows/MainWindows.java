@@ -34,6 +34,10 @@ import iut.valence.behindbars.ihm.IHM_Room;
 
 public class MainWindows extends JFrame implements ActionListener
 {
+	/**
+	 *
+	 */
+	private static final long		serialVersionUID	= 1332053010607176048L;
 	private Map<String, JButton>	listOfButtons;
 	private Map<String, JLabel>		listOfInfirmaryButtons;
 
@@ -41,6 +45,8 @@ public class MainWindows extends JFrame implements ActionListener
 	private JLabel					dialogue;
 	private IHM_Dialogue			text;
 	private Game					game;
+	private IHM_Dialogue			dialoguefinal;
+	private JLabel					dialfinal;
 
 	private Automate				currentAutomate;
 	private QuestAutomate			currentQuestAutomate;
@@ -58,6 +64,7 @@ public class MainWindows extends JFrame implements ActionListener
 		this.setAlwaysOnTop(true);
 		this.setLocationRelativeTo(null);
 		this.setFocusable(true);
+		this.setIconImage(new ImageIcon(getClass().getResource("/pictures/iconwindows.png")).getImage());
 
 		this.game = new Game("Nico");
 
@@ -75,6 +82,9 @@ public class MainWindows extends JFrame implements ActionListener
 		this.repaint();
 		this.revalidate();
 		this.setVisible(true);
+
+		this.dialfinal = new JLabel(new ImageIcon(getClass().getResource("/pictures/diaggameover.png")));
+		this.dialfinal.setBounds(100, 200, 581, 99);
 
 		this.dialogue = new JLabel(new ImageIcon(getClass().getResource("/pictures/diag.png")));
 		this.dialogue.setBounds(100, 400, 581, 99);
@@ -170,6 +180,8 @@ public class MainWindows extends JFrame implements ActionListener
 				new AnswersButtons(314, 500, new ImageIcon(getClass().getResource("/pictures/ok.png"))));
 		this.listOfButtons.put("great",
 				new AnswersButtons(314, 500, new ImageIcon(getClass().getResource("/pictures/great.png"))));
+		this.listOfButtons.put("main",
+				new GameButtons(284, 500, new ImageIcon(getClass().getResource("/pictures/main.png"))));
 
 		for (Map.Entry<String, JButton> entry : this.listOfButtons.entrySet())
 		{
@@ -189,21 +201,14 @@ public class MainWindows extends JFrame implements ActionListener
 				new IHM_Room(this.game.getRooms().get("outside")),
 				new IHM_Room(this.game.getRooms().get("infirmary")),
 				new IHM_Room(this.game.getRooms().get("breakroom")),
-				new IHM_Room(this.game.getRooms().get("maintest"))
+				new IHM_Room(this.game.getRooms().get("maintest")),
+				new IHM_Room(this.game.getRooms().get("gameoverboard"))
 		};
 
 		for (int i = 0; i < room.length; i++)
 		{
 			room[i].setLayout(null);
 		}
-
-		room[0].add(this.listOfButtons.get("right_button"));
-		room[0].add(this.listOfButtons.get("Player"));
-		room[0].add(this.listOfButtons.get("Barry"));
-		room[0].add(this.listOfButtons.get("Garry"));
-		room[0].add(this.listOfButtons.get("Brad"));
-		room[0].add(this.listOfButtons.get("Bryan"));
-		room[0].add(this.listOfButtons.get("Steven"));
 
 		room[1].add(this.listOfButtons.get("Alexandro"));
 		room[1].add(this.listOfButtons.get("Ali"));
@@ -237,10 +242,25 @@ public class MainWindows extends JFrame implements ActionListener
 
 		else if (sourceClick == this.listOfButtons.get("NewGame"))
 		{
+			initRoom0();
 			this.setContentPane(room[0]);
 			this.repaint();
 			this.revalidate();
 			currentAutomate = Automate.CELLS_BEGIN;
+			currentQuestAutomate = QuestAutomate.NOQUEST;
+			room[0].remove(this.listOfButtons.get("JohnR"));
+			room[4].add(this.listOfButtons.get("John"));
+		}
+
+		else if (sourceClick == this.listOfButtons.get("main"))
+		{
+			this.setContentPane(room[5]);
+			this.repaint();
+			this.revalidate();
+			currentAutomate = Automate.CELLS_BEGIN;
+			currentQuestAutomate = QuestAutomate.NOQUEST;
+			room[0].remove(this.listOfButtons.get("PlayerR"));
+
 		}
 
 		else if (sourceClick == this.listOfButtons.get("yes"))
@@ -576,6 +596,33 @@ public class MainWindows extends JFrame implements ActionListener
 				room[4].add(this.listOfButtons.get("top_button"));
 			}
 		}
+		else if (x == 6)
+		{
+			removeDialogue(6);
+			room[6].add(this.listOfButtons.get("main"));
+			String str;
+			if (this.game.getPlayer().getPenalty() == 0)
+			{
+				str = String.format(
+						"\n                                                Well played, you finished the game withoud losing !");
+			}
+			else if (this.game.getPlayer().getPenalty() == 1)
+			{
+				str = String.format(
+						"\n                                                           Well played, you lost only 1 time");
+			}
+			else
+			{
+				str = String.format(
+						"\n                                                          Well played, you lost only %s times",
+						this.game.getPlayer().getPenalty());
+			}
+
+			this.dialoguefinal = new IHM_Dialogue(str);
+			room[6].add(this.dialoguefinal);
+			room[6].add(dialfinal);
+
+		}
 
 		room[x].remove(this.listOfButtons.get("Player"));
 		room[x].remove(this.listOfButtons.get("PlayerR"));
@@ -603,8 +650,12 @@ public class MainWindows extends JFrame implements ActionListener
 			room[x].remove(this.listOfButtons.get("you"));
 			room[x].remove(this.listOfButtons.get("ok"));
 			room[x].remove(this.listOfButtons.get("great"));
-			room[3].remove(this.listOfButtons.get("killhim"));
-			room[3].remove(this.listOfButtons.get("knockhim"));
+			room[x].remove(this.listOfButtons.get("killhim"));
+			room[x].remove(this.listOfButtons.get("knockhim"));
+			room[x].remove(this.dialogue);
+			room[x].remove(this.text);
+			room[x].remove(this.dialfinal);
+			room[x].remove(this.dialoguefinal);
 
 		}
 		catch (NullPointerException e)
@@ -847,6 +898,7 @@ public class MainWindows extends JFrame implements ActionListener
 
 	private void endFail(Dialogue dialogue)
 	{
+		removeDialogue(3);
 		actionOnButton(0, 0, true, "Player");
 		displayDialogue(dialogue);
 		this.game.addPenalty();
@@ -1001,7 +1053,8 @@ public class MainWindows extends JFrame implements ActionListener
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				System.out.println("Congratulations! You've finished the game!");
+				removeDialogue(3);
+				setARoom(6);
 			}
 
 		});
@@ -1013,6 +1066,17 @@ public class MainWindows extends JFrame implements ActionListener
 
 		setOffLabelInfirmary();
 		setOnLabelInfirmary();
+	}
+
+	public void initRoom0()
+	{
+		room[0].add(this.listOfButtons.get("right_button"));
+		room[0].add(this.listOfButtons.get("Player"));
+		room[0].add(this.listOfButtons.get("Barry"));
+		room[0].add(this.listOfButtons.get("Garry"));
+		room[0].add(this.listOfButtons.get("Brad"));
+		room[0].add(this.listOfButtons.get("Bryan"));
+		room[0].add(this.listOfButtons.get("Steven"));
 	}
 
 }

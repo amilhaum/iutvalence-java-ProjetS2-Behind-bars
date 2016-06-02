@@ -1,13 +1,12 @@
 package iut.valence.behindbars.game;
 
-import iut.valence.behindbars.character.Bed;
+import java.util.HashMap;
+import java.util.Map;
+
 import iut.valence.behindbars.character.NPC;
 import iut.valence.behindbars.character.Player;
 import iut.valence.behindbars.character.StateOfCharacter;
 import iut.valence.behindbars.windows.PositionOnScreen;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * The game of BehindBars.
@@ -18,13 +17,12 @@ import java.util.Map;
 public class Game
 {
 	/** The game's character */
-	private Player player;
+	private Player				player;
 
 	/** The game's NPCs */
-	private Map<String, NPC> NPCs;
+	private Map<String, NPC>	NPCs;
 	/** The game's objects */
-	private Map<String, Room> Rooms;
-
+	private Map<String, Room>	Rooms;
 
 	/** The constructor of the game in progress */
 	public Game(String player)
@@ -75,6 +73,7 @@ public class Game
 		Rooms.put("outside", new Room("outside"));
 		Rooms.put("infirmary", new Room("infirmary"));
 		Rooms.put("maintest", new Room("maintest"));
+		Rooms.put("gameoverboard", new Room("gameoverboard"));
 
 	}
 
@@ -94,7 +93,7 @@ public class Game
 	public void addPenalty()
 	{
 		int penalty = this.player.getPenalty();
-		this.player.setPenalty(penalty + 50);
+		this.player.setPenalty(penalty + 1);
 	}
 
 	/**
@@ -116,6 +115,5 @@ public class Game
 	{
 		return Rooms;
 	}
-
 
 }

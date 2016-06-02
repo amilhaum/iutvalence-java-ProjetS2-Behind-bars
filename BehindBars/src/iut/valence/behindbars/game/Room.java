@@ -11,8 +11,8 @@ import javax.swing.ImageIcon;
 public class Room
 {
 	/** The room's name. */
-	private ImageIcon picture;
-	private String name;
+	private ImageIcon	picture;
+	private String		name;
 
 	/**
 	 * The room's constructor.
@@ -43,9 +43,13 @@ public class Room
 		{
 			this.picture = new ImageIcon(getClass().getResource("/pictures/infirmaryBackground2.jpg"));
 		}
-		else
+		else if (name == "maintest")
 		{
 			this.picture = new ImageIcon(getClass().getResource("/pictures/maintest.png"));
+		}
+		else
+		{
+			this.picture = new ImageIcon(getClass().getResource("/pictures/gameoverboard.png"));
 		}
 		this.name = name;
 
@@ -61,10 +65,9 @@ public class Room
 		return picture;
 	}
 
-	public String getName() {
+	public String getName()
+	{
 		return name;
 	}
-
-
 
 }
