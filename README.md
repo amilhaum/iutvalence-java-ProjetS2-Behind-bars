@@ -1,30 +1,15 @@
 # iutvalence-java-ProjetS2-Behind-bars
-Group: -Nicolas Jourdan
+Group: 
 
-
+       -Nicolas Jourdan
        -Martin Amilhaud
-       
-       
-       
        -Elodie Montcarmel
-       
-       
-       
        -Nicolas Logut
-       
-       
-       
        -Enzo Blazy
 
 
 Steering Committee:  -Michel Occello
-
-
-
                      -Anthony Gelibert
-                     
-                     
-                     
                      -Pierre Rotteleur
                      
                      
