@@ -8,11 +8,11 @@ Group:
        -Enzo Blazy
 
 
-Steering Committee:  -Michel Occello
-                     -Anthony Gelibert
-                     -Pierre Rotteleur
-                     
-                     
+Steering Committee: 
+
+       -Michel Occello
+       -Anthony Gelibert
+       -Pierre Rotteleur
 
 
 Behind Bars is the name of our second semester project
