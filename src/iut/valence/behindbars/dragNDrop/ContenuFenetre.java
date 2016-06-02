@@ -1,4 +1,4 @@
-package iut.valence.behindbars.automate.dragNDrop;
+package iut.valence.behindbars.dragNDrop;
 
 
 import java.awt.Color;

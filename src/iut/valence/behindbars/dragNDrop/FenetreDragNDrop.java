@@ -1,4 +1,4 @@
-package iut.valence.behindbars.automate.dragNDrop;
+package iut.valence.behindbars.dragNDrop;
 
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
@@ -109,7 +109,7 @@ public class FenetreDragNDrop extends JFrame
 		trapdoor.setBounds(350, 491, 39, 25);
 		pan.add(trapdoor);
 
-		// pour ajouter un événement lorsque l'on clique sur 'trapdoor'
+		// pour ajouter un ï¿½vï¿½nement lorsque l'on clique sur 'trapdoor'
 
 		trapdoor.addMouseListener(new MouseAdapter()
 		{

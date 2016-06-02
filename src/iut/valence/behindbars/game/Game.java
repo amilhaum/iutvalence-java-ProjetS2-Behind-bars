@@ -1,12 +1,12 @@
 package iut.valence.behindbars.game;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import iut.valence.behindbars.character.NPC;
 import iut.valence.behindbars.character.Player;
 import iut.valence.behindbars.character.StateOfCharacter;
 import iut.valence.behindbars.windows.PositionOnScreen;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The game of BehindBars.
@@ -17,16 +17,12 @@ import iut.valence.behindbars.windows.PositionOnScreen;
 public class Game
 {
 	/** The game's character */
-	private Player				player;
+	private Player player;
 
 	/** The game's NPCs */
-	private Map<String, NPC>	NPCs;
-	/* NON UTILISE DEBUT */
+	private Map<String, NPC> NPCs;
 	/** The game's objects */
-	private Map<String, Item>	Items;
-	/* NON UTILISE FIN */
-	/** The game's objects */
-	private Map<String, Room>	Rooms;
+	private Map<String, Room> Rooms;
 
 	/** The constructor of the game in progress */
 	public Game(String player)
@@ -34,10 +30,8 @@ public class Game
 		this.player = new Player(player);
 		this.NPCs = new HashMap<String, NPC>();
 		this.Rooms = new HashMap<String, Room>();
-		this.Items = new HashMap<String, Item>();
 
 		initNPC();
-		initItems();
 		initRooms();
 
 	}
@@ -68,24 +62,6 @@ public class Game
 
 	}
 
-	/* NON UTILISE DEBUT */
-	/**
-	 * Initialization of objects list.
-	 */
-	public void initItems()
-	{
-
-		Items.put("Infirmary's key", new Item("Infirmary's key", "The key of infirmary", 10));
-
-		Items.put("Knife", new Item("Knife", "A knife", 10));
-		Items.put("Coffee", new Item("Coffee", "A coffee", 1));
-
-		Items.put("Office", new Item("Office", "A office", 100));
-		Items.put("Bin", new Item("Bin", "A bin", 10));
-		Items.put("Sewers", new Item("Sewers", "Sewers", 100));
-	}
-
-	/* NON UTILISE FIN */
 	/**
 	 * Initialization of rooms list.
 	 */
@@ -108,16 +84,6 @@ public class Game
 	public Player getPlayer()
 	{
 		return player;
-	}
-
-	/**
-	 * The player's getter.
-	 *
-	 * @return game's player
-	 */
-	public Map<String, Item> getItems()
-	{
-		return Items;
 	}
 
 	/**
