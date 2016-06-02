@@ -7,7 +7,6 @@ import iut.valence.behindbars.buttons.ArrowButtons;
 import iut.valence.behindbars.buttons.CharacterButtons;
 import iut.valence.behindbars.buttons.GameButtons;
 import iut.valence.behindbars.character.Bed;
-import iut.valence.behindbars.dragNDrop.FenetreDragNDrop;
 import iut.valence.behindbars.game.Dialogue;
 import iut.valence.behindbars.game.Game;
 import iut.valence.behindbars.ihm.BedLabel;
@@ -16,13 +15,20 @@ import iut.valence.behindbars.ihm.IHM_NPC;
 import iut.valence.behindbars.ihm.IHM_Player;
 import iut.valence.behindbars.ihm.IHM_Room;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -30,7 +36,7 @@ public class MainWindows extends JFrame implements ActionListener
 {
 	private Map<String, JButton> listOfButtons;
 	private Map<String, JLabel> listOfInfirmaryButtons;
-	
+
 	public static IHM_Room room[];
 	private JLabel dialogue;
 	private IHM_Dialogue text;
@@ -57,13 +63,14 @@ public class MainWindows extends JFrame implements ActionListener
 
 		this.listOfButtons = new HashMap<>();
 		this.listOfInfirmaryButtons = new HashMap<>();
-		
+
 		this.currentAutomate = Automate.CELLS_BEGIN;
 		this.currentQuestAutomate = QuestAutomate.NOQUEST;
 
 		initInfirmaryButtons();
 		initButton();
 		initRoom();
+		
 
 		this.setContentPane(room[5]);
 		this.repaint();
@@ -72,6 +79,11 @@ public class MainWindows extends JFrame implements ActionListener
 
 		this.dialogue = new JLabel(new ImageIcon(getClass().getResource("/pictures/diag.png")));
 		this.dialogue.setBounds(100, 400, 581, 99);
+		
+		ComponentMove listener = new ComponentMove(this.room[3], this.listOfInfirmaryButtons, this.listOfButtons);
+		
+        addMouseListener(listener);
+        addMouseMotionListener(listener);
 	}
 
 	/**
@@ -154,7 +166,7 @@ public class MainWindows extends JFrame implements ActionListener
 	private void initRoom()
 	{
 		this.room = new IHM_Room[]
-		{ new IHM_Room(this.game.getRooms().get("cells")), 
+				{ new IHM_Room(this.game.getRooms().get("cells")), 
 				new IHM_Room(this.game.getRooms().get("corridor")),
 				new IHM_Room(this.game.getRooms().get("outside")),
 				new IHM_Room(this.game.getRooms().get("infirmary")),
@@ -192,7 +204,7 @@ public class MainWindows extends JFrame implements ActionListener
 		{
 			room[3].add(entry.getValue());
 		}
-
+		
 		room[5].add(this.listOfButtons.get("NewGame"));
 		room[5].add(this.listOfButtons.get("QuitGame"));
 	}
@@ -269,6 +281,7 @@ public class MainWindows extends JFrame implements ActionListener
 		else if (sourceClick == this.listOfButtons.get("quitbutton"))
 		{
 			setQuit(sourceRoom);
+			setOnLabelInfirmary();
 		}
 		else if (sourceClick == this.listOfButtons.get("killhim"))
 		{
@@ -281,7 +294,6 @@ public class MainWindows extends JFrame implements ActionListener
 			displayDialogue(Dialogue.GUARD_RESULT1);
 			room[3].add(this.listOfButtons.get("quitbutton"));
 			currentQuestAutomate = QuestAutomate.GUARDFINISH;
-			setOffLabelInfirmary();
 		}
 
 		else
@@ -289,182 +301,183 @@ public class MainWindows extends JFrame implements ActionListener
 
 			switch (currentAutomate)
 			{
-				case CELLS_BEGIN:
+			case CELLS_BEGIN:
+			{
+				if (!(isPlayerOrJohn(sourceClick)))
 				{
-					if (!(isPlayerOrJohn(sourceClick)))
-					{
-						cells_begin(Dialogue.PRISONER, sourceClick);
-					}
-					break;
+					cells_begin(Dialogue.PRISONER, sourceClick);
 				}
-				case CELLS_NOKEY_QUEST_STATE0:
+				break;
+			}
+			case CELLS_NOKEY_QUEST_STATE0:
+			{
+				if (sourceClick == this.listOfButtons.get("Steven"))
 				{
-					if (sourceClick == this.listOfButtons.get("Steven"))
-					{
-						setDialogueAndButton(Dialogue.STEVEN_SALUTATION, 0, false);
-						room[0].add(this.listOfButtons.get("yes"));
-						room[0].add(this.listOfButtons.get("no"));
-						room[0].remove(this.listOfButtons.get("quitbutton"));
-						setVisibilityButton("Bryan", false);
-					}
-					else if (sourceClick == this.listOfButtons.get("JohnR"))
-					{
-						cells_begin(Dialogue.JOHN_QUEST_END, sourceClick);
-					}
-					else if (!(isPlayerOrJohn(sourceClick)))
-					{
-						cells_begin(Dialogue.PRISONER, sourceClick);
-					}
-
-					break;
+					setDialogueAndButton(Dialogue.STEVEN_SALUTATION, 0, false);
+					room[0].add(this.listOfButtons.get("yes"));
+					room[0].add(this.listOfButtons.get("no"));
+					room[0].remove(this.listOfButtons.get("quitbutton"));
+					setVisibilityButton("Bryan", false);
+				}
+				else if (sourceClick == this.listOfButtons.get("JohnR"))
+				{
+					cells_begin(Dialogue.JOHN_QUEST_END, sourceClick);
+				}
+				else if (!(isPlayerOrJohn(sourceClick)))
+				{
+					cells_begin(Dialogue.PRISONER, sourceClick);
 				}
 
-				case CELLS_QUEST_FINISH:
-				{
-					if (sourceClick == this.listOfButtons.get("Steven"))
-					{
-						cells_begin(Dialogue.STEVEN_FINISH, sourceClick);
-					}
-					else if (sourceClick == this.listOfButtons.get("JohnR"))
-					{
-						cells_begin(Dialogue.JOHN_QUEST_END, sourceClick);
-					}
-					else if (!(isPlayerOrJohn(sourceClick)))
-					{
-						cells_begin(Dialogue.PRISONER, sourceClick);
-					}
+				break;
+			}
 
-					break;
+			case CELLS_QUEST_FINISH:
+			{
+				if (sourceClick == this.listOfButtons.get("Steven"))
+				{
+					cells_begin(Dialogue.STEVEN_FINISH, sourceClick);
+				}
+				else if (sourceClick == this.listOfButtons.get("JohnR"))
+				{
+					cells_begin(Dialogue.JOHN_QUEST_END, sourceClick);
+				}
+				else if (!(isPlayerOrJohn(sourceClick)))
+				{
+					cells_begin(Dialogue.PRISONER, sourceClick);
 				}
 
-				case CORRIDOR:
-				{
-					if (sourceClick == this.listOfButtons.get("left_button"))
-					{
-						actionOnButton(1, 0, true, "PlayerR");
-						if (currentQuestAutomate == QuestAutomate.NOQUEST)
-						{
-							currentAutomate = Automate.CELLS_BEGIN;
-						}
-						else if (currentQuestAutomate == QuestAutomate.QUESTST0)
-						{
-							currentAutomate = Automate.CELLS_NOKEY_QUEST_STATE0;
-						}
-						else if (currentQuestAutomate == QuestAutomate.QUESTST1)
-						{
-							currentAutomate = Automate.CELLS_QUEST_FINISH;
-						}
-						else if (currentQuestAutomate == QuestAutomate.QUESTSTFINISH || currentQuestAutomate == QuestAutomate.GUARDFINISH)
-						{
-							currentAutomate = Automate.CELLS_QUEST_FINISH;
-						}
+				break;
+			}
 
-					}
-					else if (sourceClick == this.listOfButtons.get("right_button"))
-					{
-						actionOnButton(1, 2, true, "PlayerL");
-						currentAutomate = Automate.OUTSIDE;
-					}
-					else if (sourceClick == this.listOfButtons.get("bottom_button"))
-					{
-						actionOnButton(1, 4, true, "PlayerT");
-						currentAutomate = Automate.BREAKROOM;
-					}
-					else if (isJohn(sourceClick))
-					{
-						setDialogueAndButton(Dialogue.JOHN_QUEST_END, 1, false);
-					}
-					else if (!(isPlayerOrJohn(sourceClick)))
-					{
-						setDialogueAndButton(Dialogue.PRISONER, 1, false);
-					}
-
-					break;
-				}
-				case OUTSIDE:
+			case CORRIDOR:
+			{
+				if (sourceClick == this.listOfButtons.get("left_button"))
 				{
-					if (sourceClick == this.listOfButtons.get("left_button"))
-					{
-						actionOnButton(2, 1, true, "PlayerR");
-						currentAutomate = Automate.CORRIDOR;
-					}
-					else if (sourceClick == this.listOfButtons.get("Frank"))
-					{
-						setDialogueAndButton(Dialogue.GUARD, 2, false);
-					}
-					else if (isJohn(sourceClick))
-					{
-						setDialogueAndButton(Dialogue.JOHN_QUEST_END, 2, false);
-					}
-					else if (!(isPlayerOrJohn(sourceClick)))
-					{
-						setDialogueAndButton(Dialogue.PRISONER, 2, false);
-					}
-					break;
-				}
-				case BREAKROOM:
-				{
+					actionOnButton(1, 0, true, "PlayerR");
 					if (currentQuestAutomate == QuestAutomate.NOQUEST)
 					{
-						breakroom_nokey_noquest(Dialogue.JOHN_SALUTATION, sourceClick);
+						currentAutomate = Automate.CELLS_BEGIN;
 					}
 					else if (currentQuestAutomate == QuestAutomate.QUESTST0)
 					{
-						breakroom_nokey_noquest(Dialogue.JOHN_COMMON_TALK, sourceClick);
+						currentAutomate = Automate.CELLS_NOKEY_QUEST_STATE0;
+					}
+					else if (currentQuestAutomate == QuestAutomate.QUESTST1)
+					{
+						currentAutomate = Automate.CELLS_QUEST_FINISH;
 					}
 					else if (currentQuestAutomate == QuestAutomate.QUESTSTFINISH || currentQuestAutomate == QuestAutomate.GUARDFINISH)
 					{
-						breakroom_nokey_noquest(Dialogue.JOHN_QUEST_END, sourceClick);
+						currentAutomate = Automate.CELLS_QUEST_FINISH;
+					}
+
+				}
+				else if (sourceClick == this.listOfButtons.get("right_button"))
+				{
+					actionOnButton(1, 2, true, "PlayerL");
+					currentAutomate = Automate.OUTSIDE;
+				}
+				else if (sourceClick == this.listOfButtons.get("bottom_button"))
+				{
+					actionOnButton(1, 4, true, "PlayerT");
+					currentAutomate = Automate.BREAKROOM;
+				}
+				else if (isJohn(sourceClick))
+				{
+					setDialogueAndButton(Dialogue.JOHN_QUEST_END, 1, false);
+				}
+				else if (!(isPlayerOrJohn(sourceClick)))
+				{
+					setDialogueAndButton(Dialogue.PRISONER, 1, false);
+				}
+
+				break;
+			}
+			case OUTSIDE:
+			{
+				if (sourceClick == this.listOfButtons.get("left_button"))
+				{
+					actionOnButton(2, 1, true, "PlayerR");
+					currentAutomate = Automate.CORRIDOR;
+				}
+				else if (sourceClick == this.listOfButtons.get("Frank"))
+				{
+					setDialogueAndButton(Dialogue.GUARD, 2, false);
+				}
+				else if (isJohn(sourceClick))
+				{
+					setDialogueAndButton(Dialogue.JOHN_QUEST_END, 2, false);
+				}
+				else if (!(isPlayerOrJohn(sourceClick)))
+				{
+					setDialogueAndButton(Dialogue.PRISONER, 2, false);
+				}
+				break;
+			}
+			case BREAKROOM:
+			{
+				if (currentQuestAutomate == QuestAutomate.NOQUEST)
+				{
+					breakroom_nokey_noquest(Dialogue.JOHN_SALUTATION, sourceClick);
+				}
+				else if (currentQuestAutomate == QuestAutomate.QUESTST0)
+				{
+					breakroom_nokey_noquest(Dialogue.JOHN_COMMON_TALK, sourceClick);
+				}
+				else if (currentQuestAutomate == QuestAutomate.QUESTSTFINISH || currentQuestAutomate == QuestAutomate.GUARDFINISH)
+				{
+					breakroom_nokey_noquest(Dialogue.JOHN_QUEST_END, sourceClick);
+				}
+				else
+				{
+					breakroom_nokey_noquest(Dialogue.JOHN_QUEST_FULLFIL, sourceClick);
+				}
+				break;
+			}
+
+			case INFIRMARY:
+			{
+				if (sourceClick == this.listOfButtons.get("rightB_button"))
+				{
+					endFail(Dialogue.FAILDOOR);
+				}
+				else if (sourceClick == this.listOfButtons.get("Harrison"))
+				{
+					if (currentQuestAutomate == QuestAutomate.QUESTSTFINISH)
+					{
+						removeDialogue(3);
+						displayDialogue(Dialogue.GUARD_CHOICE);
+						room[3].add(this.listOfButtons.get("knockhim"));
+						room[3].add(this.listOfButtons.get("killhim"));
+						setOffLabelInfirmary();
 					}
 					else
 					{
-						breakroom_nokey_noquest(Dialogue.JOHN_QUEST_FULLFIL, sourceClick);
+						removeDialogue(3);
+						setOffLabelInfirmary();
+						displayDialogue(Dialogue.GUARD_RESULT1);
+						room[3].add(this.listOfButtons.get("quitbutton"));
 					}
-					break;
 				}
-
-				case INFIRMARY:
+				else if (isJohn(sourceClick))
 				{
-					if (sourceClick == this.listOfButtons.get("rightB_button"))
+					if (currentQuestAutomate == QuestAutomate.GUARDFINISH)
 					{
-						endFail(Dialogue.FAILDOOR);
+						setDialogueAndButton(Dialogue.JOHN_QUEST_END, 3, false);
+						setOffLabelInfirmary();
 					}
-					else if (sourceClick == this.listOfButtons.get("Harrison"))
-					{
-						if (currentQuestAutomate == QuestAutomate.QUESTSTFINISH)
-						{
-							removeDialogue(3);
-							displayDialogue(Dialogue.GUARD_CHOICE);
-							room[3].add(this.listOfButtons.get("knockhim"));
-							room[3].add(this.listOfButtons.get("killhim"));
-							
-							setOffLabelInfirmary();
-						}
-						else
-						{
-							removeDialogue(3);
-							displayDialogue(Dialogue.GUARD_RESULT1);
-							room[3].add(this.listOfButtons.get("quitbutton"));
-							setOffLabelInfirmary();
-						}
-					}
-					else if (isJohn(sourceClick))
-					{
-						if (currentQuestAutomate == QuestAutomate.GUARDFINISH)
-						{
-							setDialogueAndButton(Dialogue.JOHN_QUEST_END, 3, false);
-							setOffLabelInfirmary();
-						}
-					}
-
-					else if (sourceClick == this.listOfButtons.get("top_button"))
-					{
-						actionOnButton(3, 4, true, "PlayerB");
-						currentAutomate = Automate.BREAKROOM;
-					}
-					break;
 				}
+
+				else if (sourceClick == this.listOfButtons.get("top_button"))
+				{
+					actionOnButton(3, 4, true, "PlayerB");
+					currentAutomate = Automate.BREAKROOM;
+				}
+				break;
 			}
+			}
+			
+			System.out.println(currentQuestAutomate);
 		}
 	}
 
@@ -530,6 +543,11 @@ public class MainWindows extends JFrame implements ActionListener
 		{
 			room[3].add(this.listOfButtons.get("top_button"));
 			room[3].add(this.listOfButtons.get("rightB_button"));
+			if(currentQuestAutomate == QuestAutomate.GUARDFINISH)
+			{
+				updateRoom3();
+			}
+
 		}
 
 		else if (x == 4)
@@ -682,26 +700,26 @@ public class MainWindows extends JFrame implements ActionListener
 		{
 			switch (buttonName)
 			{
-				case "PlayerB":
-				{
-					room[xroom].add(this.listOfButtons.get("JohnB"));
-					break;
-				}
-				case "PlayerT":
-				{
-					room[xroom].add(this.listOfButtons.get("JohnT"));
-					break;
-				}
-				case "PlayerL":
-				{
-					room[xroom].add(this.listOfButtons.get("JohnL"));
-					break;
-				}
-				case "PlayerR":
-				{
-					room[xroom].add(this.listOfButtons.get("JohnR"));
-					break;
-				}
+			case "PlayerB":
+			{
+				room[xroom].add(this.listOfButtons.get("JohnB"));
+				break;
+			}
+			case "PlayerT":
+			{
+				room[xroom].add(this.listOfButtons.get("JohnT"));
+				break;
+			}
+			case "PlayerL":
+			{
+				room[xroom].add(this.listOfButtons.get("JohnL"));
+				break;
+			}
+			case "PlayerR":
+			{
+				room[xroom].add(this.listOfButtons.get("JohnR"));
+				break;
+			}
 			}
 		}
 		setVisibilityUnderButton(Dial, b);
@@ -842,7 +860,7 @@ public class MainWindows extends JFrame implements ActionListener
 				|| sourceClick == this.listOfButtons.get("PlayerL") 
 				|| sourceClick == this.listOfButtons.get("PlayerR"));
 	}
-	
+
 	private void initInfirmaryButtons()
 	{
 		this.listOfInfirmaryButtons.put("bed1",new BedLabel(new Bed("bed1",new PositionOnScreen(51, 153))));
@@ -852,19 +870,134 @@ public class MainWindows extends JFrame implements ActionListener
 		this.listOfInfirmaryButtons.put("bed5",new BedLabel(new Bed("bed5",new PositionOnScreen(643, 448))));
 		this.listOfInfirmaryButtons.put("bed6",new BedLabel(new Bed("bed6",new PositionOnScreen(207, 11))));
 		this.listOfInfirmaryButtons.put("bed7",new BedLabel(new Bed("bed7",new PositionOnScreen(207, 153))));
-
 		JLabel trapdoor = new JLabel("trapdoor");
 		trapdoor.setIcon(new ImageIcon(getClass().getResource("/pictures/trapdoor.png")));
-		trapdoor.setBounds(350, 491, 39, 25);
+		trapdoor.setBounds(350, 491, 37, 37);
 		this.listOfInfirmaryButtons.put("trapdoor",trapdoor);
+
+		trapdoor.addMouseListener(new MouseAdapter()
+		{
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				System.out.println("Congratulations! You've finished the game!");
+			}
+
+		});
+
+
+	}
+
+	private void setOffLabelInfirmary()
+	{
+		room[3].remove(this.listOfInfirmaryButtons.get("bed3"));
+		room[3].remove(this.listOfInfirmaryButtons.get("bed4"));
+		room[3].remove(this.listOfInfirmaryButtons.get("bed5"));
+		room[3].remove(this.listOfInfirmaryButtons.get("trapdoor"));
 	}
 	
-	private void setOffLabelInfirmary()
+	private void setOnLabelInfirmary()
 	{
 		room[3].add(this.listOfInfirmaryButtons.get("bed3"));
 		room[3].add(this.listOfInfirmaryButtons.get("bed4"));
 		room[3].add(this.listOfInfirmaryButtons.get("bed5"));
 		room[3].add(this.listOfInfirmaryButtons.get("trapdoor"));
+	}
+
+	private static class ComponentMove extends MouseAdapter 
+    {
+
+        private boolean move;
+        private int x1;
+        private JComponent component;
+        private int y1;
+        private Container container;
+        private Map<String, JLabel> map1;
+        private Map<String, JButton> map2;
+
+        public ComponentMove(Container container, Map<String, JLabel> map1,  Map<String, JButton> map2) 
+        {
+            this.container=container;
+            this.map1 = map1;
+            this.map2 = map2;
+        }
+ 
+        @Override
+        public void mousePressed(MouseEvent e) 
+        {
+            if ( move ) 
+            {
+                move=false; 
+                component.setBorder(null);
+                component=null;
+            }
+            else 
+            {
+                component = getComponent(e.getX(),e.getY()); 
+                if ( component!=null && (component != this.map1.get("trapdoor")
+                		&& component != this.map2.get("PlayerT")
+                		&& component != this.map2.get("JohnT")
+                		&& component != this.map2.get("Harrison")
+                		&& component != this.map2.get("killhim")
+                		&& component != this.map2.get("knockhim")))
+                {
+                    container.setComponentZOrder(component,0); 
+                    
+                    x1 = e.getX()-component.getX(); 
+                    y1 = e.getY()-component.getY(); 
+                    move=true; 
+                    component.setBorder(BorderFactory.createLineBorder(Color.BLACK)); 
+                    
+                }
+            }
+        }
+ 
+        private JComponent getComponent(int x, int y) 
+        {  
+            
+            for(Component component : container.getComponents()) 
+            {
+                if ( component instanceof JComponent && component.getBounds().contains(x, y) ) 
+                {
+                    return (JComponent)component;
+                }
+            }
+            return null;
+        }
+        
+      
+ 
+        @Override
+        public void mouseMoved(MouseEvent e) 
+        {
+        	
+			if ( move ) 
+			{
+                
+                component.setLocation(e.getX()-x1, e.getY()-y1);
+            }
+
+
+		}
+	}
+	
+	private void updateRoom3()
+	{
+		this.listOfInfirmaryButtons.remove("bed1");
+		this.listOfInfirmaryButtons.remove("bed2");
+		this.listOfInfirmaryButtons.remove("bed3");
+		this.listOfInfirmaryButtons.remove("bed4");
+		this.listOfInfirmaryButtons.remove("bed5");
+		this.listOfInfirmaryButtons.remove("bed6");
+		this.listOfInfirmaryButtons.remove("bed7");
+		
+		this.listOfInfirmaryButtons.put("bed1",new BedLabel(new Bed("bed1",new PositionOnScreen(51, 153))));
+		this.listOfInfirmaryButtons.put("bed2",new BedLabel(new Bed("bed2",new PositionOnScreen(51, 303))));
+		this.listOfInfirmaryButtons.put("bed3",new BedLabel(new Bed("bed3",new PositionOnScreen(207, 448))));
+		this.listOfInfirmaryButtons.put("bed4",new BedLabel(new Bed("bed4",new PositionOnScreen(345, 448))));
+		this.listOfInfirmaryButtons.put("bed5",new BedLabel(new Bed("bed5",new PositionOnScreen(643, 448))));
+		this.listOfInfirmaryButtons.put("bed6",new BedLabel(new Bed("bed6",new PositionOnScreen(207, 11))));
+		this.listOfInfirmaryButtons.put("bed7",new BedLabel(new Bed("bed7",new PositionOnScreen(207, 153))));
 	}
 
 }

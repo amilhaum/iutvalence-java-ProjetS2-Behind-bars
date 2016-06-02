@@ -1,7 +1,6 @@
 package iut.valence.behindbars.ihm;
 
 import iut.valence.behindbars.character.Bed;
-import iut.valence.behindbars.dragNDrop.FenetreDragNDrop;
 import iut.valence.behindbars.windows.PositionOnScreen;
 
 import javax.swing.ImageIcon;
