@@ -47,7 +47,6 @@ public class MainWindows extends JFrame implements ActionListener
 		this.setAlwaysOnTop(true);
 		this.setLocationRelativeTo(null);
 		this.setFocusable(true);
-		this.addKeyListener(new InventoryKeyListener());
 
 		this.game = new Game("Nico");
 
