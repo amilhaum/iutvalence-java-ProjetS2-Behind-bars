@@ -62,7 +62,7 @@ public class MainWindows extends JFrame implements ActionListener
 		this.game = new Game("Nico");
 
 		this.listOfButtons = new HashMap<>();
-		this.listOfInfirmaryButtons = new HashMap<>();
+		this.listOfInfirmaryButtons = new HashMap<>();		
 
 		this.currentAutomate = Automate.CELLS_BEGIN;
 		this.currentQuestAutomate = QuestAutomate.NOQUEST;
@@ -80,7 +80,7 @@ public class MainWindows extends JFrame implements ActionListener
 		this.dialogue = new JLabel(new ImageIcon(getClass().getResource("/pictures/diag.png")));
 		this.dialogue.setBounds(100, 400, 581, 99);
 		
-		ComponentMove listener = new ComponentMove(this.room[3], this.listOfInfirmaryButtons, this.listOfButtons);
+		ComponentMove listener = new ComponentMove(this.room[3], this.listOfInfirmaryButtons);
 		
         addMouseListener(listener);
         addMouseMotionListener(listener);
@@ -476,8 +476,6 @@ public class MainWindows extends JFrame implements ActionListener
 				break;
 			}
 			}
-			
-			System.out.println(currentQuestAutomate);
 		}
 	}
 
@@ -543,11 +541,6 @@ public class MainWindows extends JFrame implements ActionListener
 		{
 			room[3].add(this.listOfButtons.get("top_button"));
 			room[3].add(this.listOfButtons.get("rightB_button"));
-			if(currentQuestAutomate == QuestAutomate.GUARDFINISH)
-			{
-				updateRoom3();
-			}
-
 		}
 
 		else if (x == 4)
@@ -744,6 +737,7 @@ public class MainWindows extends JFrame implements ActionListener
 				room[3].add(this.listOfButtons.get("knockhim"));
 				room[3].add(this.listOfButtons.get("killhim"));
 				setOffLabelInfirmary();
+				
 			}
 
 		}
@@ -913,13 +907,14 @@ public class MainWindows extends JFrame implements ActionListener
         private int y1;
         private Container container;
         private Map<String, JLabel> map1;
-        private Map<String, JButton> map2;
 
-        public ComponentMove(Container container, Map<String, JLabel> map1,  Map<String, JButton> map2) 
+
+
+        public ComponentMove(Container container, Map<String, JLabel> map1) 
         {
             this.container=container;
             this.map1 = map1;
-            this.map2 = map2;
+
         }
  
         @Override
@@ -934,12 +929,15 @@ public class MainWindows extends JFrame implements ActionListener
             else 
             {
                 component = getComponent(e.getX(),e.getY()); 
-                if ( component!=null && (component != this.map1.get("trapdoor")
-                		&& component != this.map2.get("PlayerT")
-                		&& component != this.map2.get("JohnT")
-                		&& component != this.map2.get("Harrison")
-                		&& component != this.map2.get("killhim")
-                		&& component != this.map2.get("knockhim")))
+                if ( component!=null && (component == this.map1.get("bed1")
+                		|| component == this.map1.get("bed2")
+                		||component == this.map1.get("bed3")
+                		||	component == this.map1.get("bed4")
+                		||component == this.map1.get("bed5")
+                		||component == this.map1.get("bed6")
+                		||component == this.map1.get("bed7")))
+                												
+                		
                 {
                     container.setComponentZOrder(component,0); 
                     
@@ -981,23 +979,5 @@ public class MainWindows extends JFrame implements ActionListener
 		}
 	}
 	
-	private void updateRoom3()
-	{
-		this.listOfInfirmaryButtons.remove("bed1");
-		this.listOfInfirmaryButtons.remove("bed2");
-		this.listOfInfirmaryButtons.remove("bed3");
-		this.listOfInfirmaryButtons.remove("bed4");
-		this.listOfInfirmaryButtons.remove("bed5");
-		this.listOfInfirmaryButtons.remove("bed6");
-		this.listOfInfirmaryButtons.remove("bed7");
-		
-		this.listOfInfirmaryButtons.put("bed1",new BedLabel(new Bed("bed1",new PositionOnScreen(51, 153))));
-		this.listOfInfirmaryButtons.put("bed2",new BedLabel(new Bed("bed2",new PositionOnScreen(51, 303))));
-		this.listOfInfirmaryButtons.put("bed3",new BedLabel(new Bed("bed3",new PositionOnScreen(207, 448))));
-		this.listOfInfirmaryButtons.put("bed4",new BedLabel(new Bed("bed4",new PositionOnScreen(345, 448))));
-		this.listOfInfirmaryButtons.put("bed5",new BedLabel(new Bed("bed5",new PositionOnScreen(643, 448))));
-		this.listOfInfirmaryButtons.put("bed6",new BedLabel(new Bed("bed6",new PositionOnScreen(207, 11))));
-		this.listOfInfirmaryButtons.put("bed7",new BedLabel(new Bed("bed7",new PositionOnScreen(207, 153))));
-	}
 
 }
