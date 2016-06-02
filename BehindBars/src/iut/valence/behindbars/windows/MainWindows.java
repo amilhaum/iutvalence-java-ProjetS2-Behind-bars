@@ -6,8 +6,11 @@ import iut.valence.behindbars.buttons.AnswersButtons;
 import iut.valence.behindbars.buttons.ArrowButtons;
 import iut.valence.behindbars.buttons.CharacterButtons;
 import iut.valence.behindbars.buttons.GameButtons;
+import iut.valence.behindbars.character.Bed;
+import iut.valence.behindbars.dragNDrop.FenetreDragNDrop;
 import iut.valence.behindbars.game.Dialogue;
 import iut.valence.behindbars.game.Game;
+import iut.valence.behindbars.ihm.BedLabel;
 import iut.valence.behindbars.ihm.IHM_Dialogue;
 import iut.valence.behindbars.ihm.IHM_NPC;
 import iut.valence.behindbars.ihm.IHM_Player;
@@ -26,6 +29,8 @@ import javax.swing.JLabel;
 public class MainWindows extends JFrame implements ActionListener
 {
 	private Map<String, JButton> listOfButtons;
+	private Map<String, JLabel> listOfInfirmaryButtons;
+	
 	public static IHM_Room room[];
 	private JLabel dialogue;
 	private IHM_Dialogue text;
@@ -51,9 +56,12 @@ public class MainWindows extends JFrame implements ActionListener
 		this.game = new Game("Nico");
 
 		this.listOfButtons = new HashMap<>();
+		this.listOfInfirmaryButtons = new HashMap<>();
+		
 		this.currentAutomate = Automate.CELLS_BEGIN;
 		this.currentQuestAutomate = QuestAutomate.NOQUEST;
 
+		initInfirmaryButtons();
 		initButton();
 		initRoom();
 
@@ -180,6 +188,10 @@ public class MainWindows extends JFrame implements ActionListener
 		room[4].add(this.listOfButtons.get("Drake"));
 
 		room[3].add(this.listOfButtons.get("Harrison"));
+		for (Map.Entry<String, JLabel> entry : this.listOfInfirmaryButtons.entrySet())
+		{
+			room[3].add(entry.getValue());
+		}
 
 		room[5].add(this.listOfButtons.get("NewGame"));
 		room[5].add(this.listOfButtons.get("QuitGame"));
@@ -269,6 +281,7 @@ public class MainWindows extends JFrame implements ActionListener
 			displayDialogue(Dialogue.GUARD_RESULT1);
 			room[3].add(this.listOfButtons.get("quitbutton"));
 			currentQuestAutomate = QuestAutomate.GUARDFINISH;
+			setOffLabelInfirmary();
 		}
 
 		else
@@ -424,12 +437,15 @@ public class MainWindows extends JFrame implements ActionListener
 							displayDialogue(Dialogue.GUARD_CHOICE);
 							room[3].add(this.listOfButtons.get("knockhim"));
 							room[3].add(this.listOfButtons.get("killhim"));
+							
+							setOffLabelInfirmary();
 						}
 						else
 						{
 							removeDialogue(3);
 							displayDialogue(Dialogue.GUARD_RESULT1);
 							room[3].add(this.listOfButtons.get("quitbutton"));
+							setOffLabelInfirmary();
 						}
 					}
 					else if (isJohn(sourceClick))
@@ -437,6 +453,7 @@ public class MainWindows extends JFrame implements ActionListener
 						if (currentQuestAutomate == QuestAutomate.GUARDFINISH)
 						{
 							setDialogueAndButton(Dialogue.JOHN_QUEST_END, 3, false);
+							setOffLabelInfirmary();
 						}
 					}
 
@@ -708,6 +725,7 @@ public class MainWindows extends JFrame implements ActionListener
 				displayDialogue(Dialogue.GUARD_CHOICE);
 				room[3].add(this.listOfButtons.get("knockhim"));
 				room[3].add(this.listOfButtons.get("killhim"));
+				setOffLabelInfirmary();
 			}
 
 		}
@@ -784,6 +802,7 @@ public class MainWindows extends JFrame implements ActionListener
 			setVisibilityUnderButton(3, true);
 			setVisibilityButton("Bryan", true);
 			setVisibilityButton("Garry", true);
+			setOffLabelInfirmary();
 		}
 		if (sourceRoom == this.room[4])
 		{
@@ -804,6 +823,7 @@ public class MainWindows extends JFrame implements ActionListener
 		currentAutomate = Automate.CELLS_BEGIN;
 		currentQuestAutomate = QuestAutomate.NOQUEST;
 		room[0].remove(this.listOfButtons.get("JohnR"));
+		room[4].add(this.listOfButtons.get("John"));
 	}
 
 	private boolean isJohn(JButton sourceClick)
@@ -821,6 +841,30 @@ public class MainWindows extends JFrame implements ActionListener
 				|| sourceClick == this.listOfButtons.get("PlayerB")
 				|| sourceClick == this.listOfButtons.get("PlayerL") 
 				|| sourceClick == this.listOfButtons.get("PlayerR"));
+	}
+	
+	private void initInfirmaryButtons()
+	{
+		this.listOfInfirmaryButtons.put("bed1",new BedLabel(new Bed("bed1",new PositionOnScreen(51, 153))));
+		this.listOfInfirmaryButtons.put("bed2",new BedLabel(new Bed("bed2",new PositionOnScreen(51, 303))));
+		this.listOfInfirmaryButtons.put("bed3",new BedLabel(new Bed("bed3",new PositionOnScreen(207, 448))));
+		this.listOfInfirmaryButtons.put("bed4",new BedLabel(new Bed("bed4",new PositionOnScreen(345, 448))));
+		this.listOfInfirmaryButtons.put("bed5",new BedLabel(new Bed("bed5",new PositionOnScreen(643, 448))));
+		this.listOfInfirmaryButtons.put("bed6",new BedLabel(new Bed("bed6",new PositionOnScreen(207, 11))));
+		this.listOfInfirmaryButtons.put("bed7",new BedLabel(new Bed("bed7",new PositionOnScreen(207, 153))));
+
+		JLabel trapdoor = new JLabel("trapdoor");
+		trapdoor.setIcon(new ImageIcon(getClass().getResource("/pictures/trapdoor.png")));
+		trapdoor.setBounds(350, 491, 39, 25);
+		this.listOfInfirmaryButtons.put("trapdoor",trapdoor);
+	}
+	
+	private void setOffLabelInfirmary()
+	{
+		room[3].add(this.listOfInfirmaryButtons.get("bed3"));
+		room[3].add(this.listOfInfirmaryButtons.get("bed4"));
+		room[3].add(this.listOfInfirmaryButtons.get("bed5"));
+		room[3].add(this.listOfInfirmaryButtons.get("trapdoor"));
 	}
 
 }

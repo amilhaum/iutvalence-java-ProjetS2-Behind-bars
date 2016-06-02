@@ -12,6 +12,7 @@ public class Room
 {
 	/** The room's name. */
 	private ImageIcon picture;
+	private String name;
 
 	/**
 	 * The room's constructor.
@@ -40,12 +41,13 @@ public class Room
 		}
 		else if (name == "infirmary")
 		{
-			this.picture = new ImageIcon(getClass().getResource("/pictures/infirmary.png"));
+			this.picture = new ImageIcon(getClass().getResource("/pictures/infirmaryBackground2.jpg"));
 		}
 		else
 		{
 			this.picture = new ImageIcon(getClass().getResource("/pictures/maintest.png"));
 		}
+		this.name = name;
 
 	}
 
@@ -59,14 +61,10 @@ public class Room
 		return picture;
 	}
 
-	/**
-	 * The object's list getter
-	 *
-	 * @return the object's list of the room
-	 */
-	// public ArrayList<Object> getObjectsInRoom()
-	// {
-	// return objectsInRoom;
-	// }
+	public String getName() {
+		return name;
+	}
+
+
 
 }

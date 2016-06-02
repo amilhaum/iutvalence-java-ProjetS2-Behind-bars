@@ -1,5 +1,6 @@
 package iut.valence.behindbars.game;
 
+import iut.valence.behindbars.character.Bed;
 import iut.valence.behindbars.character.NPC;
 import iut.valence.behindbars.character.Player;
 import iut.valence.behindbars.character.StateOfCharacter;
@@ -23,6 +24,7 @@ public class Game
 	private Map<String, NPC> NPCs;
 	/** The game's objects */
 	private Map<String, Room> Rooms;
+
 
 	/** The constructor of the game in progress */
 	public Game(String player)
@@ -114,5 +116,6 @@ public class Game
 	{
 		return Rooms;
 	}
+
 
 }

@@ -28,10 +28,14 @@ public class Character
 	{
 		this.name = name;
 		this.pictures = new ImageIcon[]
-		{ new ImageIcon(getClass().getResource("/pictures/player.png")), new ImageIcon(getClass().getResource("/pictures/prisoner1.png")),
-				new ImageIcon(getClass().getResource("/pictures/prisoner2.png")), new ImageIcon(getClass().getResource("/pictures/prisoner3.png")),
-				new ImageIcon(getClass().getResource("/pictures/prisoner4.png")), new ImageIcon(getClass().getResource("/pictures/guard.png")),
-				new ImageIcon(getClass().getResource("/pictures/boss.png")), new ImageIcon(getClass().getResource("/pictures/john.png")) };
+		{ new ImageIcon(getClass().getResource("/pictures/player.png")), 
+				new ImageIcon(getClass().getResource("/pictures/prisoner1.png")),
+				new ImageIcon(getClass().getResource("/pictures/prisoner2.png")),
+				new ImageIcon(getClass().getResource("/pictures/prisoner3.png")),
+				new ImageIcon(getClass().getResource("/pictures/prisoner4.png")), 
+				new ImageIcon(getClass().getResource("/pictures/guard.png")),
+				new ImageIcon(getClass().getResource("/pictures/boss.png")), 
+				new ImageIcon(getClass().getResource("/pictures/john.png")) };
 	}
 
 	/**
