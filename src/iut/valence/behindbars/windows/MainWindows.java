@@ -1,15 +1,5 @@
 package iut.valence.behindbars.windows;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
 import iut.valence.behindbars.automate.Automate;
 import iut.valence.behindbars.automate.QuestAutomate;
 import iut.valence.behindbars.buttons.AnswersButtons;
@@ -23,17 +13,26 @@ import iut.valence.behindbars.ihm.IHM_NPC;
 import iut.valence.behindbars.ihm.IHM_Player;
 import iut.valence.behindbars.ihm.IHM_Room;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 public class MainWindows extends JFrame implements ActionListener
 {
-	private Map<String, JButton>	listOfButtons;
-	public static IHM_Room			room[];
-	private JLabel					dialogue;
-	private IHM_Dialogue			text;
-	private Game					game;
+	private Map<String, JButton> listOfButtons;
+	public static IHM_Room room[];
+	private JLabel dialogue;
+	private IHM_Dialogue text;
+	private Game game;
 
-	public static JLabel			jlabelList[];
-	private Automate				currentAutomate;
-	private QuestAutomate			currentQuestAutomate;
+	private Automate currentAutomate;
+	private QuestAutomate currentQuestAutomate;
 
 	/**
 	 * The mainwindows constructor.
@@ -55,12 +54,6 @@ public class MainWindows extends JFrame implements ActionListener
 		this.listOfButtons = new HashMap<>();
 		this.currentAutomate = Automate.CELLS_BEGIN;
 		this.currentQuestAutomate = QuestAutomate.NOQUEST;
-
-		jlabelList = new JLabel[10];
-		for (int i = 0; i < 10; i++)
-		{
-			jlabelList[i] = new JLabel("L" + i);
-		}
 
 		initButton();
 		initRoom();
@@ -150,27 +143,12 @@ public class MainWindows extends JFrame implements ActionListener
 	private void initRoom()
 	{
 		this.room = new IHM_Room[]
-		{
-				new IHM_Room(this.game.getRooms().get("cells")), new IHM_Room(this.game.getRooms().get("corridor")), new IHM_Room(this.game.getRooms().get("outside")), new IHM_Room(this.game.getRooms().get("infirmary")), new IHM_Room(this.game.getRooms().get("breakroom")), new IHM_Room(this.game.getRooms().get("maintest"))
-		};
+		{ new IHM_Room(this.game.getRooms().get("cells")), new IHM_Room(this.game.getRooms().get("corridor")), new IHM_Room(this.game.getRooms().get("outside")),
+				new IHM_Room(this.game.getRooms().get("infirmary")), new IHM_Room(this.game.getRooms().get("breakroom")), new IHM_Room(this.game.getRooms().get("maintest")) };
 
 		for (int i = 0; i < room.length; i++)
 		{
 			room[i].setLayout(null);
-			for (int j = 0; j < 10; j++)
-			{
-				// Add inventory slots (labels) to each room
-				room[i].add(jlabelList[j]);
-				// Initialize position and size of inventory slots
-				jlabelList[j].setLocation(400 + (30 * j), 50);
-				jlabelList[j].setSize(30, 30);
-				/**
-				 * Put the inventory on top
-				 *
-				 * @TODO MUST BE DONE, DOESN'T WORK !!!
-				 */
-				room[i].setComponentZOrder(jlabelList[j], 0);
-			}
 		}
 
 		room[0].add(this.listOfButtons.get("right_button"));
@@ -201,8 +179,7 @@ public class MainWindows extends JFrame implements ActionListener
 		room[5].add(this.listOfButtons.get("Leaderboard"));
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e)
+	@Override public void actionPerformed(ActionEvent e)
 	{
 		JButton sourceClick = (JButton) e.getSource();
 		Object sourceRoom = this.getContentPane();
@@ -296,7 +273,8 @@ public class MainWindows extends JFrame implements ActionListener
 			{
 				case CELLS_BEGIN:
 				{
-					if (!(sourceClick == this.listOfButtons.get("Player") || sourceClick == this.listOfButtons.get("PlayerT") || sourceClick == this.listOfButtons.get("PlayerB") || sourceClick == this.listOfButtons.get("PlayerL") || sourceClick == this.listOfButtons.get("PlayerR")))
+					if (!(sourceClick == this.listOfButtons.get("Player") || sourceClick == this.listOfButtons.get("PlayerT") || sourceClick == this.listOfButtons.get("PlayerB")
+							|| sourceClick == this.listOfButtons.get("PlayerL") || sourceClick == this.listOfButtons.get("PlayerR")))
 					{
 						cells_begin(Dialogue.PRISONER, sourceClick);
 					}
@@ -312,7 +290,8 @@ public class MainWindows extends JFrame implements ActionListener
 						room[0].remove(this.listOfButtons.get("quitbutton"));
 						setVisibilityButton("Bryan", false);
 					}
-					else if (!(sourceClick == this.listOfButtons.get("Player") || sourceClick == this.listOfButtons.get("PlayerT") || sourceClick == this.listOfButtons.get("PlayerB") || sourceClick == this.listOfButtons.get("PlayerL") || sourceClick == this.listOfButtons.get("PlayerR")))
+					else if (!(sourceClick == this.listOfButtons.get("Player") || sourceClick == this.listOfButtons.get("PlayerT") || sourceClick == this.listOfButtons.get("PlayerB")
+							|| sourceClick == this.listOfButtons.get("PlayerL") || sourceClick == this.listOfButtons.get("PlayerR")))
 					{
 						cells_begin(Dialogue.PRISONER, sourceClick);
 					}
@@ -326,7 +305,8 @@ public class MainWindows extends JFrame implements ActionListener
 
 						cells_begin(Dialogue.STEVEN_FINISH, sourceClick);
 					}
-					else if (!(sourceClick == this.listOfButtons.get("Player") || sourceClick == this.listOfButtons.get("PlayerT") || sourceClick == this.listOfButtons.get("PlayerB") || sourceClick == this.listOfButtons.get("PlayerL") || sourceClick == this.listOfButtons.get("PlayerR")))
+					else if (!(sourceClick == this.listOfButtons.get("Player") || sourceClick == this.listOfButtons.get("PlayerT") || sourceClick == this.listOfButtons.get("PlayerB")
+							|| sourceClick == this.listOfButtons.get("PlayerL") || sourceClick == this.listOfButtons.get("PlayerR")))
 					{
 						cells_begin(Dialogue.PRISONER, sourceClick);
 					}
@@ -362,7 +342,8 @@ public class MainWindows extends JFrame implements ActionListener
 						actionOnButton(1, 4, true, "PlayerT");
 						currentAutomate = Automate.BREAKROOM;
 					}
-					else if (!(sourceClick == this.listOfButtons.get("Player") || sourceClick == this.listOfButtons.get("PlayerT") || sourceClick == this.listOfButtons.get("PlayerB") || sourceClick == this.listOfButtons.get("PlayerL") || sourceClick == this.listOfButtons.get("PlayerR")))
+					else if (!(sourceClick == this.listOfButtons.get("Player") || sourceClick == this.listOfButtons.get("PlayerT") || sourceClick == this.listOfButtons.get("PlayerB")
+							|| sourceClick == this.listOfButtons.get("PlayerL") || sourceClick == this.listOfButtons.get("PlayerR")))
 					{
 						setDialogueAndButton(Dialogue.PRISONER, 1, false);
 					}
@@ -379,7 +360,8 @@ public class MainWindows extends JFrame implements ActionListener
 					{
 						setDialogueAndButton(Dialogue.GUARD, 2, false);
 					}
-					else if (!(sourceClick == this.listOfButtons.get("Player") || sourceClick == this.listOfButtons.get("PlayerT") || sourceClick == this.listOfButtons.get("PlayerB") || sourceClick == this.listOfButtons.get("PlayerL") || sourceClick == this.listOfButtons.get("PlayerR")))
+					else if (!(sourceClick == this.listOfButtons.get("Player") || sourceClick == this.listOfButtons.get("PlayerT") || sourceClick == this.listOfButtons.get("PlayerB")
+							|| sourceClick == this.listOfButtons.get("PlayerL") || sourceClick == this.listOfButtons.get("PlayerR")))
 					{
 						setDialogueAndButton(Dialogue.PRISONER, 2, false);
 					}
@@ -684,7 +666,8 @@ public class MainWindows extends JFrame implements ActionListener
 				currentQuestAutomate = QuestAutomate.QUESTST0;
 			}
 		}
-		else if (!(sourceClick == this.listOfButtons.get("Player") || sourceClick == this.listOfButtons.get("PlayerT") || sourceClick == this.listOfButtons.get("PlayerB") || sourceClick == this.listOfButtons.get("PlayerL") || sourceClick == this.listOfButtons.get("PlayerR")))
+		else if (!(sourceClick == this.listOfButtons.get("Player") || sourceClick == this.listOfButtons.get("PlayerT") || sourceClick == this.listOfButtons.get("PlayerB")
+				|| sourceClick == this.listOfButtons.get("PlayerL") || sourceClick == this.listOfButtons.get("PlayerR")))
 		{
 			setDialogueAndButton(Dialogue.PRISONER, 4, false);
 		}

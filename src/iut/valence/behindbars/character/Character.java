@@ -43,15 +43,6 @@ public class Character
 		return this.name;
 	}
 
-	/**
-	 *
-	 * @return the character's inventory
-	 */
-	public Inventory getInventory()
-	{
-		return this.inventory;
-	}
-
 	public PositionOnScreen getPos()
 	{
 		return pos;
