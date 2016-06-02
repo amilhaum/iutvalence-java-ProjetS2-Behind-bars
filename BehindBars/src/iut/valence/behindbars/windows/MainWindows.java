@@ -146,8 +146,12 @@ public class MainWindows extends JFrame implements ActionListener
 	private void initRoom()
 	{
 		this.room = new IHM_Room[]
-		{ new IHM_Room(this.game.getRooms().get("cells")), new IHM_Room(this.game.getRooms().get("corridor")), new IHM_Room(this.game.getRooms().get("outside")),
-				new IHM_Room(this.game.getRooms().get("infirmary")), new IHM_Room(this.game.getRooms().get("breakroom")), new IHM_Room(this.game.getRooms().get("maintest")) };
+		{ new IHM_Room(this.game.getRooms().get("cells")), 
+				new IHM_Room(this.game.getRooms().get("corridor")),
+				new IHM_Room(this.game.getRooms().get("outside")),
+				new IHM_Room(this.game.getRooms().get("infirmary")),
+				new IHM_Room(this.game.getRooms().get("breakroom")), 
+				new IHM_Room(this.game.getRooms().get("maintest")) };
 
 		for (int i = 0; i < room.length; i++)
 		{
@@ -233,7 +237,7 @@ public class MainWindows extends JFrame implements ActionListener
 
 		else if (sourceClick == this.listOfButtons.get("idk") || sourceClick == this.listOfButtons.get("you"))
 		{
-			end(Dialogue.FAIL);
+			endFail(Dialogue.FAIL);
 		}
 		else if (sourceClick == this.listOfButtons.get("no"))
 		{
@@ -257,7 +261,7 @@ public class MainWindows extends JFrame implements ActionListener
 		else if (sourceClick == this.listOfButtons.get("killhim"))
 		{
 			removeDialogue(3);
-			end(Dialogue.FAILGUARD);
+			endFail(Dialogue.FAILGUARD);
 		}
 		else if (sourceClick == this.listOfButtons.get("knockhim"))
 		{
@@ -290,7 +294,7 @@ public class MainWindows extends JFrame implements ActionListener
 						room[0].remove(this.listOfButtons.get("quitbutton"));
 						setVisibilityButton("Bryan", false);
 					}
-					else if(sourceClick == this.listOfButtons.get("JohnR"))
+					else if (sourceClick == this.listOfButtons.get("JohnR"))
 					{
 						cells_begin(Dialogue.JOHN_QUEST_END, sourceClick);
 					}
@@ -308,7 +312,7 @@ public class MainWindows extends JFrame implements ActionListener
 					{
 						cells_begin(Dialogue.STEVEN_FINISH, sourceClick);
 					}
-					else if(sourceClick == this.listOfButtons.get("JohnR"))
+					else if (sourceClick == this.listOfButtons.get("JohnR"))
 					{
 						cells_begin(Dialogue.JOHN_QUEST_END, sourceClick);
 					}
@@ -353,9 +357,9 @@ public class MainWindows extends JFrame implements ActionListener
 						actionOnButton(1, 4, true, "PlayerT");
 						currentAutomate = Automate.BREAKROOM;
 					}
-					else if(isJohn(sourceClick))
+					else if (isJohn(sourceClick))
 					{
-						setDialogueAndButton(Dialogue.JOHN_QUEST_END,1, false);
+						setDialogueAndButton(Dialogue.JOHN_QUEST_END, 1, false);
 					}
 					else if (!(isPlayerOrJohn(sourceClick)))
 					{
@@ -375,9 +379,9 @@ public class MainWindows extends JFrame implements ActionListener
 					{
 						setDialogueAndButton(Dialogue.GUARD, 2, false);
 					}
-					else if(isJohn(sourceClick))
+					else if (isJohn(sourceClick))
 					{
-						setDialogueAndButton(Dialogue.JOHN_QUEST_END,2, false);
+						setDialogueAndButton(Dialogue.JOHN_QUEST_END, 2, false);
 					}
 					else if (!(isPlayerOrJohn(sourceClick)))
 					{
@@ -410,7 +414,7 @@ public class MainWindows extends JFrame implements ActionListener
 				{
 					if (sourceClick == this.listOfButtons.get("rightB_button"))
 					{
-						end(Dialogue.FAILDOOR);
+						endFail(Dialogue.FAILDOOR);
 					}
 					else if (sourceClick == this.listOfButtons.get("Harrison"))
 					{
@@ -428,15 +432,15 @@ public class MainWindows extends JFrame implements ActionListener
 							room[3].add(this.listOfButtons.get("quitbutton"));
 						}
 					}
-					else if(isJohn(sourceClick))
+					else if (isJohn(sourceClick))
 					{
-						if(currentQuestAutomate == QuestAutomate.GUARDFINISH)
+						if (currentQuestAutomate == QuestAutomate.GUARDFINISH)
 						{
-							setDialogueAndButton(Dialogue.JOHN_QUEST_END,3, false);
+							setDialogueAndButton(Dialogue.JOHN_QUEST_END, 3, false);
 						}
 					}
 
-					else if(sourceClick == this.listOfButtons.get("top_button"))
+					else if (sourceClick == this.listOfButtons.get("top_button"))
 					{
 						actionOnButton(3, 4, true, "PlayerB");
 						currentAutomate = Automate.BREAKROOM;
@@ -731,7 +735,7 @@ public class MainWindows extends JFrame implements ActionListener
 		{
 			setDialogueAndButton(Dialogue.JOHN_QUEST_END, 4, false);
 		}
-		else if(!(isPlayerOrJohn(sourceClick)))
+		else if (!(isPlayerOrJohn(sourceClick)))
 		{
 			setDialogueAndButton(Dialogue.PRISONER, 4, false);
 		}
@@ -790,7 +794,7 @@ public class MainWindows extends JFrame implements ActionListener
 		}
 	}
 
-	private void end(Dialogue dialogue)
+	private void endFail(Dialogue dialogue)
 	{
 		actionOnButton(0, 0, true, "Player");
 		displayDialogue(dialogue);
@@ -801,22 +805,21 @@ public class MainWindows extends JFrame implements ActionListener
 		currentQuestAutomate = QuestAutomate.NOQUEST;
 		room[0].remove(this.listOfButtons.get("JohnR"));
 	}
-	
+
 	private boolean isJohn(JButton sourceClick)
 	{
-		return (sourceClick == this.listOfButtons.get("JohnB")
-				|| sourceClick == this.listOfButtons.get("JohnT")
-				|| sourceClick == this.listOfButtons.get("JohnL")
+		return (sourceClick == this.listOfButtons.get("JohnB") 
+				|| sourceClick == this.listOfButtons.get("JohnT") 
+				|| sourceClick == this.listOfButtons.get("JohnL") 
 				|| sourceClick == this.listOfButtons.get("JohnR"));
 	}
-	
+
 	private boolean isPlayerOrJohn(JButton sourceClick)
 	{
-		return (isJohn(sourceClick) 
-				|| sourceClick == this.listOfButtons.get("Player")
-				|| sourceClick == this.listOfButtons.get("PlayerT")
+		return (isJohn(sourceClick) || sourceClick == this.listOfButtons.get("Player")
+				|| sourceClick == this.listOfButtons.get("PlayerT") 
 				|| sourceClick == this.listOfButtons.get("PlayerB")
-				|| sourceClick == this.listOfButtons.get("PlayerL")
+				|| sourceClick == this.listOfButtons.get("PlayerL") 
 				|| sourceClick == this.listOfButtons.get("PlayerR"));
 	}
 
