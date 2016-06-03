@@ -5,12 +5,21 @@ package iut.valence.behindbars.buttons;
  */
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-	/* Initialization of the buttons those serve to choose to start the game
-	 * 
-	 * @param Positions x and y, and an image
-	 * */
+/**
+ * The buttons of the main of the game.
+ * 
+ * @author Group BehindBars
+ * @version 1.0.0
+ */
 public class GameButtons extends JButton
 {
+	/**
+	 * The constructor of the game button.
+	 * 
+	 * @param x is the number of line of the position
+	 * @param y is the number of column of the position
+	 * @param image is the pictures of the button
+	 */
 	public GameButtons(int x, int y, ImageIcon image)
 	{
 		super(image);

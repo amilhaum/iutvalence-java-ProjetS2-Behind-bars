@@ -1,17 +1,24 @@
 package iut.valence.behindbars.buttons;
-/*
- * @author Group BehindBars
- * @version 1.0.0
- */
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-	/* Initialization of the answering buttons and their positions
-	 * 
-	 * @param Positions x, y and an image
-	 * */
+/**
+ * The answers buttons of the game.
+ * 
+ * @author Group BehindBars
+ * @version 1.0.0
+ */
+
 public class AnswersButtons extends JButton
 {
+	/**
+	 * Initialization of the answering buttons and their positions
+	 * 
+	 * @param x is the line's number of the position
+	 * @param y is the column's number of the position
+	 * @param image is the pictures of the button
+	 */
 	public AnswersButtons(int x, int y, ImageIcon image)
 	{
 		super(image);

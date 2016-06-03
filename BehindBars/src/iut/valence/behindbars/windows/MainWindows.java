@@ -59,7 +59,7 @@ public class MainWindows extends JFrame implements ActionListener
 	/** The label to display the last dialogue. */
 	private JLabel					dialfinal;
 
-	/** The autmate of the game. */
+	/** The automate of the game. */
 	private Automate				currentAutomate;
 	/** The automate of the quest. */
 	private QuestAutomate			currentQuestAutomate;

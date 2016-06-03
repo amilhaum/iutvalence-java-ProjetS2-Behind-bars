@@ -1,5 +1,7 @@
 package iut.valence.behindbars.automate;
-/*
+/**
+ * The automate of the game.
+ * 
  * @author Group Behind Bars
  * @version 1.0.0
  */
@@ -22,21 +24,24 @@ public enum Automate
 
 	private String name = "";
 
-	/** Create a dialogue with his name. */
+	/**
+	 * Create a dialogue with his name.
+	 * 
+	 * @return the dialogue asked
+	 */
 	Automate(String s)
 	{
 		name = s;
 	}
 
 	/**
-	 *
-	 * @return the dialogue asked
+	 * The method to display the name
+	 * 
+	 * @return name is the name of the automate 
 	 */
 	@Override public String toString()
 	{
 		return name;
 	}
-	/* 
-	 * @return the name of the character
-	 */
+
 }
