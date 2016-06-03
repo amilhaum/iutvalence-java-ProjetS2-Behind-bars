@@ -6,7 +6,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import iut.valence.behindbars.dragNDrop.ContenuFenetre;
+import iut.valence.behindbars.dragNDrop.DragAndDropImplementation;
 import iut.valence.behindbars.game.Game;
 import iut.valence.behindbars.game.Room;
 
@@ -36,7 +36,7 @@ public class IHM_Room extends JPanel
 		
 		 if(room.getName() == "infirmary") 
 		 {
-			 new ContenuFenetre("infirmaryBackground2");
+			 new DragAndDropImplementation("infirmaryBackground2");
 		 }
 	}
 
