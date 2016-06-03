@@ -14,7 +14,7 @@ public class Character
 {
 	/** The character's name */
 	protected String name;
-
+	/* The position of the character on the screen*/
 	protected PositionOnScreen pos;
 
 	protected ImageIcon[] pictures;
@@ -42,16 +42,18 @@ public class Character
 	 *
 	 * @return the character's name
 	 */
+	
+	/*Reading accessor for the name*/
 	public String getName()
 	{
 		return this.name;
 	}
-
+	/*Reading accessor for the position*/
 	public PositionOnScreen getPos()
 	{
 		return pos;
 	}
-
+	/*Reading accessor for the Pictures*/
 	public ImageIcon[] getPictures()
 	{
 		return pictures;

@@ -1,8 +1,8 @@
 /**
+ * The package of the game's characters
  * 
- */
-/**
- * @author  Nicolas Jourdan
+ * @author Group BehindBars
+ * @version 1.0.0
  *
  */
 package iut.valence.behindbars.character;

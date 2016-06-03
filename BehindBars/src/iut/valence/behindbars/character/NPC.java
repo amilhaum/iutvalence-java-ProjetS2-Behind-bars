@@ -36,11 +36,11 @@ public class NPC extends Character
 	{
 		return state;
 	}
-
+	/*Reading accessor for the NPC's pictures*/
 	public ImageIcon getPicturesNPC()
 	{
 		ImageIcon str;
-
+			/* Define the diferents types of pictures for each characters*/
 		if (this.state == StateOfCharacter.Prisoner)
 		{
 
@@ -76,5 +76,8 @@ public class NPC extends Character
 
 		return str;
 	}
+	/*
+	 * @return The type of image
+	 */
 
 }

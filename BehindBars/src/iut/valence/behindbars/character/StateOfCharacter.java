@@ -1,5 +1,8 @@
 package iut.valence.behindbars.character;
-
+/*
+ * @author Group Behind Bars
+ * @version 1.0.0
+ */
 public enum StateOfCharacter
 {
 

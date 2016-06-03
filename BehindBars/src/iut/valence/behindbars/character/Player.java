@@ -27,12 +27,15 @@ public class Player extends Character
 		this.penalty = DEFAULT_PENALTY;
 		this.pos = DEFAULT_PLAYER_POS;
 	}
-
+	/* Reading accessors for the penalty
+	 * 
+	 * @return penalty
+	 */
 	public int getPenalty()
 	{
 		return penalty;
 	}
-
+	/* Reading accessors for the penalty*/
 	public void setPenalty(int penalty)
 	{
 		this.penalty = penalty;

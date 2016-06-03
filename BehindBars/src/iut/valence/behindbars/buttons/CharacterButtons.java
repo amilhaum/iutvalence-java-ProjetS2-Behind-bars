@@ -1,8 +1,20 @@
 package iut.valence.behindbars.buttons;
-
+/*
+ * @author Group BehindBars
+ * @version 1.0.0
+ */
 import iut.valence.behindbars.character.Character;
 
+
+
 import javax.swing.JButton;
+	
+
+	/* Initialization of the Character and their position
+	 * 
+	 * @param a name, the player, positions x and y, and pictures
+	 *
+	 * */
 
 public class CharacterButtons extends JButton
 {

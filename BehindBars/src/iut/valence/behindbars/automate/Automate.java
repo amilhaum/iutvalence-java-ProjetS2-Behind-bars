@@ -1,8 +1,11 @@
 package iut.valence.behindbars.automate;
-
+/*
+ * @author Group Behind Bars
+ * @version 1.0.0
+ */
 public enum Automate
 {
-	/* On peut se balader, pas de quete pas de clef */
+	/* Beginning of the game, no quests, just walking */
 	CELLS_BEGIN("CELLS_BEGIN"),
 	CELLS_QUEST_FINISH("CELLS_QUEST_FINISH"),
 	CELLS_NOKEY_QUEST_STATE0("CELLS_NOKEY_QUEST_STATE0"),
@@ -19,7 +22,7 @@ public enum Automate
 
 	private String name = "";
 
-	/** Create a dialogue with it's name. */
+	/** Create a dialogue with his name. */
 	Automate(String s)
 	{
 		name = s;
@@ -33,4 +36,7 @@ public enum Automate
 	{
 		return name;
 	}
+	/* 
+	 * @return the name of the character
+	 */
 }
