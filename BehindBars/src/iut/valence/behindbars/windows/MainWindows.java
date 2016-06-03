@@ -97,7 +97,7 @@ public class MainWindows extends JFrame implements ActionListener
 		this.setVisible(true);
 
 		this.dialfinal = new JLabel(new ImageIcon(getClass().getResource("/pictures/diaggameover.png")));
-		this.dialfinal.setBounds(100, 200, 581, 99);
+		this.dialfinal.setBounds(100, 300, 581, 99);
 
 		this.dialogue = new JLabel(new ImageIcon(getClass().getResource("/pictures/diag.png")));
 		this.dialogue.setBounds(100, 400, 581, 99);

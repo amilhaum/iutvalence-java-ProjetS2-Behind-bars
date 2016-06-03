@@ -36,7 +36,7 @@ public class IHM_Dialogue extends JTextArea
 	public IHM_Dialogue(String dialogue)
 	{
 		super(dialogue);
-		this.setBounds(120, 215, 525, 60);
+		this.setBounds(120, 315, 525, 60);
 		this.setLineWrap(true);
 		this.setEditable(false);
 	}
