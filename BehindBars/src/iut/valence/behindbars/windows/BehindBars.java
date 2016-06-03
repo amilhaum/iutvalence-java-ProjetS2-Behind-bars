@@ -1,7 +1,12 @@
 package iut.valence.behindbars.windows;
 
 import javax.swing.JFrame;
-
+/**
+ * The main of the game.
+ * 
+ * @author BehindBars
+ * @version 1.0.0
+ */
 public class BehindBars
 {
 

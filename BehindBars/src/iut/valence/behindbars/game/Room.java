@@ -56,15 +56,20 @@ public class Room
 	}
 
 	/**
-	 * The name's getter
+	 * The picture's getter
 	 *
-	 * @return the room's name
+	 * @return the picture's name
 	 */
 	public ImageIcon getPicture()
 	{
 		return picture;
 	}
 
+	/**
+	 * The name's getter
+	 *
+	 * @return the room's name
+	 */
 	public String getName()
 	{
 		return name;

@@ -10,13 +10,23 @@ import iut.valence.behindbars.dragNDrop.ContenuFenetre;
 import iut.valence.behindbars.game.Game;
 import iut.valence.behindbars.game.Room;
 
+/**
+ * IHM to display the room
+ *
+ * @author Group BehindBars
+ * @version 1.0.0
+ */
 public class IHM_Room extends JPanel
 {
+	/** The background of the room. */
 	private ImageIcon	icoFond;
+	/** The pictures of the room. */
 	private Image		imgFond1;
 
-	private int			xFond1;
-
+	/**
+	 * The constructor of the room's ihm.
+	 * @param room is the room which is going to be shown
+	 */
 	public IHM_Room(Room room)
 	{
 		super();
@@ -30,7 +40,7 @@ public class IHM_Room extends JPanel
 		 }
 	}
 
-	@Override
+	/** The method to paint the component. */
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);

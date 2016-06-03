@@ -107,7 +107,7 @@ public class Game
 	}
 
 	/**
-	 * The Rooms' list =getter.
+	 * The Rooms' list getter.
 	 *
 	 * @return Rooms' list
 	 */

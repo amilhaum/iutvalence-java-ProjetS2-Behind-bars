@@ -25,6 +25,11 @@ public class IHM_Dialogue extends JTextArea
 		this.setEditable(false);
 	}
 
+	/**
+	 * The constructor of the IHM_Dialogue
+	 *
+	 * @param string is the text which will be posted
+	 */
 	public IHM_Dialogue(String dialogue)
 	{
 		super(dialogue);

@@ -31,24 +31,37 @@ import iut.valence.behindbars.ihm.IHM_Dialogue;
 import iut.valence.behindbars.ihm.IHM_NPC;
 import iut.valence.behindbars.ihm.IHM_Player;
 import iut.valence.behindbars.ihm.IHM_Room;
-
+/**
+ * The main windows of the game.
+ * 
+ * @author BehindBars
+ * @version 5.2.1
+ */
 public class MainWindows extends JFrame implements ActionListener
 {
-	/**
-	 *
-	 */
+	/** The serial version ID. */
 	private static final long		serialVersionUID	= 1332053010607176048L;
+	/** The map of buttons (on the game). */
 	private Map<String, JButton>	listOfButtons;
+	/** The map of buttons (in the infirmary). */
 	private Map<String, JLabel>		listOfInfirmaryButtons;
 
+	/** The room's ihm of the game.*/
 	public static IHM_Room			room[];
+	/** The label to display the background of the dialogue. */
 	private JLabel					dialogue;
+	/** The text of the dialogue. */
 	private IHM_Dialogue			text;
+	/** The game. */
 	private Game					game;
+	/** The last dialogue. */
 	private IHM_Dialogue			dialoguefinal;
+	/** The label to display the last dialogue. */
 	private JLabel					dialfinal;
 
+	/** The autmate of the game. */
 	private Automate				currentAutomate;
+	/** The automate of the quest. */
 	private QuestAutomate			currentQuestAutomate;
 
 	/**
@@ -66,7 +79,7 @@ public class MainWindows extends JFrame implements ActionListener
 		this.setFocusable(true);
 		this.setIconImage(new ImageIcon(getClass().getResource("/pictures/iconwindows.png")).getImage());
 
-		this.game = new Game("Nico");
+		this.game = new Game("player");
 
 		this.listOfButtons = new HashMap<>();
 		this.listOfInfirmaryButtons = new HashMap<>();
@@ -100,24 +113,17 @@ public class MainWindows extends JFrame implements ActionListener
 	 */
 	public void initButton()
 	{
-		this.listOfButtons.put("NewGame",
-				new GameButtons(100, 430, new ImageIcon(getClass().getResource("/pictures/newgame.png"))));
-		this.listOfButtons.put("QuitGame",
-				new GameButtons(500, 430, new ImageIcon(getClass().getResource("/pictures/quitgame.png"))));
+		/* The game's buttons. */
+		this.listOfButtons.put("NewGame", new GameButtons(100, 430, new ImageIcon(getClass().getResource("/pictures/newgame.png"))));
+		this.listOfButtons.put("QuitGame", new GameButtons(500, 430, new ImageIcon(getClass().getResource("/pictures/quitgame.png"))));
 
-		/* The move buttons. */
-		this.listOfButtons.put("right_button",
-				new ArrowButtons(745, 270, 45, 30, new ImageIcon(getClass().getResource("/pictures/arrow_east.png"))));
-		this.listOfButtons.put("left_button",
-				new ArrowButtons(5, 270, 45, 30, new ImageIcon(getClass().getResource("/pictures/arrow_west.png"))));
-		this.listOfButtons.put("bottom_button",
-				new ArrowButtons(385, 520, 30, 45, new ImageIcon(getClass().getResource("/pictures/arrow_south.png"))));
-		this.listOfButtons.put("top_button",
-				new ArrowButtons(385, 5, 30, 45, new ImageIcon(getClass().getResource("/pictures/arrow_north.png"))));
-		this.listOfButtons.put("rightB_button",
-				new ArrowButtons(745, 379, 45, 30, new ImageIcon(getClass().getResource("/pictures/arrow_east.png"))));
-		this.listOfButtons.put("bottom_false_button", new ArrowButtons(385, 520, 30, 45,
-				new ImageIcon(getClass().getResource("/pictures/bottom_false_button.png"))));
+		/* The move's buttons. */
+		this.listOfButtons.put("right_button", new ArrowButtons(745, 270, 45, 30, new ImageIcon(getClass().getResource("/pictures/arrow_east.png"))));
+		this.listOfButtons.put("left_button", new ArrowButtons(5, 270, 45, 30, new ImageIcon(getClass().getResource("/pictures/arrow_west.png"))));
+		this.listOfButtons.put("bottom_button", new ArrowButtons(385, 520, 30, 45, new ImageIcon(getClass().getResource("/pictures/arrow_south.png"))));
+		this.listOfButtons.put("top_button", new ArrowButtons(385, 5, 30, 45, new ImageIcon(getClass().getResource("/pictures/arrow_north.png"))));
+		this.listOfButtons.put("rightB_button", new ArrowButtons(745, 379, 45, 30, new ImageIcon(getClass().getResource("/pictures/arrow_east.png"))));
+		this.listOfButtons.put("bottom_false_button", new ArrowButtons(385, 520, 30, 45, new ImageIcon(getClass().getResource("/pictures/bottom_false_button.png"))));
 
 		/* The buttons of the players in the cell. */
 		this.listOfButtons.put("Garry", new IHM_NPC(this.game.getNPCs().get("Garry")));
@@ -157,31 +163,20 @@ public class MainWindows extends JFrame implements ActionListener
 		this.listOfButtons.put("JohnT", new CharacterButtons("JohnT", this.game.getNPCs().get("John"), 335, 55, 7));
 		this.listOfButtons.put("JohnB", new CharacterButtons("JohnB", this.game.getNPCs().get("John"), 335, 470, 7));
 
-		/* The questions */
-		this.listOfButtons.put("yes",
-				new AnswersButtons(215, 500, new ImageIcon(getClass().getResource("/pictures/yes.png"))));
-		this.listOfButtons.put("no",
-				new AnswersButtons(400, 500, new ImageIcon(getClass().getResource("/pictures/no.png"))));
-		this.listOfButtons.put("knockhim",
-				new AnswersButtons(215, 500, new ImageIcon(getClass().getResource("/pictures/knockhim.png"))));
-		this.listOfButtons.put("killhim",
-				new AnswersButtons(400, 500, new ImageIcon(getClass().getResource("/pictures/killhim.png"))));
+		/* The questions and answers of the game */
+		this.listOfButtons.put("yes", new AnswersButtons(215, 500, new ImageIcon(getClass().getResource("/pictures/yes.png"))));
+		this.listOfButtons.put("no", new AnswersButtons(400, 500, new ImageIcon(getClass().getResource("/pictures/no.png"))));
+		this.listOfButtons.put("knockhim", new AnswersButtons(215, 500, new ImageIcon(getClass().getResource("/pictures/knockhim.png"))));
+		this.listOfButtons.put("killhim", new AnswersButtons(400, 500, new ImageIcon(getClass().getResource("/pictures/killhim.png"))));
 
-		this.listOfButtons.put("idk",
-				new AnswersButtons(115, 500, new ImageIcon(getClass().getResource("/pictures/idk.png"))));
-		this.listOfButtons.put("e",
-				new AnswersButtons(300, 500, new ImageIcon(getClass().getResource("/pictures/e.png"))));
-		this.listOfButtons.put("you",
-				new AnswersButtons(500, 500, new ImageIcon(getClass().getResource("/pictures/you.png"))));
+		this.listOfButtons.put("idk", new AnswersButtons(115, 500, new ImageIcon(getClass().getResource("/pictures/idk.png"))));
+		this.listOfButtons.put("e", new AnswersButtons(300, 500, new ImageIcon(getClass().getResource("/pictures/e.png"))));
+		this.listOfButtons.put("you", new AnswersButtons(500, 500, new ImageIcon(getClass().getResource("/pictures/you.png"))));
 
-		this.listOfButtons.put("quitbutton",
-				new AnswersButtons(314, 500, new ImageIcon(getClass().getResource("/pictures/quitbutton.png"))));
-		this.listOfButtons.put("ok",
-				new AnswersButtons(314, 500, new ImageIcon(getClass().getResource("/pictures/ok.png"))));
-		this.listOfButtons.put("great",
-				new AnswersButtons(314, 500, new ImageIcon(getClass().getResource("/pictures/great.png"))));
-		this.listOfButtons.put("main",
-				new GameButtons(284, 500, new ImageIcon(getClass().getResource("/pictures/main.png"))));
+		this.listOfButtons.put("quitbutton", new AnswersButtons(314, 500, new ImageIcon(getClass().getResource("/pictures/quitbutton.png"))));
+		this.listOfButtons.put("ok", new AnswersButtons(314, 500, new ImageIcon(getClass().getResource("/pictures/ok.png"))));
+		this.listOfButtons.put("great", new AnswersButtons(314, 500, new ImageIcon(getClass().getResource("/pictures/great.png"))));
+		this.listOfButtons.put("main", new GameButtons(284, 500, new ImageIcon(getClass().getResource("/pictures/main.png"))));
 
 		for (Map.Entry<String, JButton> entry : this.listOfButtons.entrySet())
 		{
@@ -229,7 +224,9 @@ public class MainWindows extends JFrame implements ActionListener
 		room[5].add(this.listOfButtons.get("QuitGame"));
 	}
 
-	@Override
+	/**
+	 * The method to click on a button.
+	 */
 	public void actionPerformed(ActionEvent e)
 	{
 		JButton sourceClick = (JButton) e.getSource();
@@ -604,7 +601,7 @@ public class MainWindows extends JFrame implements ActionListener
 			if (this.game.getPlayer().getPenalty() == 0)
 			{
 				str = String.format(
-						"\n                                                Well played, you finished the game withoud losing !");
+						"\n                                                Well played, you finished the game without losing !");
 			}
 			else if (this.game.getPlayer().getPenalty() == 1)
 			{
@@ -789,6 +786,12 @@ public class MainWindows extends JFrame implements ActionListener
 		setVisibilityUnderButton(Dial, b);
 	}
 
+	/**
+	 * The method when there is a click in the breakroom.
+	 * 
+	 * @param dialogue is the dialogue to display
+	 * @param sourceClick is the click's source
+	 */
 	private void breakroom_nokey_noquest(Dialogue dialogue, JButton sourceClick)
 	{
 		if (sourceClick == this.listOfButtons.get("top_button"))
@@ -842,6 +845,12 @@ public class MainWindows extends JFrame implements ActionListener
 		}
 	}
 
+	/**
+	 * The method when there is a click in the cells.
+	 * 
+	 * @param dialogue is the dialogue to display
+	 * @param sourceClick is the click's source
+	 */
 	private void cells_begin(Dialogue dialogue, JButton sourceClick)
 	{
 		if (sourceClick == this.listOfButtons.get("right_button"))
@@ -855,6 +864,11 @@ public class MainWindows extends JFrame implements ActionListener
 		}
 	}
 
+	/**
+	 * The method when there is a click on quitbutton.
+	 *
+	 * @param sourceRoom is the room's source
+	 */
 	private void setQuit(Object sourceRoom)
 	{
 		if (sourceRoom == this.room[0])
@@ -896,6 +910,11 @@ public class MainWindows extends JFrame implements ActionListener
 		}
 	}
 
+	/**
+	 * The method to reload the game when the player loose.
+	 * 
+	 * @param dialogue is the dialogue to display (the fail)
+	 */
 	private void endFail(Dialogue dialogue)
 	{
 		removeDialogue(3);
@@ -910,6 +929,12 @@ public class MainWindows extends JFrame implements ActionListener
 		room[4].add(this.listOfButtons.get("John"));
 	}
 
+	/**
+	 * The method to know is the click is on "John".
+	 * 
+	 * @param sourceClick is the click's source
+	 * @return If the click is on "John"
+	 */
 	private boolean isJohn(JButton sourceClick)
 	{
 		return (sourceClick == this.listOfButtons.get("JohnB")
@@ -918,6 +943,12 @@ public class MainWindows extends JFrame implements ActionListener
 				|| sourceClick == this.listOfButtons.get("JohnR"));
 	}
 
+	/**
+	 * The method to know is the click is on "John" or on "Player".
+	 * 
+	 * @param sourceClick is the click's source
+	 * @return If the click is on "John" or on "Player"
+	 */
 	private boolean isPlayerOrJohn(JButton sourceClick)
 	{
 		return (isJohn(sourceClick) || sourceClick == this.listOfButtons.get("Player")
@@ -927,6 +958,9 @@ public class MainWindows extends JFrame implements ActionListener
 				|| sourceClick == this.listOfButtons.get("PlayerR"));
 	}
 
+	/**
+	 * The method to set off the label in infirmary.
+	 */
 	private void setOffLabelInfirmary()
 	{
 		room[3].remove(this.listOfInfirmaryButtons.get("bed3"));
@@ -935,6 +969,9 @@ public class MainWindows extends JFrame implements ActionListener
 		room[3].remove(this.listOfInfirmaryButtons.get("trapdoor"));
 	}
 
+	/**
+	 * The method to set on the label in infirmary.
+	 */
 	private void setOnLabelInfirmary()
 	{
 		room[3].add(this.listOfInfirmaryButtons.get("bed3"));
@@ -943,6 +980,7 @@ public class MainWindows extends JFrame implements ActionListener
 		room[3].add(this.listOfInfirmaryButtons.get("trapdoor"));
 	}
 
+	/** The class to move a component. */	
 	private static class ComponentMove extends MouseAdapter
 	{
 
@@ -1018,6 +1056,7 @@ public class MainWindows extends JFrame implements ActionListener
 		}
 	}
 
+	/** The method to initialize the infirmary. */
 	public void initRoom3()
 	{
 		for (Map.Entry<String, JLabel> entry : this.listOfInfirmaryButtons.entrySet())
@@ -1068,6 +1107,7 @@ public class MainWindows extends JFrame implements ActionListener
 		setOnLabelInfirmary();
 	}
 
+	/** The method to initialize the cells. */
 	public void initRoom0()
 	{
 		room[0].add(this.listOfButtons.get("right_button"));
