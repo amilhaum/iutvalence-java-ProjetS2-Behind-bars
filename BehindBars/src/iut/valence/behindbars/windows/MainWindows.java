@@ -116,6 +116,7 @@ public class MainWindows extends JFrame implements ActionListener
 		/* The game's buttons. */
 		this.listOfButtons.put("NewGame", new GameButtons(100, 430, new ImageIcon(getClass().getResource("/pictures/newgame.png"))));
 		this.listOfButtons.put("QuitGame", new GameButtons(500, 430, new ImageIcon(getClass().getResource("/pictures/quitgame.png"))));
+		this.listOfButtons.put("help", new ArrowButtons(750,20,50,50, new ImageIcon(getClass().getResource("/pictures/help.png"))));
 
 		/* The move's buttons. */
 		this.listOfButtons.put("right_button", new ArrowButtons(745, 270, 45, 30, new ImageIcon(getClass().getResource("/pictures/arrow_east.png"))));
@@ -190,7 +191,7 @@ public class MainWindows extends JFrame implements ActionListener
 	private void initRoom()
 	{
 		this.room = new IHM_Room[]
-		{
+				{
 				new IHM_Room(this.game.getRooms().get("cells")),
 				new IHM_Room(this.game.getRooms().get("corridor")),
 				new IHM_Room(this.game.getRooms().get("outside")),
@@ -198,7 +199,7 @@ public class MainWindows extends JFrame implements ActionListener
 				new IHM_Room(this.game.getRooms().get("breakroom")),
 				new IHM_Room(this.game.getRooms().get("maintest")),
 				new IHM_Room(this.game.getRooms().get("gameoverboard"))
-		};
+				};
 
 		for (int i = 0; i < room.length; i++)
 		{
@@ -334,182 +335,210 @@ public class MainWindows extends JFrame implements ActionListener
 
 			switch (currentAutomate)
 			{ 
-				case CELLS_BEGIN:
+			case CELLS_BEGIN:
+			{
+				if ((!isHelp(sourceClick)) && (!(isPlayerOrJohn(sourceClick))))
 				{
-					if (!(isPlayerOrJohn(sourceClick)))
-					{
-						cells_begin(Dialogue.PRISONER, sourceClick);
-					}
-					break;
+					cells_begin(Dialogue.PRISONER, sourceClick);
 				}
-				case CELLS_NOKEY_QUEST_STATE0:
+				else if (sourceClick == this.listOfButtons.get("help"))
 				{
-					if (sourceClick == this.listOfButtons.get("Steven"))
-					{
-						setDialogueAndButton(Dialogue.STEVEN_SALUTATION, 0, false);
-						room[0].add(this.listOfButtons.get("yes"));
-						room[0].add(this.listOfButtons.get("no"));
-						room[0].remove(this.listOfButtons.get("quitbutton"));
-						setVisibilityButton("Bryan", false);
-					}
-					else if (sourceClick == this.listOfButtons.get("JohnR"))
-					{
-						cells_begin(Dialogue.JOHN_QUEST_END, sourceClick);
-					}
-					else if (!(isPlayerOrJohn(sourceClick)))
-					{
-						cells_begin(Dialogue.PRISONER, sourceClick);
-					}
-
-					break;
+					setHelpDialogue(0);
 				}
-
-				case CELLS_QUEST_FINISH:
+				break;
+			}
+			case CELLS_NOKEY_QUEST_STATE0:
+			{
+				if (sourceClick == this.listOfButtons.get("Steven"))
 				{
-					if (sourceClick == this.listOfButtons.get("Steven"))
-					{
-						cells_begin(Dialogue.STEVEN_FINISH, sourceClick);
-					}
-					else if (sourceClick == this.listOfButtons.get("JohnR"))
-					{
-						cells_begin(Dialogue.JOHN_QUEST_END, sourceClick);
-					}
-					else if (!(isPlayerOrJohn(sourceClick)))
-					{
-						cells_begin(Dialogue.PRISONER, sourceClick);
-					}
-
-					break;
+					setDialogueAndButton(Dialogue.STEVEN_SALUTATION, 0, false);
+					room[0].add(this.listOfButtons.get("yes"));
+					room[0].add(this.listOfButtons.get("no"));
+					room[0].remove(this.listOfButtons.get("quitbutton"));
+					setVisibilityButton("Bryan", false);
+				}
+				else if (sourceClick == this.listOfButtons.get("JohnR"))
+				{
+					cells_begin(Dialogue.JOHN_QUEST_END, sourceClick);
+				}
+				else if (sourceClick == this.listOfButtons.get("help"))
+				{
+					setHelpDialogue(0);
+				}
+				else if ((!isHelp(sourceClick)) && (!(isPlayerOrJohn(sourceClick))))
+				{
+					cells_begin(Dialogue.PRISONER, sourceClick);
 				}
 
-				case CORRIDOR:
-				{
-					if (sourceClick == this.listOfButtons.get("left_button"))
-					{
-						actionOnButton(1, 0, true, "PlayerR");
-						if (currentQuestAutomate == QuestAutomate.NOQUEST)
-						{
-							currentAutomate = Automate.CELLS_BEGIN;
-						}
-						else if (currentQuestAutomate == QuestAutomate.QUESTST0)
-						{
-							currentAutomate = Automate.CELLS_NOKEY_QUEST_STATE0;
-						}
-						else if (currentQuestAutomate == QuestAutomate.QUESTST1)
-						{
-							currentAutomate = Automate.CELLS_QUEST_FINISH;
-						}
-						else if (currentQuestAutomate == QuestAutomate.QUESTSTFINISH
-								|| currentQuestAutomate == QuestAutomate.GUARDFINISH)
-						{
-							currentAutomate = Automate.CELLS_QUEST_FINISH;
-						}
+				break;
+			}
 
-					}
-					else if (sourceClick == this.listOfButtons.get("right_button"))
-					{
-						actionOnButton(1, 2, true, "PlayerL");
-						currentAutomate = Automate.OUTSIDE;
-					}
-					else if (sourceClick == this.listOfButtons.get("bottom_button"))
-					{
-						actionOnButton(1, 4, true, "PlayerT");
-						currentAutomate = Automate.BREAKROOM;
-					}
-					else if (isJohn(sourceClick))
-					{
-						setDialogueAndButton(Dialogue.JOHN_QUEST_END, 1, false);
-					}
-					else if (!(isPlayerOrJohn(sourceClick)))
-					{
-						setDialogueAndButton(Dialogue.PRISONER, 1, false);
-					}
+			case CELLS_QUEST_FINISH:
+			{
+				if (sourceClick == this.listOfButtons.get("Steven"))
+				{
+					cells_begin(Dialogue.STEVEN_FINISH, sourceClick);
+				}
+				else if (sourceClick == this.listOfButtons.get("JohnR"))
+				{
+					cells_begin(Dialogue.JOHN_QUEST_END, sourceClick);
+				}
+				else if (sourceClick == this.listOfButtons.get("help"))
+				{
+					setHelpDialogue(0);
+				}
+				else if ((!isHelp(sourceClick)) && (!(isPlayerOrJohn(sourceClick))))
+				{
+					cells_begin(Dialogue.PRISONER, sourceClick);
+				}
 
-					break;
-				}
-				case OUTSIDE:
+				break;
+			}
+
+			case CORRIDOR:
+			{
+				if (sourceClick == this.listOfButtons.get("left_button"))
 				{
-					if (sourceClick == this.listOfButtons.get("left_button"))
-					{
-						actionOnButton(2, 1, true, "PlayerR");
-						currentAutomate = Automate.CORRIDOR;
-					}
-					else if (sourceClick == this.listOfButtons.get("Frank"))
-					{
-						setDialogueAndButton(Dialogue.GUARD, 2, false);
-					}
-					else if (isJohn(sourceClick))
-					{
-						setDialogueAndButton(Dialogue.JOHN_QUEST_END, 2, false);
-					}
-					else if (!(isPlayerOrJohn(sourceClick)))
-					{
-						setDialogueAndButton(Dialogue.PRISONER, 2, false);
-					}
-					break;
-				}
-				case BREAKROOM:
-				{
+					actionOnButton(1, 0, true, "PlayerR");
 					if (currentQuestAutomate == QuestAutomate.NOQUEST)
 					{
-						breakroom_nokey_noquest(Dialogue.JOHN_SALUTATION, sourceClick);
+						currentAutomate = Automate.CELLS_BEGIN;
 					}
 					else if (currentQuestAutomate == QuestAutomate.QUESTST0)
 					{
-						breakroom_nokey_noquest(Dialogue.JOHN_COMMON_TALK, sourceClick);
+						currentAutomate = Automate.CELLS_NOKEY_QUEST_STATE0;
+					}
+					else if (currentQuestAutomate == QuestAutomate.QUESTST1)
+					{
+						currentAutomate = Automate.CELLS_QUEST_FINISH;
 					}
 					else if (currentQuestAutomate == QuestAutomate.QUESTSTFINISH
 							|| currentQuestAutomate == QuestAutomate.GUARDFINISH)
 					{
-						breakroom_nokey_noquest(Dialogue.JOHN_QUEST_END, sourceClick);
+						currentAutomate = Automate.CELLS_QUEST_FINISH;
+					}
+
+				}
+				else if (sourceClick == this.listOfButtons.get("help"))
+				{
+					setHelpDialogue(1);
+				}
+				else if (sourceClick == this.listOfButtons.get("right_button"))
+				{
+					actionOnButton(1, 2, true, "PlayerL");
+					currentAutomate = Automate.OUTSIDE;
+				}
+				else if (sourceClick == this.listOfButtons.get("bottom_button"))
+				{
+					actionOnButton(1, 4, true, "PlayerT");
+					currentAutomate = Automate.BREAKROOM;
+				}
+				else if (isJohn(sourceClick))
+				{
+					setDialogueAndButton(Dialogue.JOHN_QUEST_END, 1, false);
+				}
+				else if ((!isHelp(sourceClick)) && (!(isPlayerOrJohn(sourceClick))))
+				{
+					setDialogueAndButton(Dialogue.PRISONER, 1, false);
+				}
+
+				break;
+			}
+			case OUTSIDE:
+			{
+				if (sourceClick == this.listOfButtons.get("left_button"))
+				{
+					actionOnButton(2, 1, true, "PlayerR");
+					currentAutomate = Automate.CORRIDOR;
+				}
+				else if (sourceClick == this.listOfButtons.get("Frank"))
+				{
+					setDialogueAndButton(Dialogue.GUARD, 2, false);
+				}
+				else if (isJohn(sourceClick))
+				{
+					setDialogueAndButton(Dialogue.JOHN_QUEST_END, 2, false);
+				}
+				else if (sourceClick == this.listOfButtons.get("help"))
+				{
+					setHelpDialogue(2);
+				}
+				else if ((!isHelp(sourceClick)) && (!(isPlayerOrJohn(sourceClick))))
+				{
+					setDialogueAndButton(Dialogue.PRISONER, 2, false);
+				}
+				break;
+			}
+			case BREAKROOM:
+			{
+				if (currentQuestAutomate == QuestAutomate.NOQUEST)
+				{
+					breakroom_nokey_noquest(Dialogue.JOHN_SALUTATION, sourceClick);
+				}
+				else if (currentQuestAutomate == QuestAutomate.QUESTST0)
+				{
+					breakroom_nokey_noquest(Dialogue.JOHN_COMMON_TALK, sourceClick);
+				}
+				else if (currentQuestAutomate == QuestAutomate.QUESTSTFINISH
+						|| currentQuestAutomate == QuestAutomate.GUARDFINISH)
+				{
+					breakroom_nokey_noquest(Dialogue.JOHN_QUEST_END, sourceClick);
+				}
+				else
+				{
+					breakroom_nokey_noquest(Dialogue.JOHN_QUEST_FULLFIL, sourceClick);
+				}
+				break;
+			}
+
+			case INFIRMARY:
+			{
+				if (sourceClick == this.listOfButtons.get("rightB_button"))
+				{
+					endFail(Dialogue.FAILDOOR);
+				}
+				else if (sourceClick == this.listOfButtons.get("help"))
+				{
+					if(currentQuestAutomate == QuestAutomate.GUARDFINISH)
+					{
+						setHelpDialogue(3);
+						setOffLabelInfirmary();
+					}	
+				}
+				else if (sourceClick == this.listOfButtons.get("Harrison"))
+				{
+					if (currentQuestAutomate == QuestAutomate.QUESTSTFINISH)
+					{
+						removeDialogue(3);
+						displayDialogue(Dialogue.GUARD_CHOICE);
+						room[3].add(this.listOfButtons.get("knockhim"));
+						room[3].add(this.listOfButtons.get("killhim"));
+						setOffLabelInfirmary();
 					}
 					else
 					{
-						breakroom_nokey_noquest(Dialogue.JOHN_QUEST_FULLFIL, sourceClick);
+						removeDialogue(3);
+						setOffLabelInfirmary();
+						displayDialogue(Dialogue.GUARD_RESULT1);
+						room[3].add(this.listOfButtons.get("quitbutton"));
 					}
-					break;
 				}
-
-				case INFIRMARY:
+				else if (isJohn(sourceClick))
 				{
-					if (sourceClick == this.listOfButtons.get("rightB_button"))
+					if (currentQuestAutomate == QuestAutomate.GUARDFINISH)
 					{
-						endFail(Dialogue.FAILDOOR);
+						setDialogueAndButton(Dialogue.JOHN_QUEST_END, 3, false);
+						setOffLabelInfirmary();
 					}
-					else if (sourceClick == this.listOfButtons.get("Harrison"))
-					{
-						if (currentQuestAutomate == QuestAutomate.QUESTSTFINISH)
-						{
-							removeDialogue(3);
-							displayDialogue(Dialogue.GUARD_CHOICE);
-							room[3].add(this.listOfButtons.get("knockhim"));
-							room[3].add(this.listOfButtons.get("killhim"));
-							setOffLabelInfirmary();
-						}
-						else
-						{
-							removeDialogue(3);
-							setOffLabelInfirmary();
-							displayDialogue(Dialogue.GUARD_RESULT1);
-							room[3].add(this.listOfButtons.get("quitbutton"));
-						}
-					}
-					else if (isJohn(sourceClick))
-					{
-						if (currentQuestAutomate == QuestAutomate.GUARDFINISH)
-						{
-							setDialogueAndButton(Dialogue.JOHN_QUEST_END, 3, false);
-							setOffLabelInfirmary();
-						}
-					}
-
-					else if (sourceClick == this.listOfButtons.get("top_button"))
-					{
-						actionOnButton(3, 4, true, "PlayerB");
-						currentAutomate = Automate.BREAKROOM;
-					}
-					break;
 				}
+
+				else if (sourceClick == this.listOfButtons.get("top_button"))
+				{
+					actionOnButton(3, 4, true, "PlayerB");
+					currentAutomate = Automate.BREAKROOM;
+				}
+				break;
+			}
 			}
 		}
 	}
@@ -621,6 +650,12 @@ public class MainWindows extends JFrame implements ActionListener
 
 		}
 
+		if(x != 6 && x != 5)
+		{
+			room[x].add(this.listOfButtons.get("help"));
+		}
+
+
 		room[x].remove(this.listOfButtons.get("Player"));
 		room[x].remove(this.listOfButtons.get("PlayerR"));
 		room[x].remove(this.listOfButtons.get("PlayerL"));
@@ -657,7 +692,7 @@ public class MainWindows extends JFrame implements ActionListener
 		}
 		catch (NullPointerException e)
 		{
-			// TODO nothing
+			//ignored
 		}
 		this.setContentPane(room[x]);
 		this.repaint();
@@ -695,7 +730,7 @@ public class MainWindows extends JFrame implements ActionListener
 			}
 			catch (NullPointerException e)
 			{
-				// TODO nothing
+				//ignored
 			}
 		}
 
@@ -761,26 +796,26 @@ public class MainWindows extends JFrame implements ActionListener
 		{
 			switch (buttonName)
 			{
-				case "PlayerB":
-				{
-					room[xroom].add(this.listOfButtons.get("JohnB"));
-					break;
-				}
-				case "PlayerT":
-				{
-					room[xroom].add(this.listOfButtons.get("JohnT"));
-					break;
-				}
-				case "PlayerL":
-				{
-					room[xroom].add(this.listOfButtons.get("JohnL"));
-					break;
-				}
-				case "PlayerR":
-				{
-					room[xroom].add(this.listOfButtons.get("JohnR"));
-					break;
-				}
+			case "PlayerB":
+			{
+				room[xroom].add(this.listOfButtons.get("JohnB"));
+				break;
+			}
+			case "PlayerT":
+			{
+				room[xroom].add(this.listOfButtons.get("JohnT"));
+				break;
+			}
+			case "PlayerL":
+			{
+				room[xroom].add(this.listOfButtons.get("JohnL"));
+				break;
+			}
+			case "PlayerR":
+			{
+				room[xroom].add(this.listOfButtons.get("JohnR"));
+				break;
+			}
 			}
 		}
 		setVisibilityUnderButton(Dial, b);
@@ -815,6 +850,10 @@ public class MainWindows extends JFrame implements ActionListener
 			}
 
 		}
+		else if (sourceClick == this.listOfButtons.get("help"))
+		{
+			setHelpDialogue(4);
+		}
 		else if (sourceClick == this.listOfButtons.get("bottom_false_button"))
 		{
 			removeDialogue(4);
@@ -839,7 +878,7 @@ public class MainWindows extends JFrame implements ActionListener
 		{
 			setDialogueAndButton(Dialogue.JOHN_QUEST_END, 4, false);
 		}
-		else if (!(isPlayerOrJohn(sourceClick)))
+		else if ((!isHelp(sourceClick)) && (!(isPlayerOrJohn(sourceClick))))
 		{
 			setDialogueAndButton(Dialogue.PRISONER, 4, false);
 		}
@@ -941,6 +980,17 @@ public class MainWindows extends JFrame implements ActionListener
 				|| sourceClick == this.listOfButtons.get("JohnT")
 				|| sourceClick == this.listOfButtons.get("JohnL")
 				|| sourceClick == this.listOfButtons.get("JohnR"));
+	}
+	
+	/**
+	 * The method to know is the click is on "help".
+	 * 
+	 * @param sourceClick is the click's source
+	 * @return If the click is on "help"
+	 */
+	private boolean isHelp(JButton sourceClick)
+	{
+		return (sourceClick == this.listOfButtons.get("help"));
 	}
 
 	/**
@@ -1108,7 +1158,7 @@ public class MainWindows extends JFrame implements ActionListener
 	}
 
 	/** The method to initialize the cells. */
-	public void initRoom0()
+	private void initRoom0()
 	{
 		room[0].add(this.listOfButtons.get("right_button"));
 		room[0].add(this.listOfButtons.get("Player"));
@@ -1117,6 +1167,43 @@ public class MainWindows extends JFrame implements ActionListener
 		room[0].add(this.listOfButtons.get("Brad"));
 		room[0].add(this.listOfButtons.get("Bryan"));
 		room[0].add(this.listOfButtons.get("Steven"));
+		room[0].add(this.listOfButtons.get("help"));
 	}
+	
+	private void setHelpDialogue(int x)
+	{
 
+			switch(currentQuestAutomate)
+			{
+				case NOQUEST :
+				{
+					setDialogueAndButton(Dialogue.HELP_BEGIN, x, false);
+					break;
+				}
+				case QUESTST0 :
+				{
+					setDialogueAndButton(Dialogue.HELP_NOKEY, x, false);
+					break;
+				}
+				case QUESTST1 :
+				{
+					setDialogueAndButton(Dialogue.HELP_KEY, x, false);
+					break;
+				}
+				case QUESTSTFINISH :
+				{
+					setDialogueAndButton(Dialogue.HELP_GO_INFIRMARY, x, false);
+					break;
+				}
+				case GUARDFINISH :
+				{
+					setDialogueAndButton(Dialogue.HELP_FIND_WAY, x, false);
+					break;
+				}
+
+			}
+			this.getContentPane().add(this.listOfButtons.get("quitbutton"));
+		}
+	
+	
 }

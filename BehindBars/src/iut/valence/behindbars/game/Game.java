@@ -50,7 +50,7 @@ public class Game
 		NPCs.put("Carlos", new NPC("Carlos", StateOfCharacter.Prisoner, new PositionOnScreen(200, 70)));
 		NPCs.put("Calvin", new NPC("Calvin", StateOfCharacter.Prisoner, new PositionOnScreen(720, 130)));
 		NPCs.put("Drake", new NPC("Drake", StateOfCharacter.Prisoner, new PositionOnScreen(350, 450)));
-		NPCs.put("Drake", new NPC("Daryl", StateOfCharacter.Prisoner, new PositionOnScreen(150, 450)));
+		NPCs.put("Daryl", new NPC("Daryl", StateOfCharacter.Prisoner, new PositionOnScreen(150, 450)));
 		NPCs.put("Elvis", new NPC("Elvis", StateOfCharacter.Prisoner, new PositionOnScreen(200, 120)));
 		NPCs.put("Fernando", new NPC("Fernando", StateOfCharacter.Prisoner, new PositionOnScreen(700, 450)));
 
