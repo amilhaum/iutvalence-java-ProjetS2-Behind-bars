@@ -1170,7 +1170,7 @@ public class MainWindows extends JFrame implements ActionListener
 		room[0].add(this.listOfButtons.get("help"));
 	}
 	
-	/** The method to display the help. */
+	/** The method to display the help. */ 
 	private void setHelpDialogue(int x)
 	{
 
