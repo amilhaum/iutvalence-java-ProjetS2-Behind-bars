@@ -13,6 +13,9 @@ import javax.swing.JButton;
  */
 public class GameButtons extends JButton
 {
+	/** The serial version ID. */
+	private static final long serialVersionUID = 8536527086946062277L;
+
 	/**
 	 * The constructor of the game button.
 	 * 

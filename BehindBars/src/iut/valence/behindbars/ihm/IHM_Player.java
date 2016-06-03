@@ -12,8 +12,8 @@ import iut.valence.behindbars.character.Player;
  */
 public class IHM_Player extends JButton
 {
-	/** The player's ihm name. */
-	private String name;
+	/** The serial version ID. */
+	private static final long serialVersionUID = 3554634100044696956L;
 
 	/**
 	 * The constructor of the player's ihm.
@@ -22,7 +22,6 @@ public class IHM_Player extends JButton
 	public IHM_Player(Player player)
 	{
 		super(player.getPictures()[0]);
-		this.name = player.getName();
 		this.setBounds(player.getPos().getX(), player.getPos().getY(), 50, 50);
 
 		this.setBorder(null);

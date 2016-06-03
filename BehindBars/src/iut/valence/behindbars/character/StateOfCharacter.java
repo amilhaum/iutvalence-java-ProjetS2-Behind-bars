@@ -1,6 +1,8 @@
 package iut.valence.behindbars.character;
-/*
- * @author Group Behind Bars
+/**
+ * The state's enum of the game.
+ *
+ * @author Group BehindBars
  * @version 1.0.0
  */
 public enum StateOfCharacter

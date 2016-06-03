@@ -13,7 +13,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
@@ -24,6 +23,9 @@ import javax.swing.JPanel;
  *
  */
 public class DragAndDropImplementation extends JPanel {
+
+	/** The serial version ID. */
+	private static final long serialVersionUID = -267058525892016700L;
 
 	/**
 	 * an image

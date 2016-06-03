@@ -14,6 +14,8 @@ import javax.swing.JLabel;
  */
 public class BedLabel extends JLabel{
 
+	/** The serial version ID. */
+	private static final long serialVersionUID = 7271257361854464059L;
 	/** The name of bed's ihm. */
 	private String name;
 	/** The position of bed's ihm. */

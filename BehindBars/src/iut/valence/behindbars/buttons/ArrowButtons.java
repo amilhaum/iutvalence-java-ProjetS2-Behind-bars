@@ -12,6 +12,9 @@ import javax.swing.JButton;
 
 public class ArrowButtons extends JButton
 {
+	/** The serial version ID. */
+	private static final long serialVersionUID = 7145951774106796142L;
+
 	/**
 	 * Initialization of the arrow buttons and their positions
 	 * 

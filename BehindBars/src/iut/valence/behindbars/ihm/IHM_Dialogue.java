@@ -12,6 +12,9 @@ import iut.valence.behindbars.game.Dialogue;
  */
 public class IHM_Dialogue extends JTextArea
 {
+	/** The serial version ID. */
+	private static final long serialVersionUID = -5647863749094186620L;
+
 	/**
 	 * The constructor of the IHM_Dialogue
 	 *

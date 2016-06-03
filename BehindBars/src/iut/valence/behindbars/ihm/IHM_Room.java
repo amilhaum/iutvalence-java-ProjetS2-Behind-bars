@@ -7,7 +7,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import iut.valence.behindbars.dragNDrop.DragAndDropImplementation;
-import iut.valence.behindbars.game.Game;
 import iut.valence.behindbars.game.Room;
 
 /**
@@ -18,6 +17,8 @@ import iut.valence.behindbars.game.Room;
  */
 public class IHM_Room extends JPanel
 {
+	/** The serial version ID. */
+	private static final long serialVersionUID = -4122624538561520990L;
 	/** The background of the room. */
 	private ImageIcon	icoFond;
 	/** The pictures of the room. */

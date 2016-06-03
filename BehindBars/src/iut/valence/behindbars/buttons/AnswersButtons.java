@@ -12,6 +12,9 @@ import javax.swing.JButton;
 
 public class AnswersButtons extends JButton
 {
+	/** The serial version ID. */
+	private static final long serialVersionUID = 6988161015527759493L;
+
 	/**
 	 * Initialization of the answering buttons and their positions
 	 * 

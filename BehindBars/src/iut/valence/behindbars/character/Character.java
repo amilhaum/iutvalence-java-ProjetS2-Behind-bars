@@ -12,11 +12,11 @@ import javax.swing.ImageIcon;
  */
 public class Character
 {
-	/** The character's name */
+	/** The character's name. */
 	protected String name;
-	/* The position of the character on the screen*/
+	/** The position of the character on the screen. */
 	protected PositionOnScreen pos;
-
+	/** The character's pictures.*/
 	protected ImageIcon[] pictures;
 
 	/**
@@ -39,21 +39,31 @@ public class Character
 	}
 
 	/**
-	 *
+	 * The getter of the character's name.
+	 * 
 	 * @return the character's name
 	 */
 	
-	/*Reading accessor for the name*/
 	public String getName()
 	{
 		return this.name;
 	}
-	/*Reading accessor for the position*/
+
+	/**
+	 * The getter of the character's position.
+	 * 
+	 * @return the character's position
+	 */
 	public PositionOnScreen getPos()
 	{
 		return pos;
 	}
-	/*Reading accessor for the Pictures*/
+
+	/**
+	 * The getter of the character's pictures.
+	 * 
+	 * @return the character's pictures
+	 */
 	public ImageIcon[] getPictures()
 	{
 		return pictures;

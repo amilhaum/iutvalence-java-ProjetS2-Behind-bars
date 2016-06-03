@@ -12,8 +12,8 @@ import iut.valence.behindbars.character.NPC;
  */
 public class IHM_NPC extends JButton
 {
-	/** The npc's ihm name. */
-	private String name;
+	/** The serial version ID. */
+	private static final long serialVersionUID = -2503393819196585621L;
 
 	/**
 	 * The constructor of the npc's ihm.
@@ -23,7 +23,6 @@ public class IHM_NPC extends JButton
 	{
 		super(npc.getPicturesNPC());
 
-		this.name = npc.getName();
 		this.setBounds(npc.getPos().getX(), npc.getPos().getY(), 50, 50);
 
 		this.setBorder(null);

@@ -12,6 +12,7 @@ public class BehindBars
 
 	public static void main(String[] args)
 	{
+		@SuppressWarnings("unused")
 		JFrame windows = new MainWindows();
 	}
 }

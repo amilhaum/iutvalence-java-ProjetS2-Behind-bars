@@ -47,7 +47,7 @@ public class MainWindows extends JFrame implements ActionListener
 	private Map<String, JLabel>		listOfInfirmaryButtons;
 
 	/** The room's ihm of the game.*/
-	public static IHM_Room			room[];
+	public IHM_Room			room[];
 	/** The label to display the background of the dialogue. */
 	private JLabel					dialogue;
 	/** The text of the dialogue. */
@@ -333,7 +333,7 @@ public class MainWindows extends JFrame implements ActionListener
 		{
 
 			switch (currentAutomate)
-			{
+			{ 
 				case CELLS_BEGIN:
 				{
 					if (!(isPlayerOrJohn(sourceClick)))

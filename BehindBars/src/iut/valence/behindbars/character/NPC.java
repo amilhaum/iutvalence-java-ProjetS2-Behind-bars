@@ -5,7 +5,7 @@ import javax.swing.ImageIcon;
 import iut.valence.behindbars.windows.PositionOnScreen;
 
 /**
- * The Non-Players Characters of the game.
+ * The Non Playing Character of the game.
  *
  * @author Group BehindBars
  * @version 1.0.0
@@ -36,11 +36,16 @@ public class NPC extends Character
 	{
 		return state;
 	}
-	/*Reading accessor for the NPC's pictures*/
+	/**
+	 * The method to get the NPC's pictures.
+	 *
+	 * @return the NPC's pictures
+	 */
 	public ImageIcon getPicturesNPC()
 	{
 		ImageIcon str;
-			/* Define the diferents types of pictures for each characters*/
+		
+		/* Define the diferents types of pictures for each characters*/
 		if (this.state == StateOfCharacter.Prisoner)
 		{
 
@@ -76,8 +81,5 @@ public class NPC extends Character
 
 		return str;
 	}
-	/*
-	 * @return The type of image
-	 */
 
 }

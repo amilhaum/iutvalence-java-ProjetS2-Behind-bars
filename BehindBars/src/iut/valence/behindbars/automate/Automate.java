@@ -17,9 +17,7 @@ public enum Automate
 	CORRIDOR("CORRIDOR"),
 	OUTSIDE("OUTSIDE"),
 
-	INFIRMARY(""),
-
-	THE_END("THE_END");
+	INFIRMARY("");
 
 
 	private String name = "";

@@ -4,6 +4,7 @@ import iut.valence.behindbars.character.Character;
 
 
 
+
 import javax.swing.JButton;
 	
 /**
@@ -15,8 +16,9 @@ import javax.swing.JButton;
 
 public class CharacterButtons extends JButton
 {
+	/** The serial version ID. */
+	private static final long serialVersionUID = 4723081670484350483L;
 	/** The button's name. */
-	private String name;
 
 	/**
 	 * Initialization of the character buttons and their positions
@@ -30,7 +32,6 @@ public class CharacterButtons extends JButton
 	public CharacterButtons(String nameOfCharacter, Character player, int x, int y, int pictures)
 	{
 		super(player.getPictures()[pictures]);
-		this.name = nameOfCharacter;
 		this.setBounds(x, y, 50, 50);
 
 		this.setBorder(null);
